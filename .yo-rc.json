@@ -41,6 +41,8 @@
     "jwtSecretKey": "OGUyMGEwOGFlYjg1MmQ4MGQxOWMxYmRkOGQ0ODVmY2Q5YjE5ZmNjYjdlOTU4ZjNmNWEwOTg4ZmI2ZTNlMDUwN2YwMmQ0ZjQ4Yzk2MDVhOGNmNmQyNWM2YTJjOTA2YjYwNWU4MDI1NGNhN2ZiMGM4YmY0MDcwMjU2MTA0MzVlYzA=",
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
-    "languages": ["en", "fr"]
+    "languages": ["en", "fr"],
+    "lastLiquibaseTimestamp": 1617215693000,
+    "entities": ["Doctor", "Clinic", "Patient", "Visit", "DetailsOfVisit"]
   }
 }

@@ -26,6 +26,11 @@ import '../content/scss/vendor.scss';
 import UserOAuth2Service from '@/entities/user/user.oauth2.service';
 /* tslint:disable */
 
+import DoctorService from '@/entities/doctor/doctor.service';
+import ClinicService from '@/entities/clinic/clinic.service';
+import PatientService from '@/entities/patient/patient.service';
+import VisitService from '@/entities/visit/visit.service';
+import DetailsOfVisitService from '@/entities/details-of-visit/details-of-visit.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -81,6 +86,11 @@ new Vue({
     metricsService: () => new MetricsService(),
 
     userOAuth2Service: () => new UserOAuth2Service(),
+    doctorService: () => new DoctorService(),
+    clinicService: () => new ClinicService(),
+    patientService: () => new PatientService(),
+    visitService: () => new VisitService(),
+    detailsOfVisitService: () => new DetailsOfVisitService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
   },

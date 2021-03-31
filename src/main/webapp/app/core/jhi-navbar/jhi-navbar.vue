@@ -29,6 +29,30 @@
             <font-awesome-icon icon="th-list" />
             <span class="no-bold">Entities</span>
           </span>
+          <b-dropdown-item to="/doctor">
+            <font-awesome-icon icon="asterisk" />
+            <span>Doctor</span>
+          </b-dropdown-item>
+          <b-dropdown-item to="/clinic">
+            <font-awesome-icon icon="asterisk" />
+            <span>Clinic</span>
+          </b-dropdown-item>
+
+          <b-dropdown-item to="/patient">
+            <font-awesome-icon icon="asterisk" />
+            <span>Patient</span>
+          </b-dropdown-item>
+
+          <b-dropdown-item to="/visit">
+            <font-awesome-icon icon="asterisk" />
+            <span>Visit</span>
+          </b-dropdown-item>
+
+          <b-dropdown-item to="/details-of-visit">
+            <font-awesome-icon icon="asterisk" />
+            <span>Details Of Visit</span>
+          </b-dropdown-item>
+
           <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
         </b-nav-item-dropdown>
         <b-nav-item-dropdown

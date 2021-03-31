@@ -1,0 +1,36 @@
+{
+  "fields": [
+    {
+      "fieldName": "dateOfVisit",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipName": "clinic",
+      "otherEntityName": "clinic",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "nameOfClinic"
+    },
+    {
+      "relationshipName": "patient",
+      "otherEntityName": "patient",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "firstName"
+    },
+    {
+      "relationshipName": "detailsOfVisit",
+      "otherEntityName": "detailsOfVisit",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "visit"
+    }
+  ],
+  "service": "serviceClass",
+  "dto": "no",
+  "jpaMetamodelFiltering": false,
+  "readOnly": false,
+  "pagination": "pagination",
+  "name": "Visit",
+  "changelogDate": "20210331182928"
+}
