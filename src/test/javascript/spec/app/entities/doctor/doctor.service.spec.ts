@@ -29,7 +29,7 @@ describe('Service Tests', () => {
 
     beforeEach(() => {
       service = new DoctorService();
-      elemDefault = new Doctor(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Doctor(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -84,6 +84,7 @@ describe('Service Tests', () => {
             firstName: 'BBBBBB',
             lastName: 'BBBBBB',
             specialization: 'BBBBBB',
+            phoneNumber: 'BBBBBB',
           },
           elemDefault
         );
@@ -112,6 +113,7 @@ describe('Service Tests', () => {
           {
             firstName: 'BBBBBB',
             lastName: 'BBBBBB',
+            phoneNumber: 'BBBBBB',
           },
           new Doctor()
         );
@@ -142,6 +144,7 @@ describe('Service Tests', () => {
             firstName: 'BBBBBB',
             lastName: 'BBBBBB',
             specialization: 'BBBBBB',
+            phoneNumber: 'BBBBBB',
           },
           elemDefault
         );

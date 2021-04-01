@@ -5,20 +5,44 @@ import Vue2Filters from 'vue2-filters';
 import { IClinic } from '@/shared/model/clinic.model';
 
 import ClinicService from './clinic.service';
+import { Table, TableColumn, DropdownMenu, DropdownItem, Dropdown } from 'element-ui';
 
 @Component({
   mixins: [Vue2Filters.mixin],
+  [Table.name]: Table,
+  [TableColumn.name]: TableColumn,
+  [Dropdown.name]: Dropdown,
+  [DropdownItem.name]: DropdownItem,
+  [DropdownMenu.name]: DropdownMenu,
 })
 export default class Clinic extends Vue {
   @Inject('clinicService') private clinicService: () => ClinicService;
   private removeId: number = null;
-  public itemsPerPage = 20;
+  public itemsPerPage = 10;
   public queryCount: number = null;
   public page = 1;
   public previousPage = 1;
   public propOrder = 'id';
   public reverse = false;
   public totalItems = 0;
+
+  type: {
+    type: String; // striped | hover
+    default: '';
+    description: 'Whether table is striped or hover type';
+  };
+
+  theadClasses: {
+    type: String;
+    default: '';
+    description: '<thead> css classes';
+  };
+
+  tbodyClasses: {
+    type: String;
+    default: '';
+    description: '<tbody> css classes';
+  };
 
   public clinics: IClinic[] = [];
 
@@ -91,6 +115,10 @@ export default class Clinic extends Vue {
       result.push('id');
     }
     return result;
+  }
+
+  tableClass() {
+    return this.type && `table-${this.type}`;
   }
 
   public loadPage(page: number): void {

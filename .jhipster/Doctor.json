@@ -17,6 +17,12 @@
       "fieldType": "String",
       "fieldValidateRules": ["required", "maxlength"],
       "fieldValidateRulesMaxlength": "30"
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "11"
     }
   ],
   "relationships": [

@@ -55,6 +55,9 @@ class PatientResourceIT {
     private static final String DEFAULT_BLOOD_GROUP = "AAAAAAAAAA";
     private static final String UPDATED_BLOOD_GROUP = "BBBBBBBBBB";
 
+    private static final String DEFAULT_PHONE_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_PHONE_NUMBER = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/patients";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -87,7 +90,8 @@ class PatientResourceIT {
             .contactNumber(DEFAULT_CONTACT_NUMBER)
             .placeOfResidence(DEFAULT_PLACE_OF_RESIDENCE)
             .dateOfBirth(DEFAULT_DATE_OF_BIRTH)
-            .bloodGroup(DEFAULT_BLOOD_GROUP);
+            .bloodGroup(DEFAULT_BLOOD_GROUP)
+            .phoneNumber(DEFAULT_PHONE_NUMBER);
         return patient;
     }
 
@@ -106,7 +110,8 @@ class PatientResourceIT {
             .contactNumber(UPDATED_CONTACT_NUMBER)
             .placeOfResidence(UPDATED_PLACE_OF_RESIDENCE)
             .dateOfBirth(UPDATED_DATE_OF_BIRTH)
-            .bloodGroup(UPDATED_BLOOD_GROUP);
+            .bloodGroup(UPDATED_BLOOD_GROUP)
+            .phoneNumber(UPDATED_PHONE_NUMBER);
         return patient;
     }
 
@@ -136,6 +141,7 @@ class PatientResourceIT {
         assertThat(testPatient.getPlaceOfResidence()).isEqualTo(DEFAULT_PLACE_OF_RESIDENCE);
         assertThat(testPatient.getDateOfBirth()).isEqualTo(DEFAULT_DATE_OF_BIRTH);
         assertThat(testPatient.getBloodGroup()).isEqualTo(DEFAULT_BLOOD_GROUP);
+        assertThat(testPatient.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
     }
 
     @Test
@@ -294,6 +300,23 @@ class PatientResourceIT {
 
     @Test
     @Transactional
+    void checkPhoneNumberIsRequired() throws Exception {
+        int databaseSizeBeforeTest = patientRepository.findAll().size();
+        // set the field null
+        patient.setPhoneNumber(null);
+
+        // Create the Patient, which fails.
+
+        restPatientMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(patient)))
+            .andExpect(status().isBadRequest());
+
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllPatients() throws Exception {
         // Initialize the database
         patientRepository.saveAndFlush(patient);
@@ -311,7 +334,8 @@ class PatientResourceIT {
             .andExpect(jsonPath("$.[*].contactNumber").value(hasItem(DEFAULT_CONTACT_NUMBER)))
             .andExpect(jsonPath("$.[*].placeOfResidence").value(hasItem(DEFAULT_PLACE_OF_RESIDENCE)))
             .andExpect(jsonPath("$.[*].dateOfBirth").value(hasItem(DEFAULT_DATE_OF_BIRTH.toString())))
-            .andExpect(jsonPath("$.[*].bloodGroup").value(hasItem(DEFAULT_BLOOD_GROUP)));
+            .andExpect(jsonPath("$.[*].bloodGroup").value(hasItem(DEFAULT_BLOOD_GROUP)))
+            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)));
     }
 
     @Test
@@ -333,7 +357,8 @@ class PatientResourceIT {
             .andExpect(jsonPath("$.contactNumber").value(DEFAULT_CONTACT_NUMBER))
             .andExpect(jsonPath("$.placeOfResidence").value(DEFAULT_PLACE_OF_RESIDENCE))
             .andExpect(jsonPath("$.dateOfBirth").value(DEFAULT_DATE_OF_BIRTH.toString()))
-            .andExpect(jsonPath("$.bloodGroup").value(DEFAULT_BLOOD_GROUP));
+            .andExpect(jsonPath("$.bloodGroup").value(DEFAULT_BLOOD_GROUP))
+            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER));
     }
 
     @Test
@@ -363,7 +388,8 @@ class PatientResourceIT {
             .contactNumber(UPDATED_CONTACT_NUMBER)
             .placeOfResidence(UPDATED_PLACE_OF_RESIDENCE)
             .dateOfBirth(UPDATED_DATE_OF_BIRTH)
-            .bloodGroup(UPDATED_BLOOD_GROUP);
+            .bloodGroup(UPDATED_BLOOD_GROUP)
+            .phoneNumber(UPDATED_PHONE_NUMBER);
 
         restPatientMockMvc
             .perform(
@@ -385,6 +411,7 @@ class PatientResourceIT {
         assertThat(testPatient.getPlaceOfResidence()).isEqualTo(UPDATED_PLACE_OF_RESIDENCE);
         assertThat(testPatient.getDateOfBirth()).isEqualTo(UPDATED_DATE_OF_BIRTH);
         assertThat(testPatient.getBloodGroup()).isEqualTo(UPDATED_BLOOD_GROUP);
+        assertThat(testPatient.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
     }
 
     @Test
@@ -455,7 +482,11 @@ class PatientResourceIT {
         Patient partialUpdatedPatient = new Patient();
         partialUpdatedPatient.setId(patient.getId());
 
-        partialUpdatedPatient.firstName(UPDATED_FIRST_NAME).dateOfBirth(UPDATED_DATE_OF_BIRTH).bloodGroup(UPDATED_BLOOD_GROUP);
+        partialUpdatedPatient
+            .firstName(UPDATED_FIRST_NAME)
+            .dateOfBirth(UPDATED_DATE_OF_BIRTH)
+            .bloodGroup(UPDATED_BLOOD_GROUP)
+            .phoneNumber(UPDATED_PHONE_NUMBER);
 
         restPatientMockMvc
             .perform(
@@ -477,6 +508,7 @@ class PatientResourceIT {
         assertThat(testPatient.getPlaceOfResidence()).isEqualTo(DEFAULT_PLACE_OF_RESIDENCE);
         assertThat(testPatient.getDateOfBirth()).isEqualTo(UPDATED_DATE_OF_BIRTH);
         assertThat(testPatient.getBloodGroup()).isEqualTo(UPDATED_BLOOD_GROUP);
+        assertThat(testPatient.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
     }
 
     @Test
@@ -499,7 +531,8 @@ class PatientResourceIT {
             .contactNumber(UPDATED_CONTACT_NUMBER)
             .placeOfResidence(UPDATED_PLACE_OF_RESIDENCE)
             .dateOfBirth(UPDATED_DATE_OF_BIRTH)
-            .bloodGroup(UPDATED_BLOOD_GROUP);
+            .bloodGroup(UPDATED_BLOOD_GROUP)
+            .phoneNumber(UPDATED_PHONE_NUMBER);
 
         restPatientMockMvc
             .perform(
@@ -521,6 +554,7 @@ class PatientResourceIT {
         assertThat(testPatient.getPlaceOfResidence()).isEqualTo(UPDATED_PLACE_OF_RESIDENCE);
         assertThat(testPatient.getDateOfBirth()).isEqualTo(UPDATED_DATE_OF_BIRTH);
         assertThat(testPatient.getBloodGroup()).isEqualTo(UPDATED_BLOOD_GROUP);
+        assertThat(testPatient.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
     }
 
     @Test

@@ -65,6 +65,25 @@
               </small>
             </div>
           </div>
+          <div class="form-group">
+            <label class="form-control-label" for="doctor-phoneNumber">Phone Number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="phoneNumber"
+              id="doctor-phoneNumber"
+              data-cy="phoneNumber"
+              :class="{ valid: !$v.doctor.phoneNumber.$invalid, invalid: $v.doctor.phoneNumber.$invalid }"
+              v-model="$v.doctor.phoneNumber.$model"
+              required
+            />
+            <div v-if="$v.doctor.phoneNumber.$anyDirty && $v.doctor.phoneNumber.$invalid">
+              <small class="form-text text-danger" v-if="!$v.doctor.phoneNumber.required"> This field is required. </small>
+              <small class="form-text text-danger" v-if="!$v.doctor.phoneNumber.maxLength">
+                This field cannot be longer than 11 characters.
+              </small>
+            </div>
+          </div>
         </div>
         <div>
           <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

@@ -33,7 +33,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new PatientService();
       currentDate = new Date();
-      elemDefault = new Patient(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', currentDate, 'AAAAAAA');
+      elemDefault = new Patient(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', currentDate, 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -104,6 +104,7 @@ describe('Service Tests', () => {
             placeOfResidence: 'BBBBBB',
             dateOfBirth: dayjs(currentDate).format(DATE_FORMAT),
             bloodGroup: 'BBBBBB',
+            phoneNumber: 'BBBBBB',
           },
           elemDefault
         );
@@ -138,6 +139,7 @@ describe('Service Tests', () => {
             firstName: 'BBBBBB',
             dateOfBirth: dayjs(currentDate).format(DATE_FORMAT),
             bloodGroup: 'BBBBBB',
+            phoneNumber: 'BBBBBB',
           },
           new Patient()
         );
@@ -178,6 +180,7 @@ describe('Service Tests', () => {
             placeOfResidence: 'BBBBBB',
             dateOfBirth: dayjs(currentDate).format(DATE_FORMAT),
             bloodGroup: 'BBBBBB',
+            phoneNumber: 'BBBBBB',
           },
           elemDefault
         );

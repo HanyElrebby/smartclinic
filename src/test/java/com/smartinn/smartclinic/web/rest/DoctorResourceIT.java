@@ -38,6 +38,9 @@ class DoctorResourceIT {
     private static final String DEFAULT_SPECIALIZATION = "AAAAAAAAAA";
     private static final String UPDATED_SPECIALIZATION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_PHONE_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_PHONE_NUMBER = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/doctors";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -62,7 +65,11 @@ class DoctorResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Doctor createEntity(EntityManager em) {
-        Doctor doctor = new Doctor().firstName(DEFAULT_FIRST_NAME).lastName(DEFAULT_LAST_NAME).specialization(DEFAULT_SPECIALIZATION);
+        Doctor doctor = new Doctor()
+            .firstName(DEFAULT_FIRST_NAME)
+            .lastName(DEFAULT_LAST_NAME)
+            .specialization(DEFAULT_SPECIALIZATION)
+            .phoneNumber(DEFAULT_PHONE_NUMBER);
         return doctor;
     }
 
@@ -73,7 +80,11 @@ class DoctorResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Doctor createUpdatedEntity(EntityManager em) {
-        Doctor doctor = new Doctor().firstName(UPDATED_FIRST_NAME).lastName(UPDATED_LAST_NAME).specialization(UPDATED_SPECIALIZATION);
+        Doctor doctor = new Doctor()
+            .firstName(UPDATED_FIRST_NAME)
+            .lastName(UPDATED_LAST_NAME)
+            .specialization(UPDATED_SPECIALIZATION)
+            .phoneNumber(UPDATED_PHONE_NUMBER);
         return doctor;
     }
 
@@ -98,6 +109,7 @@ class DoctorResourceIT {
         assertThat(testDoctor.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testDoctor.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testDoctor.getSpecialization()).isEqualTo(DEFAULT_SPECIALIZATION);
+        assertThat(testDoctor.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
     }
 
     @Test
@@ -171,6 +183,23 @@ class DoctorResourceIT {
 
     @Test
     @Transactional
+    void checkPhoneNumberIsRequired() throws Exception {
+        int databaseSizeBeforeTest = doctorRepository.findAll().size();
+        // set the field null
+        doctor.setPhoneNumber(null);
+
+        // Create the Doctor, which fails.
+
+        restDoctorMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(doctor)))
+            .andExpect(status().isBadRequest());
+
+        List<Doctor> doctorList = doctorRepository.findAll();
+        assertThat(doctorList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllDoctors() throws Exception {
         // Initialize the database
         doctorRepository.saveAndFlush(doctor);
@@ -183,7 +212,8 @@ class DoctorResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(doctor.getId().intValue())))
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].specialization").value(hasItem(DEFAULT_SPECIALIZATION)));
+            .andExpect(jsonPath("$.[*].specialization").value(hasItem(DEFAULT_SPECIALIZATION)))
+            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)));
     }
 
     @Test
@@ -200,7 +230,8 @@ class DoctorResourceIT {
             .andExpect(jsonPath("$.id").value(doctor.getId().intValue()))
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
-            .andExpect(jsonPath("$.specialization").value(DEFAULT_SPECIALIZATION));
+            .andExpect(jsonPath("$.specialization").value(DEFAULT_SPECIALIZATION))
+            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER));
     }
 
     @Test
@@ -222,7 +253,11 @@ class DoctorResourceIT {
         Doctor updatedDoctor = doctorRepository.findById(doctor.getId()).get();
         // Disconnect from session so that the updates on updatedDoctor are not directly saved in db
         em.detach(updatedDoctor);
-        updatedDoctor.firstName(UPDATED_FIRST_NAME).lastName(UPDATED_LAST_NAME).specialization(UPDATED_SPECIALIZATION);
+        updatedDoctor
+            .firstName(UPDATED_FIRST_NAME)
+            .lastName(UPDATED_LAST_NAME)
+            .specialization(UPDATED_SPECIALIZATION)
+            .phoneNumber(UPDATED_PHONE_NUMBER);
 
         restDoctorMockMvc
             .perform(
@@ -239,6 +274,7 @@ class DoctorResourceIT {
         assertThat(testDoctor.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testDoctor.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testDoctor.getSpecialization()).isEqualTo(UPDATED_SPECIALIZATION);
+        assertThat(testDoctor.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
     }
 
     @Test
@@ -309,7 +345,7 @@ class DoctorResourceIT {
         Doctor partialUpdatedDoctor = new Doctor();
         partialUpdatedDoctor.setId(doctor.getId());
 
-        partialUpdatedDoctor.firstName(UPDATED_FIRST_NAME).lastName(UPDATED_LAST_NAME);
+        partialUpdatedDoctor.firstName(UPDATED_FIRST_NAME).lastName(UPDATED_LAST_NAME).phoneNumber(UPDATED_PHONE_NUMBER);
 
         restDoctorMockMvc
             .perform(
@@ -326,6 +362,7 @@ class DoctorResourceIT {
         assertThat(testDoctor.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testDoctor.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testDoctor.getSpecialization()).isEqualTo(DEFAULT_SPECIALIZATION);
+        assertThat(testDoctor.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
     }
 
     @Test
@@ -340,7 +377,11 @@ class DoctorResourceIT {
         Doctor partialUpdatedDoctor = new Doctor();
         partialUpdatedDoctor.setId(doctor.getId());
 
-        partialUpdatedDoctor.firstName(UPDATED_FIRST_NAME).lastName(UPDATED_LAST_NAME).specialization(UPDATED_SPECIALIZATION);
+        partialUpdatedDoctor
+            .firstName(UPDATED_FIRST_NAME)
+            .lastName(UPDATED_LAST_NAME)
+            .specialization(UPDATED_SPECIALIZATION)
+            .phoneNumber(UPDATED_PHONE_NUMBER);
 
         restDoctorMockMvc
             .perform(
@@ -357,6 +398,7 @@ class DoctorResourceIT {
         assertThat(testDoctor.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testDoctor.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testDoctor.getSpecialization()).isEqualTo(UPDATED_SPECIALIZATION);
+        assertThat(testDoctor.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
     }
 
     @Test

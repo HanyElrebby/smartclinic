@@ -42,6 +42,10 @@
               <span>Specialization</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'specialization'"></jhi-sort-indicator>
             </th>
+            <th scope="row" v-on:click="changeOrder('phoneNumber')">
+              <span>Phone Number</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'phoneNumber'"></jhi-sort-indicator>
+            </th>
             <th scope="row"></th>
           </tr>
         </thead>
@@ -53,6 +57,7 @@
             <td>{{ doctor.firstName }}</td>
             <td>{{ doctor.lastName }}</td>
             <td>{{ doctor.specialization }}</td>
+            <td>{{ doctor.phoneNumber }}</td>
             <td class="text-right">
               <div class="btn-group">
                 <router-link :to="{ name: 'DoctorView', params: { doctorId: doctor.id } }" custom v-slot="{ navigate }">

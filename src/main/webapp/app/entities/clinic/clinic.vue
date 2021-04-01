@@ -24,7 +24,45 @@
       <span>No clinics found</span>
     </div>
     <div class="table-responsive" v-if="clinics && clinics.length > 0">
-      <table class="table table-striped" aria-describedby="clinics">
+      <el-table class="table-responsive table" header-row-class-name="thead-light" :data="clinics">
+        <el-table-column label="ID" prop="id" min-width="140px"> </el-table-column>
+        <el-table-column label="Name Of Clinic" prop="nameOfClinic"> </el-table-column>
+        <el-table-column label="City" prop="City"> </el-table-column>
+        <el-table-column label="Postal Code" prop="postalCode"> </el-table-column>
+        <el-table-column label="Street" prop="street"> </el-table-column>
+        <el-table-column label="Doctor" prop="doctor.firstName"> </el-table-column>
+        <el-table-column label="User" prop="user.login"> </el-table-column>
+        <el-table-column label="Action" prop="id">
+          <template v-slot="{ row }">
+            <div class="btn-group">
+              <router-link :to="{ name: 'ClinicView', params: { clinicId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
+                  <font-awesome-icon icon="eye"></font-awesome-icon>
+                  <span class="d-none d-md-inline">View</span>
+                </button>
+              </router-link>
+              <router-link :to="{ name: 'ClinicEdit', params: { clinicId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
+                  <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                  <span class="d-none d-md-inline">Edit</span>
+                </button>
+              </router-link>
+              <b-button
+                v-on:click="prepareRemove(row)"
+                variant="danger"
+                class="btn btn-sm"
+                data-cy="entityDeleteButton"
+                v-b-modal.removeEntity
+              >
+                <font-awesome-icon icon="times"></font-awesome-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </b-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!-- <table class="table tablesorter" aria-describedby="clinics">
         <thead>
           <tr>
             <th scope="row" v-on:click="changeOrder('id')">
@@ -35,7 +73,7 @@
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'nameOfClinic'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('city')">
-              <span>City</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'city'"></jhi-sort-indicator>
+              <span>City</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'City'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('postalCode')">
               <span>Postal Code</span>
@@ -56,7 +94,7 @@
             <th scope="row"></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           <tr v-for="clinic in clinics" :key="clinic.id" data-cy="entityTable">
             <td>
               <router-link :to="{ name: 'ClinicView', params: { clinicId: clinic.id } }">{{ clinic.id }}</router-link>
@@ -103,7 +141,7 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table>-->
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
@@ -126,9 +164,6 @@
       </div>
     </b-modal>
     <div v-show="clinics && clinics.length > 0">
-      <div class="row justify-content-center">
-        <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
-      </div>
       <div class="row justify-content-center">
         <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
       </div>

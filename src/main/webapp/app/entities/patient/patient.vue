@@ -62,6 +62,10 @@
               <span>Blood Group</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'bloodGroup'"></jhi-sort-indicator>
             </th>
+            <th scope="row" v-on:click="changeOrder('phoneNumber')">
+              <span>Phone Number</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'phoneNumber'"></jhi-sort-indicator>
+            </th>
             <th scope="row"></th>
           </tr>
         </thead>
@@ -78,6 +82,7 @@
             <td>{{ patient.placeOfResidence }}</td>
             <td>{{ patient.dateOfBirth }}</td>
             <td>{{ patient.bloodGroup }}</td>
+            <td>{{ patient.phoneNumber }}</td>
             <td class="text-right">
               <div class="btn-group">
                 <router-link :to="{ name: 'PatientView', params: { patientId: patient.id } }" custom v-slot="{ navigate }">

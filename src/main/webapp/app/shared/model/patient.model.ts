@@ -10,6 +10,7 @@ export interface IPatient {
   placeOfResidence?: string;
   dateOfBirth?: Date;
   bloodGroup?: string;
+  phoneNumber?: string;
   visits?: IVisit[] | null;
 }
 
@@ -24,6 +25,7 @@ export class Patient implements IPatient {
     public placeOfResidence?: string,
     public dateOfBirth?: Date,
     public bloodGroup?: string,
+    public phoneNumber?: string,
     public visits?: IVisit[] | null
   ) {}
 }

@@ -73,6 +73,9 @@ public class PatientService {
                     if (patient.getBloodGroup() != null) {
                         existingPatient.setBloodGroup(patient.getBloodGroup());
                     }
+                    if (patient.getPhoneNumber() != null) {
+                        existingPatient.setPhoneNumber(patient.getPhoneNumber());
+                    }
 
                     return existingPatient;
                 }

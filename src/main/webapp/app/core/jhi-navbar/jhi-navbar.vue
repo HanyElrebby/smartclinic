@@ -118,7 +118,7 @@
             <font-awesome-icon icon="sign-out-alt" />
             <span>Sign out</span>
           </b-dropdown-item>
-          <b-dropdown-item data-cy="login" v-if="!authenticated" v-on:click="openLogin()" id="login" active-class="active">
+          <b-dropdown-item data-cy="login" v-if="!authenticated" tag="b-dropdown-item" to="/login" id="login" active-class="active">
             <font-awesome-icon icon="sign-in-alt" />
             <span>Sign in</span>
           </b-dropdown-item>
