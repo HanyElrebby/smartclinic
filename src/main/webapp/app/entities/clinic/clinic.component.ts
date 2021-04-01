@@ -18,7 +18,7 @@ import { Table, TableColumn, DropdownMenu, DropdownItem, Dropdown } from 'elemen
 export default class Clinic extends Vue {
   @Inject('clinicService') private clinicService: () => ClinicService;
   private removeId: number = null;
-  public itemsPerPage = 10;
+  public itemsPerPage = 20;
   public queryCount: number = null;
   public page = 1;
   public previousPage = 1;

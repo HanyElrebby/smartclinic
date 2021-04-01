@@ -4,123 +4,80 @@
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
         <h2 id="smartclinicApp.patient.home.createOrEditLabel" data-cy="PatientCreateUpdateHeading">Create or edit a Patient</h2>
         <div>
-          <div class="form-group" v-if="patient.id">
-            <label for="id">ID</label>
-            <input type="text" class="form-control" id="id" name="id" v-model="patient.id" readonly />
+          <div v-if="patient.id">
+            <base-input type="text" label="ID" name="id" v-model="patient.id" readonly />
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="patient-firstName">First Name</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="firstName"
-              id="patient-firstName"
+              name="First Name"
               data-cy="firstName"
-              :class="{ valid: !$v.patient.firstName.$invalid, invalid: $v.patient.firstName.$invalid }"
+              label="First Name"
+              placeholder="First Name"
+              alternative
               v-model="$v.patient.firstName.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.patient.firstName.$anyDirty && $v.patient.firstName.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.firstName.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.patient.firstName.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="patient-lastName">Last Name</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="lastName"
-              id="patient-lastName"
+              name="Last Name"
               data-cy="lastName"
-              :class="{ valid: !$v.patient.lastName.$invalid, invalid: $v.patient.lastName.$invalid }"
+              label="Last Name"
+              placeholder="Last Name"
+              alternative
               v-model="$v.patient.lastName.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.patient.lastName.$anyDirty && $v.patient.lastName.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.lastName.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.patient.lastName.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="patient-pesel">Pesel</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="pesel"
-              id="patient-pesel"
+              name="Pesel"
               data-cy="pesel"
-              :class="{ valid: !$v.patient.pesel.$invalid, invalid: $v.patient.pesel.$invalid }"
+              label="Pesel"
+              placeholder="Pesel"
+              alternative
               v-model="$v.patient.pesel.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.patient.pesel.$anyDirty && $v.patient.pesel.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.pesel.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.patient.pesel.maxLength">
-                This field cannot be longer than 11 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="patient-firstFatherName">First Father Name</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="firstFatherName"
-              id="patient-firstFatherName"
+              name="First Father Name"
               data-cy="firstFatherName"
-              :class="{ valid: !$v.patient.firstFatherName.$invalid, invalid: $v.patient.firstFatherName.$invalid }"
+              label="First Father Name"
+              placeholder="First Father Name"
+              alternative
               v-model="$v.patient.firstFatherName.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.patient.firstFatherName.$anyDirty && $v.patient.firstFatherName.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.firstFatherName.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.patient.firstFatherName.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="patient-contactNumber">Contact Number</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="contactNumber"
-              id="patient-contactNumber"
+              name="Contact Number"
               data-cy="contactNumber"
-              :class="{ valid: !$v.patient.contactNumber.$invalid, invalid: $v.patient.contactNumber.$invalid }"
+              label="Contact Number"
+              placeholder="Contact Number"
+              alternative
               v-model="$v.patient.contactNumber.$model"
-              required
+              :rules="{ required: true, max: 11 }"
             />
-            <div v-if="$v.patient.contactNumber.$anyDirty && $v.patient.contactNumber.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.contactNumber.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.patient.contactNumber.maxLength">
-                This field cannot be longer than 11 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="patient-placeOfResidence">Place Of Residence</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="placeOfResidence"
-              id="patient-placeOfResidence"
+              name="Place Of Residence"
               data-cy="placeOfResidence"
-              :class="{ valid: !$v.patient.placeOfResidence.$invalid, invalid: $v.patient.placeOfResidence.$invalid }"
+              label="Place Of Residence"
+              placeholder="Place Of Residence"
+              alternative
               v-model="$v.patient.placeOfResidence.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.patient.placeOfResidence.$anyDirty && $v.patient.placeOfResidence.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.placeOfResidence.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.patient.placeOfResidence.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label" for="patient-dateOfBirth">Date Of Birth</label>
@@ -154,43 +111,29 @@
               <small class="form-text text-danger" v-if="!$v.patient.dateOfBirth.required"> This field is required. </small>
             </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="patient-bloodGroup">Blood Group</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="bloodGroup"
-              id="patient-bloodGroup"
+              name="Blood Group"
               data-cy="bloodGroup"
-              :class="{ valid: !$v.patient.bloodGroup.$invalid, invalid: $v.patient.bloodGroup.$invalid }"
+              label="Blood Group"
+              placeholder="Blood Group"
+              alternative
               v-model="$v.patient.bloodGroup.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.patient.bloodGroup.$anyDirty && $v.patient.bloodGroup.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.bloodGroup.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.patient.bloodGroup.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="patient-phoneNumber">Phone Number</label>
-            <input
-              type="text"
-              class="form-control"
-              name="phoneNumber"
-              id="patient-phoneNumber"
+          <div>
+            <base-input
+              type="number"
+              name="Phone Number"
               data-cy="phoneNumber"
-              :class="{ valid: !$v.patient.phoneNumber.$invalid, invalid: $v.patient.phoneNumber.$invalid }"
+              label="Phone Number"
+              placeholder="Phone Number"
+              alternative
               v-model="$v.patient.phoneNumber.$model"
-              required
+              :rules="{ required: true, max: 11 }"
             />
-            <div v-if="$v.patient.phoneNumber.$anyDirty && $v.patient.phoneNumber.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.phoneNumber.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.patient.phoneNumber.maxLength">
-                This field cannot be longer than 11 characters.
-              </small>
-            </div>
           </div>
         </div>
         <div>

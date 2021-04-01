@@ -15,7 +15,60 @@
       </div>
     </h2>
     <div class="table-responsive" v-if="users">
-      <table class="table table-striped" aria-describedby="Users">
+      <el-table class="table-responsive table" header-row-class-name="thead-light" :data="users">
+        <el-table-column label="ID" prop="id" min-width="140px"> </el-table-column>
+        <el-table-column label="Login" prop="login"> </el-table-column>
+        <el-table-column label="Email" prop="email"> </el-table-column>
+        <el-table-column label="Status" prop="activated">
+          <template v-slot="{ row }">
+            <button class="btn btn-danger btn-sm deactivated" v-on:click="setActive(row, true)" v-if="!row.activated">Deactivated</button>
+            <button
+              class="btn btn-success btn-sm"
+              v-on:click="setActive(row, false)"
+              v-if="row.activated"
+              :disabled="username === row.login"
+            >
+              Activated
+            </button>
+          </template>
+        </el-table-column>
+        <el-table-column label="Profiles" prop="authorities">
+          <template v-slot="{ row }">
+            <div v-for="authority of row.authorities" :key="authority">
+              <span class="badge badge-info">{{ authority }}</span>
+            </div>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Created Date" prop="createdDate"> </el-table-column>
+        <el-table-column label="Last Modified Date" prop="lastModifiedDate"> </el-table-column>
+        <el-table-column label="Last Modified By" prop="lastModifiedBy"> </el-table-column>
+
+        <el-table-column label="Action" prop="id">
+          <template v-slot="{ row }">
+            <div class="btn-group">
+              <router-link :to="{ name: 'JhiUserView', params: { userId: row.login } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-info btn-sm details">
+                  <font-awesome-icon icon="eye"></font-awesome-icon>
+                  <span class="d-none d-md-inline">View</span>
+                </button>
+              </router-link>
+              <router-link :to="{ name: 'JhiUserEdit', params: { userId: row.login } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-primary btn-sm edit">
+                  <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                  <span class="d-none d-md-inline">Edit</span>
+                </button>
+              </router-link>
+              <b-button v-on:click="prepareRemove(row)" variant="danger" class="btn btn-sm delete" :disabled="username === row.login">
+                <font-awesome-icon icon="times"></font-awesome-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </b-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!--<table class="table table-striped" aria-describedby="Users">
         <thead>
           <tr>
             <th scope="col" v-on:click="changeOrder('id')">
@@ -97,7 +150,7 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table>-->
       <b-modal ref="removeUser" id="removeUser" @ok="deleteUser()">
         <div class="modal-body">
           <p id="jhi-delete-user-heading">Are you sure you want to delete this user?</p>

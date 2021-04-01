@@ -30,7 +30,13 @@
         <el-table-column label="City" prop="City"> </el-table-column>
         <el-table-column label="Postal Code" prop="postalCode"> </el-table-column>
         <el-table-column label="Street" prop="street"> </el-table-column>
-        <el-table-column label="Doctor" prop="doctor.firstName"> </el-table-column>
+        <el-table-column label="Doctor" prop="doctor.firstName">
+          <template v-slot="{ row }">
+            <div v-if="row.doctor">
+              <router-link :to="{ name: 'DoctorView', params: { doctorId: row.doctor.id } }">{{ row.doctor.firstName }}</router-link>
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column label="User" prop="user.login"> </el-table-column>
         <el-table-column label="Action" prop="id">
           <template v-slot="{ row }">
