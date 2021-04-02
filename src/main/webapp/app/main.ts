@@ -39,6 +39,7 @@ import VisitService from '@/entities/visit/visit.service';
 import DetailsOfVisitService from '@/entities/details-of-visit/details-of-visit.service';
 import GlobalComponents from './globalComponents';
 import ElTable from 'element-ui';
+import GlobalDirectives from './globalDirectives';
 
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
@@ -55,6 +56,7 @@ Vue.component('jhi-item-count', JhiItemCountComponent);
 Vue.component('jhi-sort-indicator', JhiSortIndicatorComponent);
 Vue.component('infinite-loading', InfiniteLoading);
 Vue.use(GlobalComponents);
+Vue.use(GlobalDirectives);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 

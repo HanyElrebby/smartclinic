@@ -46,7 +46,7 @@
             />
           </div>
           <div>
-            <input
+            <base-input
               type="text"
               name="Medicines"
               label="Medicines"
@@ -58,7 +58,7 @@
             />
           </div>
           <div>
-            <input
+            <base-input
               type="text"
               name="Dosage"
               label="Dosage"
