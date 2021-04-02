@@ -4,19 +4,20 @@
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" v-if="userAccount">
         <h2 id="myUserLabel">Create or edit a User</h2>
         <div>
-          <div class="form-group" :hidden="!userAccount.id">
-            <label>ID</label>
-            <input type="text" class="form-control" name="id" v-model="userAccount.id" readonly />
+          <div :hidden="!userAccount.id">
+            <base-input type="text" label="ID" name="id" v-model="userAccount.id" readonly />
           </div>
 
-          <div class="form-group">
+          <div>
             <label class="form-control-label">Login</label>
-            <input
+            <base-input
               type="text"
-              class="form-control"
               name="login"
-              :class="{ valid: !$v.userAccount.login.$invalid, invalid: $v.userAccount.login.$invalid }"
+              label="Login"
+              placeholder="Login"
+              alternative
               v-model="$v.userAccount.login.$model"
+              :rules="{ required: true, max: 50, min: 1, pattern: '^[a-zA-Z0-9!#$&\'*+=?^_`{|}~.-]+@?[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$' }"
             />
 
             <div v-if="$v.userAccount.login.$anyDirty && $v.userAccount.login.$invalid">
