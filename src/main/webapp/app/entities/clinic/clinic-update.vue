@@ -1,88 +1,59 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-8">
-      <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
+      <b-form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
         <h2 id="smartclinicApp.clinic.home.createOrEditLabel" data-cy="ClinicCreateUpdateHeading">Create or edit a Clinic</h2>
         <div>
-          <div class="form-group" v-if="clinic.id">
-            <label for="id">ID</label>
-            <input type="text" class="form-control" id="id" name="id" v-model="clinic.id" readonly />
+          <div v-if="clinic.id">
+            <base-input type="text" label="ID" id="id" name="id" v-model="clinic.id" readonly />
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="clinic-nameOfClinic">Name Of Clinic</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="nameOfClinic"
-              id="clinic-nameOfClinic"
+              label="Name Of Clinic"
+              placeholder="Name Of Clinic"
               data-cy="nameOfClinic"
-              :class="{ valid: !$v.clinic.nameOfClinic.$invalid, invalid: $v.clinic.nameOfClinic.$invalid }"
+              alternative
+              name="Name"
               v-model="$v.clinic.nameOfClinic.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.clinic.nameOfClinic.$anyDirty && $v.clinic.nameOfClinic.$invalid">
-              <small class="form-text text-danger" v-if="!$v.clinic.nameOfClinic.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.clinic.nameOfClinic.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="clinic-city">City</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="city"
-              id="clinic-city"
+              name="City"
+              label="City"
+              placeholder="City"
+              alternative
               data-cy="city"
-              :class="{ valid: !$v.clinic.city.$invalid, invalid: $v.clinic.city.$invalid }"
               v-model="$v.clinic.city.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.clinic.city.$anyDirty && $v.clinic.city.$invalid">
-              <small class="form-text text-danger" v-if="!$v.clinic.city.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.clinic.city.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="clinic-postalCode">Postal Code</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="postalCode"
-              id="clinic-postalCode"
+              name="Postal Code"
               data-cy="postalCode"
-              :class="{ valid: !$v.clinic.postalCode.$invalid, invalid: $v.clinic.postalCode.$invalid }"
+              label="Postal Code"
+              alternative
+              placeholder="Postal Code"
               v-model="$v.clinic.postalCode.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.clinic.postalCode.$anyDirty && $v.clinic.postalCode.$invalid">
-              <small class="form-text text-danger" v-if="!$v.clinic.postalCode.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.clinic.postalCode.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="clinic-street">Street</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="street"
-              id="clinic-street"
+              name="Street"
+              label="Street"
+              placeholder="Street"
               data-cy="street"
-              :class="{ valid: !$v.clinic.street.$invalid, invalid: $v.clinic.street.$invalid }"
+              alternative
               v-model="$v.clinic.street.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.clinic.street.$anyDirty && $v.clinic.street.$invalid">
-              <small class="form-text text-danger" v-if="!$v.clinic.street.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.clinic.street.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label" for="clinic-doctor">Doctor</label>
@@ -125,7 +96,7 @@
             <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Save</span>
           </button>
         </div>
-      </form>
+      </b-form>
     </div>
   </div>
 </template>

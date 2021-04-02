@@ -41,6 +41,10 @@ const validations: any = {
       required,
       maxLength: maxLength(30),
     },
+    phoneNumber: {
+      required,
+      maxLength: maxLength(11),
+    },
   },
 };
 

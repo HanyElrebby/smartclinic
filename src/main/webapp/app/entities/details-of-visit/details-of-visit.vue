@@ -24,7 +24,52 @@
       <span>No detailsOfVisits found</span>
     </div>
     <div class="table-responsive" v-if="detailsOfVisits && detailsOfVisits.length > 0">
-      <table class="table table-striped" aria-describedby="detailsOfVisits">
+      <el-table class="table-responsive table" header-row-class-name="thead-light" :data="detailsOfVisits">
+        <el-table-column label="ID" prop="id" min-width="140px"> </el-table-column>
+        <el-table-column label="Description Ailments" prop="descriptionAilments"> </el-table-column>
+        <el-table-column label="Name Of Disease" prop="nameOfDisease"> </el-table-column>
+        <el-table-column label="Recommendations" prop="recommendations"> </el-table-column>
+        <el-table-column label="Medicines" prop="medicines"> </el-table-column>
+        <el-table-column label="Dosage" prop="dosage"> </el-table-column>
+        <el-table-column label="Visit" prop="visit.id">
+          <template v-slot="{ row }">
+            <div v-if="row.visit">
+              <router-link :to="{ name: 'VisitView', params: { visitId: row.visit.id } }">{{ row.visit.id }}</router-link>
+            </div>
+          </template>
+        </el-table-column>
+
+        <el-table-column label="Action" prop="id">
+          <template v-slot="{ row }">
+            <div class="btn-group">
+              <router-link :to="{ name: 'DetailsOfVisitView', params: { detailsOfVisitId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
+                  <font-awesome-icon icon="eye"></font-awesome-icon>
+                  <span class="d-none d-md-inline">View</span>
+                </button>
+              </router-link>
+              <router-link :to="{ name: 'DetailsOfVisitEdit', params: { detailsOfVisitId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
+                  <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                  <span class="d-none d-md-inline">Edit</span>
+                </button>
+              </router-link>
+              <b-button
+                v-on:click="prepareRemove(row)"
+                variant="danger"
+                class="btn btn-sm"
+                data-cy="entityDeleteButton"
+                v-b-modal.removeEntity
+              >
+                <font-awesome-icon icon="times"></font-awesome-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </b-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!-- <table class="table table-striped" aria-describedby="detailsOfVisits">
         <thead>
           <tr>
             <th scope="row" v-on:click="changeOrder('id')">
@@ -112,7 +157,7 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table>-->
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"

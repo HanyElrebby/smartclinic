@@ -50,7 +50,6 @@ public class Clinic implements Serializable {
     private Set<Visit> visits = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "clinics" }, allowSetters = true)
     private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

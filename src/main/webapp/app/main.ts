@@ -21,16 +21,25 @@ import UserManagementService from '@/admin/user-management/user-management.servi
 import LoginService from './account/login.service';
 import AccountService from './account/account.service';
 
-import '../content/scss/vendor.scss';
+//import '../content/scss/vendor.scss';
+import '../content/scss/argon.scss';
 
 import UserOAuth2Service from '@/entities/user/user.oauth2.service';
+import BaseInput from '@/components/Inputs/BaseInput.vue';
+import BaseDropdown from '@/components/BaseDropdown.vue';
+
 /* tslint:disable */
+
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 
 import DoctorService from '@/entities/doctor/doctor.service';
 import ClinicService from '@/entities/clinic/clinic.service';
 import PatientService from '@/entities/patient/patient.service';
 import VisitService from '@/entities/visit/visit.service';
 import DetailsOfVisitService from '@/entities/details-of-visit/details-of-visit.service';
+import GlobalComponents from './globalComponents';
+import ElTable from 'element-ui';
+
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -40,10 +49,15 @@ config.initFortAwesome(Vue);
 bootstrapVueConfig.initBootstrapVue(Vue);
 Vue.use(Vue2Filters);
 Vue.use(ToastPlugin);
+Vue.use(ElTable);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('jhi-item-count', JhiItemCountComponent);
 Vue.component('jhi-sort-indicator', JhiSortIndicatorComponent);
 Vue.component('infinite-loading', InfiniteLoading);
+Vue.use(GlobalComponents);
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
+
 const store = config.initVueXStore(Vue);
 
 const loginService = new LoginService();

@@ -61,6 +61,11 @@ public class Patient implements Serializable {
     @Column(name = "blood_group", length = 30, nullable = false)
     private String bloodGroup;
 
+    @NotNull
+    @Size(max = 11)
+    @Column(name = "phone_number", length = 11, nullable = false)
+    private String phoneNumber;
+
     @OneToMany(mappedBy = "patient")
     @JsonIgnoreProperties(value = { "clinic", "patient", "detailsOfVisits" }, allowSetters = true)
     private Set<Visit> visits = new HashSet<>();
@@ -183,6 +188,19 @@ public class Patient implements Serializable {
         this.bloodGroup = bloodGroup;
     }
 
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public Patient phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public Set<Visit> getVisits() {
         return this.visits;
     }
@@ -246,6 +264,7 @@ public class Patient implements Serializable {
             ", placeOfResidence='" + getPlaceOfResidence() + "'" +
             ", dateOfBirth='" + getDateOfBirth() + "'" +
             ", bloodGroup='" + getBloodGroup() + "'" +
+            ", phoneNumber='" + getPhoneNumber() + "'" +
             "}";
     }
 }

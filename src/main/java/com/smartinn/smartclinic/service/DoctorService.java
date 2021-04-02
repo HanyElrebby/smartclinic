@@ -58,6 +58,9 @@ public class DoctorService {
                     if (doctor.getSpecialization() != null) {
                         existingDoctor.setSpecialization(doctor.getSpecialization());
                     }
+                    if (doctor.getPhoneNumber() != null) {
+                        existingDoctor.setPhoneNumber(doctor.getPhoneNumber());
+                    }
 
                     return existingDoctor;
                 }

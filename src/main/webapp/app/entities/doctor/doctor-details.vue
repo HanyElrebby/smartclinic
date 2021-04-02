@@ -22,6 +22,12 @@
           <dd>
             <span>{{ doctor.specialization }}</span>
           </dd>
+          <dt>
+            <span>Phone Number</span>
+          </dt>
+          <dd>
+            <span>{{ doctor.phoneNumber }}</span>
+          </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
           <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span> Back</span>

@@ -51,6 +51,42 @@ export default class ClinicUpdate extends Vue {
 
   @Inject('userService') private userService: () => UserService;
 
+  labelClasses: {
+    type: String;
+    description: 'Input label css classes';
+    default: 'form-control-label';
+  };
+  inputClasses: {
+    type: String;
+    description: 'Input css classes';
+  };
+  inputGroupClasses: {
+    type: String;
+    description: 'Input group css classes';
+  };
+  value: {
+    type: [String, Number];
+    description: 'Input value';
+  };
+  type: {
+    type: String;
+    description: 'Input type';
+    default: 'text';
+  };
+  appendIcon: {
+    type: String;
+    description: 'Append icon (right)';
+  };
+  prependIcon: {
+    type: String;
+    description: 'Prepend icon (left)';
+  };
+  name: {
+    type: String;
+    description: 'Input name (used for validation)';
+    default: '';
+  };
+
   public users: Array<any> = [];
   public isSaving = false;
   public currentLanguage = '';

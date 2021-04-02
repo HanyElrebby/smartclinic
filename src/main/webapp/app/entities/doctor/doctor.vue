@@ -24,7 +24,44 @@
       <span>No doctors found</span>
     </div>
     <div class="table-responsive" v-if="doctors && doctors.length > 0">
-      <table class="table table-striped" aria-describedby="doctors">
+      <el-table class="table-responsive table" header-row-class-name="thead-light" :data="doctors">
+        <el-table-column label="ID" prop="id" min-width="140px"> </el-table-column>
+        <el-table-column label="First Name" prop="firstName"> </el-table-column>
+        <el-table-column label="Last Name" prop="lastName"> </el-table-column>
+        <el-table-column label="Specialization" prop="specialization"> </el-table-column>
+        <el-table-column label="Phone Number" prop="phoneNumber"> </el-table-column>
+
+        <el-table-column label="Action" prop="id">
+          <template v-slot="{ row }">
+            <div class="btn-group">
+              <router-link :to="{ name: 'DoctorView', params: { doctorId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
+                  <font-awesome-icon icon="eye"></font-awesome-icon>
+                  <span class="d-none d-md-inline">View</span>
+                </button>
+              </router-link>
+              <router-link :to="{ name: 'DoctorEdit', params: { doctorId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
+                  <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                  <span class="d-none d-md-inline">Edit</span>
+                </button>
+              </router-link>
+              <b-button
+                v-on:click="prepareRemove(row)"
+                variant="danger"
+                class="btn btn-sm"
+                data-cy="entityDeleteButton"
+                v-b-modal.removeEntity
+              >
+                <font-awesome-icon icon="times"></font-awesome-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </b-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!--<table class="table table-striped" aria-describedby="doctors">
         <thead>
           <tr>
             <th scope="row" v-on:click="changeOrder('id')">
@@ -42,6 +79,10 @@
               <span>Specialization</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'specialization'"></jhi-sort-indicator>
             </th>
+            <th scope="row" v-on:click="changeOrder('phoneNumber')">
+              <span>Phone Number</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'phoneNumber'"></jhi-sort-indicator>
+            </th>
             <th scope="row"></th>
           </tr>
         </thead>
@@ -53,6 +94,7 @@
             <td>{{ doctor.firstName }}</td>
             <td>{{ doctor.lastName }}</td>
             <td>{{ doctor.specialization }}</td>
+            <td>{{ doctor.phoneNumber }}</td>
             <td class="text-right">
               <div class="btn-group">
                 <router-link :to="{ name: 'DoctorView', params: { doctorId: doctor.id } }" custom v-slot="{ navigate }">
@@ -81,7 +123,7 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table>-->
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
@@ -104,9 +146,9 @@
       </div>
     </b-modal>
     <div v-show="doctors && doctors.length > 0">
-      <div class="row justify-content-center">
+      <!--<div class="row justify-content-center">
         <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
-      </div>
+      </div>-->
       <div class="row justify-content-center">
         <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
       </div>

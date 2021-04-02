@@ -36,6 +36,11 @@ public class Doctor implements Serializable {
     @Column(name = "specialization", length = 30, nullable = false)
     private String specialization;
 
+    @NotNull
+    @Size(max = 11)
+    @Column(name = "phone_number", length = 11, nullable = false)
+    private String phoneNumber;
+
     @OneToMany(mappedBy = "doctor")
     @JsonIgnoreProperties(value = { "doctor", "visits", "user" }, allowSetters = true)
     private Set<Clinic> clinics = new HashSet<>();
@@ -91,6 +96,19 @@ public class Doctor implements Serializable {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public Doctor phoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+        return this;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Set<Clinic> getClinics() {
@@ -151,6 +169,7 @@ public class Doctor implements Serializable {
             ", firstName='" + getFirstName() + "'" +
             ", lastName='" + getLastName() + "'" +
             ", specialization='" + getSpecialization() + "'" +
+            ", phoneNumber='" + getPhoneNumber() + "'" +
             "}";
     }
 }

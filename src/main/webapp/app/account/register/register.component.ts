@@ -63,6 +63,7 @@ export default class Register extends Vue {
       .processRegistration(this.registerAccount)
       .then(() => {
         this.success = true;
+        this.$router.push('/', () => {});
       })
       .catch(error => {
         this.success = null;
