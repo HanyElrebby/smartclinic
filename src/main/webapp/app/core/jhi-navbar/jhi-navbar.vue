@@ -1,7 +1,7 @@
 <template>
   <b-navbar data-cy="navbar" toggleable="md" type="dark" class="jh-navbar">
     <b-navbar-toggle
-      right
+      left
       class="jh-navbar-toggler d-lg-none"
       href="javascript:void(0);"
       data-toggle="collapse"
@@ -13,9 +13,9 @@
     </b-navbar-toggle>
 
     <b-collapse is-nav id="header-tabs">
-      <b-navbar-nav class="ml-auto">
+      <b-navbar-nav class="mr-auto">
         <b-nav-item-dropdown
-          right
+          left
           id="admin-menu"
           v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated"
           :class="{ 'router-link-active': subIsActive('/admin') }"

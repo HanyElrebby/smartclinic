@@ -53,7 +53,7 @@
 
   .navbar-nav {
     margin-left: -$navbar-padding-x;
-    margin-right: -$navbar-padding-x;
+    margin-right: -5.5;
 
     // Navbar link
 
@@ -202,7 +202,7 @@
           .navbar-nav {
             flex-direction: column;
             margin-left: -$navbar-vertical-padding-x;
-            margin-right: -$navbar-vertical-padding-x;
+            margin-right: -5.5;
           }
 
           .navbar-nav .nav-link {

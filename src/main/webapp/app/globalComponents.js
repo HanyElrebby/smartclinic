@@ -12,6 +12,8 @@ import BasePagination from '@/components/BasePagination';
 import BaseAlert from '@/components/BaseAlert';
 import BaseNav from '@/components/Navbar/BaseNav';
 import BaseHeader from '@/components/BaseHeader';
+import SideBar from '@/components/SidebarPlugin';
+
 import { ValidationProvider, ValidationObserver } from 'vee-validate/dist/vee-validate.full';
 import { Input, Tooltip, Popover } from 'element-ui';
 /**
@@ -32,6 +34,7 @@ const GlobalComponents = {
     Vue.component(BaseProgress.name, BaseProgress);
     Vue.component(BaseRadio.name, BaseRadio);
     Vue.component(Card.name, Card);
+    Vue.use(SideBar);
     Vue.component(Modal.name, Modal);
     Vue.component(StatsCard.name, StatsCard);
     Vue.component(Input.name, Input);
