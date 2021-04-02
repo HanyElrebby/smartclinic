@@ -1,9 +1,5 @@
 <template>
   <b-navbar data-cy="navbar" toggleable="md" type="dark" class="jh-navbar">
-    <b-navbar-brand class="logo" b-link to="/">
-      <span class="logo-img"></span>
-      <span class="navbar-title">smartclinic</span> <span class="navbar-version">{{ version }}</span>
-    </b-navbar-brand>
     <b-navbar-toggle
       right
       class="jh-navbar-toggler d-lg-none"
@@ -18,43 +14,6 @@
 
     <b-collapse is-nav id="header-tabs">
       <b-navbar-nav class="ml-auto">
-        <b-nav-item to="/" exact>
-          <span>
-            <font-awesome-icon icon="home" />
-            <span>Home</span>
-          </span>
-        </b-nav-item>
-        <b-nav-item-dropdown right id="entity-menu" v-if="authenticated" active-class="active" class="pointer" data-cy="entity">
-          <span slot="button-content" class="navbar-dropdown-menu">
-            <font-awesome-icon icon="th-list" />
-            <span class="no-bold">Entities</span>
-          </span>
-          <b-dropdown-item to="/doctor">
-            <font-awesome-icon icon="asterisk" />
-            <span>Doctor</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/clinic">
-            <font-awesome-icon icon="asterisk" />
-            <span>Clinic</span>
-          </b-dropdown-item>
-
-          <b-dropdown-item to="/patient">
-            <font-awesome-icon icon="asterisk" />
-            <span>Patient</span>
-          </b-dropdown-item>
-
-          <b-dropdown-item to="/visit">
-            <font-awesome-icon icon="asterisk" />
-            <span>Visit</span>
-          </b-dropdown-item>
-
-          <b-dropdown-item to="/details-of-visit">
-            <font-awesome-icon icon="asterisk" />
-            <span>Details Of Visit</span>
-          </b-dropdown-item>
-
-          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-        </b-nav-item-dropdown>
         <b-nav-item-dropdown
           right
           id="admin-menu"
@@ -102,9 +61,9 @@
           class="pointer"
           data-cy="accountMenu"
         >
-          <span slot="button-content" class="navbar-dropdown-menu">
+          <span class="account-font" slot="button-content">
             <font-awesome-icon icon="user" />
-            <span class="no-bold"> Account </span>
+            <span> Account </span>
           </span>
           <b-dropdown-item data-cy="settings" to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="wrench" />
@@ -152,7 +111,7 @@
 }
 
 .jh-navbar {
-  background-color: #353d47;
+  background-color: #ffffff;
   padding: 0.2em 1em;
 }
 
@@ -228,6 +187,9 @@
   width: 70px;
 }
 
+.account-font {
+  color: #000000;
+}
 .logo-img {
   height: 100%;
   background: url('../../../content/images/logo-jhipster.png') no-repeat center center;

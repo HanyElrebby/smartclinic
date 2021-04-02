@@ -7,7 +7,6 @@
           <b-row class="justify-content-center">
             <b-col xl="5" lg="6" md="8" class="px-5">
               <h1 class="text-white">Create an account</h1>
-              <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>
               <div class="alert alert-success" role="alert" v-if="success">
                 <strong>Registration saved!</strong> Please check your email for confirmation.
               </div>
@@ -38,9 +37,7 @@
         <b-col lg="6" md="8">
           <b-card no-body class="bg-secondary border-0">
             <b-card-body class="px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small>Or sign up with credentials</small>
-              </div>
+              <div class="text-center text-muted mb-4"></div>
               <validation-observer v-slot="{ handleSubmit }" ref="formValidator">
                 <b-form role="form" @submit.prevent="handleSubmit(register)">
                   <base-input

@@ -1,13 +1,12 @@
 <template>
   <div>
     <!-- Header -->
-    <div class="header bg-gradient-success py-7 py-lg-8 pt-lg-9">
+    <div class="header bg-gradient-success py-7 py-lg-8 pt-lg-4">
       <b-container>
-        <div class="header-body text-center mb-7">
+        <div class="header-body text-center mb-5">
           <b-row class="justify-content-center">
             <b-col xl="5" lg="6" md="8" class="px-5">
-              <h1 class="text-white">Welcome!</h1>
-              <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>
+              <h1 class="text-white">Smart Clinic</h1>
             </b-col>
           </b-row>
         </div>
@@ -24,9 +23,6 @@
         <b-col lg="5" md="7">
           <b-card no-body class="bg-secondary border-0 mb-0">
             <b-card-body class="px-lg-5 py-lg-5">
-              <div class="text-center text-muted mb-4">
-                <small>Or sign in with credentials</small>
-              </div>
               <validation-observer v-slot="{ handleSubmit }" ref="formValidator">
                 <b-form role="form" @submit.prevent="handleSubmit(doLogin)">
                   <base-input
@@ -51,8 +47,6 @@
                     v-model="password"
                   >
                   </base-input>
-
-                  <b-form-checkbox v-model="rememberMe">Remember me</b-form-checkbox>
                   <div class="text-center">
                     <base-button type="primary" native-type="submit" class="my-4">Sign in</base-button>
                   </div>
@@ -60,14 +54,7 @@
               </validation-observer>
             </b-card-body>
           </b-card>
-          <b-row class="mt-3">
-            <b-col cols="6">
-              <router-link to="/account/reset/request" class="text-light"><small>Forgot password?</small></router-link>
-            </b-col>
-            <b-col cols="6" class="text-right">
-              <router-link to="/register" class="text-light"><small>Create new account</small></router-link>
-            </b-col>
-          </b-row>
+          <b-row class="mt-3"> </b-row>
         </b-col>
       </b-row>
     </b-container>

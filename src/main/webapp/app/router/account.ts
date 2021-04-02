@@ -24,7 +24,7 @@ export default [
     component: ResetPasswordInit,
   },
   {
-    path: '/login',
+    path: '/',
     name: 'loginInit',
     component: () => import(/* webpackChunkName: "demo" */ '../account/loginPage/Login.vue'),
   },
