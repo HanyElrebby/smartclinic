@@ -6,98 +6,68 @@
           Create or edit a DetailsOfVisit
         </h2>
         <div>
-          <div class="form-group" v-if="detailsOfVisit.id">
-            <label for="id">ID</label>
-            <input type="text" class="form-control" id="id" name="id" v-model="detailsOfVisit.id" readonly />
+          <div v-if="detailsOfVisit.id">
+            <base-input type="text" label="ID" name="id" v-model="detailsOfVisit.id" readonly />
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="details-of-visit-descriptionAilments">Description Ailments</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="descriptionAilments"
-              id="details-of-visit-descriptionAilments"
+              name="Description Ailments"
               data-cy="descriptionAilments"
-              :class="{ valid: !$v.detailsOfVisit.descriptionAilments.$invalid, invalid: $v.detailsOfVisit.descriptionAilments.$invalid }"
+              label="Description Ailments"
+              placeholder="Description Ailments"
+              alternative
               v-model="$v.detailsOfVisit.descriptionAilments.$model"
-              required
+              :rules="{ required: true, max: 50 }"
             />
-            <div v-if="$v.detailsOfVisit.descriptionAilments.$anyDirty && $v.detailsOfVisit.descriptionAilments.$invalid">
-              <small class="form-text text-danger" v-if="!$v.detailsOfVisit.descriptionAilments.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.detailsOfVisit.descriptionAilments.maxLength">
-                This field cannot be longer than 50 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="details-of-visit-nameOfDisease">Name Of Disease</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="nameOfDisease"
-              id="details-of-visit-nameOfDisease"
+              name="Name Of Disease"
               data-cy="nameOfDisease"
-              :class="{ valid: !$v.detailsOfVisit.nameOfDisease.$invalid, invalid: $v.detailsOfVisit.nameOfDisease.$invalid }"
+              label="Name Of Disease"
+              placeholder="Name Of Disease"
+              alternative
               v-model="$v.detailsOfVisit.nameOfDisease.$model"
-              required
+              :rules="{ required: true, max: 30 }"
             />
-            <div v-if="$v.detailsOfVisit.nameOfDisease.$anyDirty && $v.detailsOfVisit.nameOfDisease.$invalid">
-              <small class="form-text text-danger" v-if="!$v.detailsOfVisit.nameOfDisease.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.detailsOfVisit.nameOfDisease.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="details-of-visit-recommendations">Recommendations</label>
-            <input
+          <div>
+            <base-input
               type="text"
-              class="form-control"
-              name="recommendations"
-              id="details-of-visit-recommendations"
+              name="Recommendations"
+              label="Recommendations"
+              placeholder="Recommendations"
+              alternative
               data-cy="recommendations"
-              :class="{ valid: !$v.detailsOfVisit.recommendations.$invalid, invalid: $v.detailsOfVisit.recommendations.$invalid }"
               v-model="$v.detailsOfVisit.recommendations.$model"
+              :rules="{ max: 30 }"
             />
-            <div v-if="$v.detailsOfVisit.recommendations.$anyDirty && $v.detailsOfVisit.recommendations.$invalid">
-              <small class="form-text text-danger" v-if="!$v.detailsOfVisit.recommendations.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="details-of-visit-medicines">Medicines</label>
+          <div>
             <input
               type="text"
-              class="form-control"
-              name="medicines"
-              id="details-of-visit-medicines"
+              name="Medicines"
+              label="Medicines"
+              placeholder="Medicines"
+              alternative
               data-cy="medicines"
-              :class="{ valid: !$v.detailsOfVisit.medicines.$invalid, invalid: $v.detailsOfVisit.medicines.$invalid }"
               v-model="$v.detailsOfVisit.medicines.$model"
+              :rules="{ max: 30 }"
             />
-            <div v-if="$v.detailsOfVisit.medicines.$anyDirty && $v.detailsOfVisit.medicines.$invalid">
-              <small class="form-text text-danger" v-if="!$v.detailsOfVisit.medicines.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="details-of-visit-dosage">Dosage</label>
+          <div>
             <input
               type="text"
-              class="form-control"
-              name="dosage"
-              id="details-of-visit-dosage"
+              name="Dosage"
+              label="Dosage"
+              placeholder="Dosage"
+              alternative
               data-cy="dosage"
-              :class="{ valid: !$v.detailsOfVisit.dosage.$invalid, invalid: $v.detailsOfVisit.dosage.$invalid }"
               v-model="$v.detailsOfVisit.dosage.$model"
+              :rules="{ max: 30 }"
             />
-            <div v-if="$v.detailsOfVisit.dosage.$anyDirty && $v.detailsOfVisit.dosage.$invalid">
-              <small class="form-text text-danger" v-if="!$v.detailsOfVisit.dosage.maxLength">
-                This field cannot be longer than 30 characters.
-              </small>
-            </div>
           </div>
           <div class="form-group">
             <label class="form-control-label" for="details-of-visit-visit">Visit</label>
