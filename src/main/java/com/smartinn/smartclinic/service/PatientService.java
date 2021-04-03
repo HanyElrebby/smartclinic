@@ -52,12 +52,14 @@ public class PatientService {
                     if (patient.getName() != null) {
                         existingPatient.setName(patient.getName());
                     }
-
-                    if (patient.getPesel() != null) {
-                        existingPatient.setPesel(patient.getPesel());
+                    if (patient.getFileNumber() != null) {
+                        existingPatient.setFileNumber(patient.getFileNumber());
                     }
-                    if (patient.getFirstFatherName() != null) {
-                        existingPatient.setFirstFatherName(patient.getFirstFatherName());
+                    if (patient.getAge() != null) {
+                        existingPatient.setAge(patient.getAge());
+                    }
+                    if (patient.getGender() != null) {
+                        existingPatient.setGender(patient.getGender());
                     }
                     if (patient.getContactNumber() != null) {
                         existingPatient.setContactNumber(patient.getContactNumber());
