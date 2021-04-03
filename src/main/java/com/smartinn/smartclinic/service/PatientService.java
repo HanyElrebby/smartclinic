@@ -49,12 +49,10 @@ public class PatientService {
             .findById(patient.getId())
             .map(
                 existingPatient -> {
-                    if (patient.getFirstName() != null) {
-                        existingPatient.setFirstName(patient.getFirstName());
+                    if (patient.getName() != null) {
+                        existingPatient.setName(patient.getName());
                     }
-                    if (patient.getLastName() != null) {
-                        existingPatient.setLastName(patient.getLastName());
-                    }
+
                     if (patient.getPesel() != null) {
                         existingPatient.setPesel(patient.getPesel());
                     }
@@ -93,6 +91,17 @@ public class PatientService {
     public Page<Patient> findAll(Pageable pageable) {
         log.debug("Request to get all Patients");
         return patientRepository.findAll(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Patient> searchPatients(String search, Pageable pageable) {
+        log.debug("Request to get all Patients");
+        if (search == null || search.equals("zZnull")) {
+            search = "";
+        }
+        search = search.toUpperCase();
+
+        return patientRepository.searchPatients("%" + search + "%", "%" + search + "%", pageable);
     }
 
     /**

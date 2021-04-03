@@ -26,8 +26,7 @@
     <div class="table-responsive" v-if="doctors && doctors.length > 0">
       <el-table class="table-responsive table" header-row-class-name="thead-light" :data="doctors">
         <el-table-column label="ID" prop="id" min-width="140px"> </el-table-column>
-        <el-table-column label="First Name" prop="firstName"> </el-table-column>
-        <el-table-column label="Last Name" prop="lastName"> </el-table-column>
+        <el-table-column label="Name" prop="name"> </el-table-column>
         <el-table-column label="Specialization" prop="specialization"> </el-table-column>
         <el-table-column label="Phone Number" prop="phoneNumber"> </el-table-column>
 
@@ -67,7 +66,7 @@
             <th scope="row" v-on:click="changeOrder('id')">
               <span>ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
-            <th scope="row" v-on:click="changeOrder('firstName')">
+            <th scope="row" v-on:click="changeOrder('name')">
               <span>First Name</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'firstName'"></jhi-sort-indicator>
             </th>

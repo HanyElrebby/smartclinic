@@ -10,11 +10,7 @@ import PatientService from './patient.service';
 
 const validations: any = {
   patient: {
-    firstName: {
-      required,
-      maxLength: maxLength(30),
-    },
-    lastName: {
+    name: {
       required,
       maxLength: maxLength(30),
     },

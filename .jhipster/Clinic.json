@@ -30,7 +30,7 @@
       "relationshipName": "doctor",
       "otherEntityName": "doctor",
       "relationshipType": "many-to-one",
-      "otherEntityField": "firstName"
+      "otherEntityField": "name"
     },
     {
       "relationshipName": "visit",

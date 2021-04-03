@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <!--Toggler-->
       <navbar-toggle-button @click.native="showSidebar"> </navbar-toggle-button>
-      <router-link class="navbar-brand" to="/">
+      <router-link class="navbar-brand" to="/home">
         <img :src="logo" class="navbar-brand-img" alt="..." />
       </router-link>
 

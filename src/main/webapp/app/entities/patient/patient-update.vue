@@ -10,27 +10,16 @@
           <div>
             <base-input
               type="text"
-              name="First Name"
-              data-cy="firstName"
-              label="First Name"
-              placeholder="First Name"
+              name="Name"
+              data-cy="name"
+              label="Name"
+              placeholder="Name"
               alternative
-              v-model="$v.patient.firstName.$model"
+              v-model="$v.patient.name.$model"
               :rules="{ required: true, max: 30 }"
             />
           </div>
-          <div>
-            <base-input
-              type="text"
-              name="Last Name"
-              data-cy="lastName"
-              label="Last Name"
-              placeholder="Last Name"
-              alternative
-              v-model="$v.patient.lastName.$model"
-              :rules="{ required: true, max: 30 }"
-            />
-          </div>
+
           <div>
             <base-input
               type="text"

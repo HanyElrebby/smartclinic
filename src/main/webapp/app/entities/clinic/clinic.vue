@@ -30,10 +30,10 @@
         <el-table-column label="City" prop="City"> </el-table-column>
         <el-table-column label="Postal Code" prop="postalCode"> </el-table-column>
         <el-table-column label="Street" prop="street"> </el-table-column>
-        <el-table-column label="Doctor" prop="doctor.firstName">
+        <el-table-column label="Doctor" prop="doctor.name">
           <template v-slot="{ row }">
             <div v-if="row.doctor">
-              <router-link :to="{ name: 'DoctorView', params: { doctorId: row.doctor.id } }">{{ row.doctor.firstName }}</router-link>
+              <router-link :to="{ name: 'DoctorView', params: { doctorId: row.doctor.id } }">{{ row.doctor.name }}</router-link>
             </div>
           </template>
         </el-table-column>
@@ -89,9 +89,9 @@
               <span>Street</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'street'"></jhi-sort-indicator>
             </th>
-            <th scope="row" v-on:click="changeOrder('doctor.firstName')">
+            <th scope="row" v-on:click="changeOrder('doctor.name')">
               <span>Doctor</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'doctor.firstName'"></jhi-sort-indicator>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'doctor.name'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('user.login')">
               <span>User</span>
@@ -112,7 +112,7 @@
             <td>
               <div v-if="clinic.doctor">
                 <router-link :to="{ name: 'DoctorView', params: { doctorId: clinic.doctor.id } }">{{
-                  clinic.doctor.firstName
+                  clinic.doctor.name
                 }}</router-link>
               </div>
             </td>

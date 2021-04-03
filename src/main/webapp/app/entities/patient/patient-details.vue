@@ -5,16 +5,10 @@
         <h2 class="jh-entity-heading" data-cy="patientDetailsHeading"><span>Patient</span> {{ patient.id }}</h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span>First Name</span>
+            <span>Name</span>
           </dt>
           <dd>
-            <span>{{ patient.firstName }}</span>
-          </dd>
-          <dt>
-            <span>Last Name</span>
-          </dt>
-          <dd>
-            <span>{{ patient.lastName }}</span>
+            <span>{{ patient.name }}</span>
           </dd>
           <dt>
             <span>Pesel</span>

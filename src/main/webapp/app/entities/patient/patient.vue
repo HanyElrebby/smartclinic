@@ -3,6 +3,17 @@
     <h2 id="page-heading" data-cy="PatientHeading">
       <span id="patient-heading">Patients</span>
       <div class="d-flex justify-content-end">
+        <b-form class="navbar-search form-inline ml-sm-3 navbar-search-light" id="navbar-search-main">
+          <b-form-group class="mb-0">
+            <b-input-group class="input-group-alternative input-group-merge">
+              <b-form-input placeholder="إبحث" v-model="searchValue" style="margin-right: 10px" type="text"> </b-form-input>
+
+              <div class="input-group-append" style="margin-top: 10px; margin-left: 5px">
+                <font-awesome-icon v-on:click="handleSyncList" icon="search"></font-awesome-icon>
+              </div>
+            </b-input-group>
+          </b-form-group>
+        </b-form>
         <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
           <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>Refresh List</span>
         </button>
@@ -26,8 +37,7 @@
     <div class="table-responsive" v-if="patients && patients.length > 0">
       <el-table class="table-responsive table" header-row-class-name="thead-light" :data="patients">
         <el-table-column label="ID" prop="id" max-width="40px"> </el-table-column>
-        <el-table-column label="First Name" prop="firstName"> </el-table-column>
-        <el-table-column label="Last Name" prop="lastName"> </el-table-column>
+        <el-table-column label="Name" prop="name"> </el-table-column>
         <el-table-column label="Pesel" prop="pesel"> </el-table-column>
         <el-table-column label="First Father Name" prop="firstFatherName"> </el-table-column>
         <el-table-column label="Contact Number" prop="contactNumber"> </el-table-column>

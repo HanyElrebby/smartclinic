@@ -34,10 +34,10 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Patient" prop="patient.firstName">
+        <el-table-column label="Patient" prop="patient.name">
           <template v-slot="{ row }">
             <div v-if="row.patient">
-              <router-link :to="{ name: 'PatientView', params: { patientId: row.patient.id } }">{{ row.patient.firstName }}</router-link>
+              <router-link :to="{ name: 'PatientView', params: { patientId: row.patient.id } }">{{ row.patient.name }}</router-link>
             </div>
           </template>
         </el-table-column>

@@ -23,9 +23,7 @@
           </dt>
           <dd>
             <div v-if="visit.patient">
-              <router-link :to="{ name: 'PatientView', params: { patientId: visit.patient.id } }">{{
-                visit.patient.firstName
-              }}</router-link>
+              <router-link :to="{ name: 'PatientView', params: { patientId: visit.patient.id } }">{{ visit.patient.name }}</router-link>
             </div>
           </dd>
         </dl>
