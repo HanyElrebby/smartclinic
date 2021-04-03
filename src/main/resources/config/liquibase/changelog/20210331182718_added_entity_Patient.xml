@@ -14,10 +14,7 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="first_name" type="varchar(30)">
-                <constraints nullable="false" />
-            </column>
-            <column name="last_name" type="varchar(30)">
+            <column name="name" type="varchar(30)">
                 <constraints nullable="false" />
             </column>
             <column name="pesel" type="varchar(11)">
@@ -61,8 +58,7 @@
                   separator=";"
                   tableName="patient">
             <column name="id" type="numeric"/>
-            <column name="first_name" type="string"/>
-            <column name="last_name" type="string"/>
+            <column name="name" type="string"/>
             <column name="pesel" type="string"/>
             <column name="first_father_name" type="string"/>
             <column name="contact_number" type="string"/>

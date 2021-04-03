@@ -64,7 +64,7 @@
                 v-for="doctorOption in doctors"
                 :key="doctorOption.id"
               >
-                {{ doctorOption.firstName }}
+                {{ doctorOption.name }}
               </option>
             </select>
           </div>

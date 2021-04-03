@@ -44,7 +44,7 @@
                 v-for="patientOption in patients"
                 :key="patientOption.id"
               >
-                {{ patientOption.firstName }}
+                {{ patientOption.name }}
               </option>
             </select>
           </div>

@@ -24,13 +24,8 @@ public class Patient implements Serializable {
 
     @NotNull
     @Size(max = 30)
-    @Column(name = "first_name", length = 30, nullable = false)
-    private String firstName;
-
-    @NotNull
-    @Size(max = 30)
-    @Column(name = "last_name", length = 30, nullable = false)
-    private String lastName;
+    @Column(name = "name", length = 30, nullable = false)
+    private String name;
 
     @NotNull
     @Size(max = 11)
@@ -84,30 +79,17 @@ public class Patient implements Serializable {
         return this;
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    public String getName() {
+        return this.name;
     }
 
-    public Patient firstName(String firstName) {
-        this.firstName = firstName;
+    public Patient name(String name) {
+        this.name = name;
         return this;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public Patient lastName(String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPesel() {
@@ -256,8 +238,7 @@ public class Patient implements Serializable {
     public String toString() {
         return "Patient{" +
             "id=" + getId() +
-            ", firstName='" + getFirstName() + "'" +
-            ", lastName='" + getLastName() + "'" +
+            ", name='" + getName() + "'" +
             ", pesel='" + getPesel() + "'" +
             ", firstFatherName='" + getFirstFatherName() + "'" +
             ", contactNumber='" + getContactNumber() + "'" +

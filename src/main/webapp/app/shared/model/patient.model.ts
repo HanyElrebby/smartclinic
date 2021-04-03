@@ -2,8 +2,7 @@ import { IVisit } from '@/shared/model/visit.model';
 
 export interface IPatient {
   id?: number;
-  firstName?: string;
-  lastName?: string;
+  name?: string;
   pesel?: string;
   firstFatherName?: string;
   contactNumber?: string;
@@ -17,8 +16,7 @@ export interface IPatient {
 export class Patient implements IPatient {
   constructor(
     public id?: number,
-    public firstName?: string,
-    public lastName?: string,
+    public name?: string,
     public pesel?: string,
     public firstFatherName?: string,
     public contactNumber?: string,

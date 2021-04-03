@@ -49,11 +49,8 @@ public class DoctorService {
             .findById(doctor.getId())
             .map(
                 existingDoctor -> {
-                    if (doctor.getFirstName() != null) {
-                        existingDoctor.setFirstName(doctor.getFirstName());
-                    }
-                    if (doctor.getLastName() != null) {
-                        existingDoctor.setLastName(doctor.getLastName());
+                    if (doctor.getName() != null) {
+                        existingDoctor.setName(doctor.getName());
                     }
                     if (doctor.getSpecialization() != null) {
                         existingDoctor.setSpecialization(doctor.getSpecialization());

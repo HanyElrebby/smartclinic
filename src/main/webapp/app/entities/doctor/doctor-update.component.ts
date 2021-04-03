@@ -10,11 +10,7 @@ import DoctorService from './doctor.service';
 
 const validations: any = {
   doctor: {
-    firstName: {
-      required,
-      maxLength: maxLength(30),
-    },
-    lastName: {
+    name: {
       required,
       maxLength: maxLength(30),
     },
