@@ -2,6 +2,7 @@ package com.smartinn.smartclinic.service;
 
 import com.smartinn.smartclinic.domain.Patient;
 import com.smartinn.smartclinic.repository.PatientRepository;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,15 @@ public class PatientService {
      */
     public Patient save(Patient patient) {
         log.debug("Request to save Patient : {}", patient);
+        String fileNumber = "1";
+        List<Patient> patients = patientRepository.getLastPatient();
+        if (patients != null && patients.size() > 0) {
+            Patient lastPatient = patients.get(0);
+            int lastFileNumber = Integer.parseInt(lastPatient.getFileNumber());
+            fileNumber = (lastFileNumber + 1) + "";
+        }
+        patient.setFileNumber(fileNumber);
+
         return patientRepository.save(patient);
     }
 

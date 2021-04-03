@@ -44,28 +44,26 @@
               :rules="{ required: true, max: 3 }"
             />
           </div>
-          <div>
-            <base-input
-              type="text"
-              name="النوع"
-              data-cy="gender"
-              label="النوع"
-              placeholder="النوع"
-              alternative
-              v-model="$v.patient.gender.$model"
-              :rules="{ required: true, max: 6 }"
-            />
+
+          <div class="form-group">
+            <label class="form-control-label" for="visit-clinic">النوع</label>
+            <select class="form-control" aria-placeholder="النوع" id="gender" data-cy="clinic" name="clinic" v-model="patient.gender">
+              <option v-bind:value="null"></option>
+              <option v-bind:value="patient.gender && 'Male' === patient.gender ? patient.gender : 'Male'" :key="'Male'">ذكر</option>
+              <option v-bind:value="patient.gender && 'Female' === patient.gender ? patient.gender : 'Female'" :key="'Female'">أنثى</option>
+            </select>
           </div>
-          <div>
+
+          <div v-if="patient.fileNumber">
             <base-input
               type="text"
               name="رقم الملف"
               data-cy="fileNumber"
               label="رقم الملف"
               placeholder="رقم الملف"
+              readonly
               alternative
               v-model="$v.patient.fileNumber.$model"
-              :rules="{ required: true, max: 11 }"
             />
           </div>
 

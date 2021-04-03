@@ -26,10 +26,7 @@ const validations: any = {
       required,
       maxLength: maxLength(11),
     },
-    fileNumber: {
-      required,
-      maxLength: maxLength(11),
-    },
+    fileNumber: {},
     placeOfResidence: {
       required,
       maxLength: maxLength(30),
