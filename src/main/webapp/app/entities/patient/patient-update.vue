@@ -19,31 +19,6 @@
               :rules="{ required: true, max: 30 }"
             />
           </div>
-
-          <div>
-            <base-input
-              type="text"
-              name="Pesel"
-              data-cy="pesel"
-              label="Pesel"
-              placeholder="Pesel"
-              alternative
-              v-model="$v.patient.pesel.$model"
-              :rules="{ required: true, max: 30 }"
-            />
-          </div>
-          <div>
-            <base-input
-              type="text"
-              name="الإسم الأول للأب"
-              data-cy="firstFatherName"
-              label="الإسم الأول للأب"
-              placeholder="الإسم الأول للأب"
-              alternative
-              v-model="$v.patient.firstFatherName.$model"
-              :rules="{ required: true, max: 30 }"
-            />
-          </div>
           <div>
             <base-input
               type="text"
@@ -56,6 +31,44 @@
               :rules="{ required: true, max: 11 }"
             />
           </div>
+
+          <div>
+            <base-input
+              type="text"
+              name="العمر"
+              data-cy="age"
+              label="العمر"
+              placeholder="العمر"
+              alternative
+              v-model="$v.patient.age.$model"
+              :rules="{ required: true, max: 3 }"
+            />
+          </div>
+          <div>
+            <base-input
+              type="text"
+              name="النوع"
+              data-cy="gender"
+              label="النوع"
+              placeholder="النوع"
+              alternative
+              v-model="$v.patient.gender.$model"
+              :rules="{ required: true, max: 6 }"
+            />
+          </div>
+          <div>
+            <base-input
+              type="text"
+              name="رقم الملف"
+              data-cy="fileNumber"
+              label="رقم الملف"
+              placeholder="رقم الملف"
+              alternative
+              v-model="$v.patient.fileNumber.$model"
+              :rules="{ required: true, max: 11 }"
+            />
+          </div>
+
           <div>
             <base-input
               type="text"
