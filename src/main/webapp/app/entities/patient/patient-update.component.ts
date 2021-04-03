@@ -14,15 +14,19 @@ const validations: any = {
       required,
       maxLength: maxLength(30),
     },
-    pesel: {
+    age: {
+      required,
+      maxLength: maxLength(3),
+    },
+    gender: {
+      required,
+      maxLength: maxLength(6),
+    },
+    contactNumber: {
       required,
       maxLength: maxLength(11),
     },
-    firstFatherName: {
-      required,
-      maxLength: maxLength(30),
-    },
-    contactNumber: {
+    fileNumber: {
       required,
       maxLength: maxLength(11),
     },

@@ -59,6 +59,42 @@
           <div>
             <base-input
               type="text"
+              name="File Number"
+              data-cy="fileNumber"
+              label="File Number"
+              placeholder="File Number"
+              alternative
+              v-model="$v.patient.fileNumber.$model"
+              :rules="{ required: true, max: 11 }"
+            />
+          </div>
+          <div>
+            <base-input
+              type="text"
+              name="Age"
+              data-cy="age"
+              label="Age"
+              placeholder="Age"
+              alternative
+              v-model="$v.patient.age.$model"
+              :rules="{ required: true, max: 11 }"
+            />
+          </div>
+          <div>
+            <base-input
+              type="text"
+              name="Gender"
+              data-cy="gender"
+              label="gender"
+              placeholder="Gender"
+              alternative
+              v-model="$v.patient.gender.$model"
+              :rules="{ required: true, max: 11 }"
+            />
+          </div>
+          <div>
+            <base-input
+              type="text"
               name="Place Of Residence"
               data-cy="placeOfResidence"
               label="Place Of Residence"
