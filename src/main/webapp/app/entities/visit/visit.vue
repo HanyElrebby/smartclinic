@@ -1,10 +1,10 @@
 <template>
   <div>
     <h2 id="page-heading" data-cy="VisitHeading">
-      <span id="visit-heading">Visits</span>
+      <span id="visit-heading">الزيارات</span>
       <div class="d-flex justify-content-end">
-        <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
-          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>Refresh List</span>
+        <button class="btn btn-info ml-2" v-on:click="handleSyncList" :disabled="isFetching">
+          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>تحديث الجدول</span>
         </button>
         <router-link :to="{ name: 'VisitCreate' }" custom v-slot="{ navigate }">
           <button
@@ -14,27 +14,27 @@
             class="btn btn-primary jh-create-entity create-visit"
           >
             <font-awesome-icon icon="plus"></font-awesome-icon>
-            <span> Create a new Visit </span>
+            <span> إنشاء زيارة جديدة </span>
           </button>
         </router-link>
       </div>
     </h2>
     <br />
     <div class="alert alert-warning" v-if="!isFetching && visits && visits.length === 0">
-      <span>No visits found</span>
+      <span>لا يوجد زيارات</span>
     </div>
     <div class="table-responsive" v-if="visits && visits.length > 0">
       <el-table class="table-responsive table" header-row-class-name="thead-light" :data="visits">
-        <el-table-column label="ID" prop="id" min-width="140px"> </el-table-column>
-        <el-table-column label="Date Of Visit" prop="dateOfVisit"> </el-table-column>
-        <el-table-column label="Clinic" prop="clinic.nameOfClinic">
+        <el-table-column label="الكود" prop="id" min-width="140px"> </el-table-column>
+        <el-table-column label="تاريخ الزيارة" prop="dateOfVisit"> </el-table-column>
+        <el-table-column label="العيادة" prop="clinic.nameOfClinic">
           <template v-slot="{ row }">
             <div v-if="row.clinic">
               <router-link :to="{ name: 'ClinicView', params: { clinicId: row.clinic.id } }">{{ row.clinic.nameOfClinic }}</router-link>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="Patient" prop="patient.name">
+        <el-table-column label="المريض" prop="patient.name">
           <template v-slot="{ row }">
             <div v-if="row.patient">
               <router-link :to="{ name: 'PatientView', params: { patientId: row.patient.id } }">{{ row.patient.name }}</router-link>
@@ -42,19 +42,19 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Action" prop="id">
+        <el-table-column label="إجراء" prop="id">
           <template v-slot="{ row }">
             <div class="btn-group">
               <router-link :to="{ name: 'VisitView', params: { visitId: row.id } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
                   <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span class="d-none d-md-inline">View</span>
+                  <span class="d-none d-md-inline">مشاهدة</span>
                 </button>
               </router-link>
               <router-link :to="{ name: 'VisitEdit', params: { visitId: row.id } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
                   <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                  <span class="d-none d-md-inline">Edit</span>
+                  <span class="d-none d-md-inline">تعديل</span>
                 </button>
               </router-link>
               <b-button
@@ -65,7 +65,7 @@
                 v-b-modal.removeEntity
               >
                 <font-awesome-icon icon="times"></font-awesome-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline">حذف</span>
               </b-button>
             </div>
           </template>
@@ -145,13 +145,13 @@
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
-        ><span id="smartclinicApp.visit.delete.question" data-cy="visitDeleteDialogHeading">Confirm delete operation</span></span
+        ><span id="smartclinicApp.visit.delete.question" data-cy="visitDeleteDialogHeading">تأكيد عملية الحذف</span></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-visit-heading">Are you sure you want to delete this Visit?</p>
+        <p id="jhi-delete-visit-heading">هل تريد حقا حذف هذه الزيارة؟</p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">إلغاء</button>
         <button
           type="button"
           class="btn btn-primary"
@@ -159,7 +159,7 @@
           data-cy="entityConfirmDeleteButton"
           v-on:click="removeVisit()"
         >
-          Delete
+          حذف
         </button>
       </div>
     </b-modal>

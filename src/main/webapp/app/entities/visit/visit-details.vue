@@ -2,16 +2,16 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <div v-if="visit">
-        <h2 class="jh-entity-heading" data-cy="visitDetailsHeading"><span>Visit</span> {{ visit.id }}</h2>
+        <h2 class="jh-entity-heading" data-cy="visitDetailsHeading"><span>زيارة</span> {{ visit.id }}</h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span>Date Of Visit</span>
+            <span>تاريخ الزيارة</span>
           </dt>
           <dd>
             <span>{{ visit.dateOfVisit | formatDate }}</span>
           </dd>
           <dt>
-            <span>Clinic</span>
+            <span>العيادة</span>
           </dt>
           <dd>
             <div v-if="visit.clinic">
@@ -19,7 +19,7 @@
             </div>
           </dd>
           <dt>
-            <span>Patient</span>
+            <span>المريض</span>
           </dt>
           <dd>
             <div v-if="visit.patient">
@@ -28,11 +28,11 @@
           </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span> Back</span>
+          <font-awesome-icon icon="backward"></font-awesome-icon>&nbsp;<span> عودة</span>
         </button>
         <router-link v-if="visit.id" :to="{ name: 'VisitEdit', params: { visitId: visit.id } }" custom v-slot="{ navigate }">
           <button @click="navigate" class="btn btn-primary">
-            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span> Edit</span>
+            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span> تعديل</span>
           </button>
         </router-link>
       </div>

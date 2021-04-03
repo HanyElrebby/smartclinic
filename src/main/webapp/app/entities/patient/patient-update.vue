@@ -2,18 +2,18 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
-        <h2 id="smartclinicApp.patient.home.createOrEditLabel" data-cy="PatientCreateUpdateHeading">Create or edit a Patient</h2>
+        <h2 id="smartclinicApp.patient.home.createOrEditLabel" data-cy="PatientCreateUpdateHeading">إنشاء او تعديل مريض</h2>
         <div>
           <div v-if="patient.id">
-            <base-input type="text" label="ID" name="id" v-model="patient.id" readonly />
+            <base-input type="text" label="الكود" name="id" v-model="patient.id" readonly />
           </div>
           <div>
             <base-input
               type="text"
-              name="Name"
+              name="الإسم"
               data-cy="name"
-              label="Name"
-              placeholder="Name"
+              label="الإسم"
+              placeholder="الإسم"
               alternative
               v-model="$v.patient.name.$model"
               :rules="{ required: true, max: 30 }"
@@ -35,10 +35,10 @@
           <div>
             <base-input
               type="text"
-              name="First Father Name"
+              name="الإسم الأول للأب"
               data-cy="firstFatherName"
-              label="First Father Name"
-              placeholder="First Father Name"
+              label="الإسم الأول للأب"
+              placeholder="الإسم الأول للأب"
               alternative
               v-model="$v.patient.firstFatherName.$model"
               :rules="{ required: true, max: 30 }"
@@ -47,10 +47,10 @@
           <div>
             <base-input
               type="text"
-              name="Contact Number"
+              name="رقم التواصل"
               data-cy="contactNumber"
-              label="Contact Number"
-              placeholder="Contact Number"
+              label="رقم التواصل"
+              placeholder="رقم التواصل"
               alternative
               v-model="$v.patient.contactNumber.$model"
               :rules="{ required: true, max: 11 }"
@@ -59,17 +59,17 @@
           <div>
             <base-input
               type="text"
-              name="Place Of Residence"
+              name="مكان الإقامة"
               data-cy="placeOfResidence"
-              label="Place Of Residence"
-              placeholder="Place Of Residence"
+              label="مكان الإقامة"
+              placeholder="مكان الإقامة"
               alternative
               v-model="$v.patient.placeOfResidence.$model"
               :rules="{ required: true, max: 30 }"
             />
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="patient-dateOfBirth">Date Of Birth</label>
+            <label class="form-control-label" for="patient-dateOfBirth">تاريخ الميلاد</label>
             <b-input-group class="mb-3">
               <b-input-group-prepend>
                 <b-form-datepicker
@@ -97,16 +97,16 @@
               />
             </b-input-group>
             <div v-if="$v.patient.dateOfBirth.$anyDirty && $v.patient.dateOfBirth.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.dateOfBirth.required"> This field is required. </small>
+              <small class="form-text text-danger" v-if="!$v.patient.dateOfBirth.required"> تاريخ الميلاد مطلوب </small>
             </div>
           </div>
           <div>
             <base-input
               type="text"
-              name="Blood Group"
+              name="فصيلة الدم"
               data-cy="bloodGroup"
-              label="Blood Group"
-              placeholder="Blood Group"
+              label="فصيلة الدم"
+              placeholder="فصيلة الدم"
               alternative
               v-model="$v.patient.bloodGroup.$model"
               :rules="{ required: true, max: 30 }"
@@ -115,10 +115,10 @@
           <div>
             <base-input
               type="number"
-              name="Phone Number"
+              name="رقم الهاتف"
               data-cy="phoneNumber"
-              label="Phone Number"
-              placeholder="Phone Number"
+              label="رقم الهاتف"
+              placeholder="رقم الهاتف"
               alternative
               v-model="$v.patient.phoneNumber.$model"
               :rules="{ required: true, max: 11 }"
@@ -127,7 +127,7 @@
         </div>
         <div>
           <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>Cancel</span>
+            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>إلغاء</span>
           </button>
           <button
             type="submit"
@@ -136,7 +136,7 @@
             :disabled="$v.patient.$invalid || isSaving"
             class="btn btn-primary"
           >
-            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Save</span>
+            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>حفظ</span>
           </button>
         </div>
       </form>

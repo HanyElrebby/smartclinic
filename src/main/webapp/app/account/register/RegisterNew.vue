@@ -6,15 +6,15 @@
         <div class="header-body text-center mb-7">
           <b-row class="justify-content-center">
             <b-col xl="5" lg="6" md="8" class="px-5">
-              <h1 class="text-white">Create an account</h1>
+              <h1 class="text-white">إنشاء حساب</h1>
               <div class="alert alert-success" role="alert" v-if="success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
+                <strong>تم إنشاء حساب</strong> يرجى فحص البريد الالكترونى لتفعيل الحساب
               </div>
 
-              <div class="alert alert-danger" role="alert" v-if="error"><strong>Registration failed!</strong> Please try again later.</div>
+              <div class="alert alert-danger" role="alert" v-if="error"><strong>لم يتم إنشاء الحساب</strong>يرجى المحاولة لاحقا</div>
 
               <div class="alert alert-danger" role="alert" v-if="errorUserExists">
-                <strong>Login name already registered!</strong> Please choose another one.
+                <strong>اسم المستخدم محجوز</strong> يرجى اختيار اسم أخر
               </div>
 
               <div class="alert alert-danger" role="alert" v-if="errorEmailExists">

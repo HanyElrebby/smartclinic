@@ -2,17 +2,17 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
-        <h2 id="smartclinicApp.doctor.home.createOrEditLabel" data-cy="DoctorCreateUpdateHeading">Create or edit a Doctor</h2>
+        <h2 id="smartclinicApp.doctor.home.createOrEditLabel" data-cy="DoctorCreateUpdateHeading">إنشاء او تعديل طبيب</h2>
         <div>
           <div v-if="doctor.id">
-            <base-input type="text" label="ID" name="id" v-model="doctor.id" readonly />
+            <base-input type="text" label="الكود" name="id" v-model="doctor.id" readonly />
           </div>
           <div>
             <base-input
               type="text"
-              name="Name"
-              label="Name"
-              placeholder="Name"
+              name="الإسم"
+              label="الإسم"
+              placeholder="الإسم"
               data-cy="name"
               alternative
               v-model="$v.doctor.name.$model"
@@ -23,10 +23,10 @@
           <div>
             <base-input
               type="text"
-              name="Specialization"
+              name="التخصص"
               data-cy="specialization"
-              label="Specialization"
-              placeholder="Specialization"
+              label="التخصص"
+              placeholder="التخصص"
               alternative
               v-model="$v.doctor.specialization.$model"
               :rules="{ required: true, max: 30 }"
@@ -35,10 +35,10 @@
           <div>
             <base-input
               type="number"
-              name="Phone Number"
+              name="رقم الهاتف"
               data-cy="phoneNumber"
-              label="Phone Number"
-              placeholder="Phone Number"
+              label="رقم الهاتف"
+              placeholder="رقم الهاتف"
               alternative
               v-model="$v.doctor.phoneNumber.$model"
               :rules="{ required: true, max: 11 }"
@@ -47,7 +47,7 @@
         </div>
         <div>
           <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>Cancel</span>
+            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>رجوع</span>
           </button>
           <button
             type="submit"
@@ -56,7 +56,7 @@
             :disabled="$v.doctor.$invalid || isSaving"
             class="btn btn-primary"
           >
-            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Save</span>
+            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>حفظ</span>
           </button>
         </div>
       </form>

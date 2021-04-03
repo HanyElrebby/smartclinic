@@ -1,38 +1,38 @@
 <template>
   <div>
     <h2>
-      <span id="user-management-page-heading" data-cy="userManagementPageHeading">Users</span>
+      <span id="user-management-page-heading" data-cy="userManagementPageHeading">المستخدمين</span>
 
       <div class="d-flex justify-content-end">
-        <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isLoading">
-          <font-awesome-icon icon="sync" :spin="isLoading"></font-awesome-icon> <span>Refresh List</span>
+        <button class="btn btn-info ml-2" v-on:click="handleSyncList" :disabled="isLoading">
+          <font-awesome-icon icon="sync" :spin="isLoading"></font-awesome-icon> <span>تحديث الجدول</span>
         </button>
         <router-link custom v-slot="{ navigate }" :to="{ name: 'JhiUserCreate' }">
           <button @click="navigate" class="btn btn-primary jh-create-entity">
-            <font-awesome-icon icon="plus"></font-awesome-icon> <span>Create a new User</span>
+            <font-awesome-icon icon="plus"></font-awesome-icon> <span>إنشاء مستخدم جديد</span>
           </button>
         </router-link>
       </div>
     </h2>
     <div class="table-responsive" v-if="users">
       <el-table class="table-responsive table" header-row-class-name="thead-light" :data="users">
-        <el-table-column label="ID" prop="id" min-width="140px"> </el-table-column>
-        <el-table-column label="Login" prop="login"> </el-table-column>
-        <el-table-column label="Email" prop="email"> </el-table-column>
-        <el-table-column label="Status" prop="activated">
+        <el-table-column label="الكود" prop="id" min-width="140px"> </el-table-column>
+        <el-table-column label="إسم المستخدم" prop="login"> </el-table-column>
+        <el-table-column label="البريد الإلكترونى" prop="email"> </el-table-column>
+        <el-table-column label="الحالة" prop="activated">
           <template v-slot="{ row }">
-            <button class="btn btn-danger btn-sm deactivated" v-on:click="setActive(row, true)" v-if="!row.activated">Deactivated</button>
+            <button class="btn btn-danger btn-sm deactivated" v-on:click="setActive(row, true)" v-if="!row.activated">غير نشط</button>
             <button
               class="btn btn-success btn-sm"
               v-on:click="setActive(row, false)"
               v-if="row.activated"
               :disabled="username === row.login"
             >
-              Activated
+              نشط
             </button>
           </template>
         </el-table-column>
-        <el-table-column label="Profiles" prop="authorities">
+        <el-table-column label="الأذونات" prop="authorities">
           <template v-slot="{ row }">
             <div v-for="authority of row.authorities" :key="authority">
               <span class="badge badge-info">{{ authority }}</span>
@@ -40,28 +40,28 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="Created Date" prop="createdDate"> </el-table-column>
-        <el-table-column label="Last Modified Date" prop="lastModifiedDate"> </el-table-column>
-        <el-table-column label="Last Modified By" prop="lastModifiedBy"> </el-table-column>
+        <el-table-column label="تاريخ الأنشاء" prop="createdDate"> </el-table-column>
+        <el-table-column label="تاريخ أخر تعديل" prop="lastModifiedDate"> </el-table-column>
+        <el-table-column label="أخر تعديل بواسطة" prop="lastModifiedBy"> </el-table-column>
 
-        <el-table-column label="Action" prop="id">
+        <el-table-column label="إجراء" prop="id">
           <template v-slot="{ row }">
             <div class="btn-group">
               <router-link :to="{ name: 'JhiUserView', params: { userId: row.login } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-info btn-sm details">
                   <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span class="d-none d-md-inline">View</span>
+                  <span class="d-none d-md-inline">مشاهدة</span>
                 </button>
               </router-link>
               <router-link :to="{ name: 'JhiUserEdit', params: { userId: row.login } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-primary btn-sm edit">
                   <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                  <span class="d-none d-md-inline">Edit</span>
+                  <span class="d-none d-md-inline">تعديل</span>
                 </button>
               </router-link>
               <b-button v-on:click="prepareRemove(row)" variant="danger" class="btn btn-sm delete" :disabled="username === row.login">
                 <font-awesome-icon icon="times"></font-awesome-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline">حذف</span>
               </b-button>
             </div>
           </template>
@@ -153,11 +153,11 @@
       </table>-->
       <b-modal ref="removeUser" id="removeUser" @ok="deleteUser()">
         <div class="modal-body">
-          <p id="jhi-delete-user-heading">Are you sure you want to delete this user?</p>
+          <p id="jhi-delete-user-heading">هل تريد حقا حذف هذا المستخدم؟</p>
         </div>
         <div slot="modal-footer">
-          <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">Cancel</button>
-          <button type="button" class="btn btn-primary" id="confirm-delete-user" v-on:click="deleteUser()">Delete</button>
+          <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">إلغاء</button>
+          <button type="button" class="btn btn-primary" id="confirm-delete-user" v-on:click="deleteUser()">حذف</button>
         </div>
       </b-modal>
     </div>
