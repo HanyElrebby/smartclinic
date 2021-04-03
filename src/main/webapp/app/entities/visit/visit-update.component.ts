@@ -49,6 +49,8 @@ export default class VisitUpdate extends Vue {
     next(vm => {
       if (to.params.visitId) {
         vm.retrieveVisit(to.params.visitId);
+      } else {
+        vm.visit.dateOfVisit = new Date();
       }
       vm.initRelationships();
     });

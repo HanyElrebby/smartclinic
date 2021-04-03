@@ -32,8 +32,6 @@ public class Patient implements Serializable {
     @Column(name = "contact_number", length = 11, nullable = false)
     private String contactNumber;
 
-    @NotNull
-    @Size(max = 11)
     @Column(name = "file_number", length = 11, nullable = false)
     private String fileNumber;
 
