@@ -19,6 +19,15 @@
 
             <sidebar-item
               :link="{
+                name: 'العيادات',
+                path: '/clinic',
+                icon: 'ni ni-planet text-blue',
+              }"
+            >
+            </sidebar-item>
+
+            <sidebar-item
+              :link="{
                 name: 'الأطباء',
                 path: '/doctor',
                 icon: 'ni ni-planet text-blue',

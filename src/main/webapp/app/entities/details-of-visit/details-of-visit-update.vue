@@ -3,19 +3,19 @@
     <div class="col-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
         <h2 id="smartclinicApp.detailsOfVisit.home.createOrEditLabel" data-cy="DetailsOfVisitCreateUpdateHeading">
-          Create or edit a DetailsOfVisit
+          إنشاء او تعديل تفاصيل الزيارة
         </h2>
         <div>
           <div v-if="detailsOfVisit.id">
-            <base-input type="text" label="ID" name="id" v-model="detailsOfVisit.id" readonly />
+            <base-input type="text" label="الكود" name="id" v-model="detailsOfVisit.id" readonly />
           </div>
           <div>
             <base-input
               type="text"
-              name="Description Ailments"
+              name="وصف الأمراض"
               data-cy="descriptionAilments"
-              label="Description Ailments"
-              placeholder="Description Ailments"
+              label="وصف الأمراض"
+              placeholder="وصف الأمراض"
               alternative
               v-model="$v.detailsOfVisit.descriptionAilments.$model"
               :rules="{ required: true, max: 50 }"
@@ -24,10 +24,10 @@
           <div>
             <base-input
               type="text"
-              name="Name Of Disease"
+              name="إسم المرض"
               data-cy="nameOfDisease"
-              label="Name Of Disease"
-              placeholder="Name Of Disease"
+              label="إسم المرض"
+              placeholder="إسم المرض"
               alternative
               v-model="$v.detailsOfVisit.nameOfDisease.$model"
               :rules="{ required: true, max: 30 }"
@@ -36,9 +36,9 @@
           <div>
             <base-input
               type="text"
-              name="Recommendations"
-              label="Recommendations"
-              placeholder="Recommendations"
+              name="التوصيات"
+              label="التوصيات"
+              placeholder="التوصيات"
               alternative
               data-cy="recommendations"
               v-model="$v.detailsOfVisit.recommendations.$model"
@@ -48,9 +48,9 @@
           <div>
             <base-input
               type="text"
-              name="Medicines"
-              label="Medicines"
-              placeholder="Medicines"
+              name="الأدوية"
+              label="الأدوية"
+              placeholder="الأدوية"
               alternative
               data-cy="medicines"
               v-model="$v.detailsOfVisit.medicines.$model"
@@ -60,9 +60,9 @@
           <div>
             <base-input
               type="text"
-              name="Dosage"
-              label="Dosage"
-              placeholder="Dosage"
+              name="الجرعة"
+              label="الجرعة"
+              placeholder="الجرعة"
               alternative
               data-cy="dosage"
               v-model="$v.detailsOfVisit.dosage.$model"
@@ -70,7 +70,7 @@
             />
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="details-of-visit-visit">Visit</label>
+            <label class="form-control-label" for="details-of-visit-visit">الزيارة</label>
             <select class="form-control" id="details-of-visit-visit" data-cy="visit" name="visit" v-model="detailsOfVisit.visit">
               <option v-bind:value="null"></option>
               <option
@@ -85,7 +85,7 @@
         </div>
         <div>
           <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>Cancel</span>
+            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>إلغاء</span>
           </button>
           <button
             type="submit"
@@ -94,7 +94,7 @@
             :disabled="$v.detailsOfVisit.$invalid || isSaving"
             class="btn btn-primary"
           >
-            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Save</span>
+            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>حفظ</span>
           </button>
         </div>
       </form>

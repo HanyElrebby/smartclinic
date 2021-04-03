@@ -2,10 +2,10 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <div v-if="patient">
-        <h2 class="jh-entity-heading" data-cy="patientDetailsHeading"><span>Patient</span> {{ patient.id }}</h2>
+        <h2 class="jh-entity-heading" data-cy="patientDetailsHeading"><span>المريض</span> {{ patient.id }}</h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span>Name</span>
+            <span>الاسم</span>
           </dt>
           <dd>
             <span>{{ patient.name }}</span>
@@ -17,48 +17,48 @@
             <span>{{ patient.pesel }}</span>
           </dd>
           <dt>
-            <span>First Father Name</span>
+            <span>الإسم الأول للأب</span>
           </dt>
           <dd>
             <span>{{ patient.firstFatherName }}</span>
           </dd>
           <dt>
-            <span>Contact Number</span>
+            <span>رقم التواصل</span>
           </dt>
           <dd>
             <span>{{ patient.contactNumber }}</span>
           </dd>
           <dt>
-            <span>Place Of Residence</span>
+            <span>مكان الإقامة</span>
           </dt>
           <dd>
             <span>{{ patient.placeOfResidence }}</span>
           </dd>
           <dt>
-            <span>Date Of Birth</span>
+            <span>تاريخ الميلاد</span>
           </dt>
           <dd>
             <span>{{ patient.dateOfBirth }}</span>
           </dd>
           <dt>
-            <span>Blood Group</span>
+            <span>فصيلة الدم</span>
           </dt>
           <dd>
             <span>{{ patient.bloodGroup }}</span>
           </dd>
           <dt>
-            <span>Phone Number</span>
+            <span>رقم الهاتف</span>
           </dt>
           <dd>
             <span>{{ patient.phoneNumber }}</span>
           </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span> Back</span>
+          <font-awesome-icon icon="arrow-right"></font-awesome-icon>&nbsp;<span> رجوع</span>
         </button>
         <router-link v-if="patient.id" :to="{ name: 'PatientEdit', params: { patientId: patient.id } }" custom v-slot="{ navigate }">
           <button @click="navigate" class="btn btn-primary">
-            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span> Edit</span>
+            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span> تعديل</span>
           </button>
         </router-link>
       </div>

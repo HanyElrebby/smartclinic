@@ -28,10 +28,10 @@
                   <base-input
                     alternative
                     class="mb-3"
-                    name="User Name"
+                    name="إسم المستخدم"
                     :rules="{ required: true }"
                     prepend-icon="ni ni-email-83"
-                    placeholder="User Name"
+                    placeholder="إسم المستخدم"
                     v-model="login"
                   >
                   </base-input>
@@ -39,16 +39,16 @@
                   <base-input
                     alternative
                     class="mb-3"
-                    name="Password"
+                    name="كلمة المرور"
                     :rules="{ required: true }"
                     prepend-icon="ni ni-lock-circle-open"
                     type="password"
-                    placeholder="Password"
+                    placeholder="كلمة المرور"
                     v-model="password"
                   >
                   </base-input>
                   <div class="text-center">
-                    <base-button type="primary" native-type="submit" class="my-4">Sign in</base-button>
+                    <base-button type="primary" native-type="submit" class="my-4">تسجيل الدخول</base-button>
                   </div>
                 </b-form>
               </validation-observer>

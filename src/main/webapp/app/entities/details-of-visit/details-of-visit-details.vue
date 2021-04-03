@@ -2,40 +2,40 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <div v-if="detailsOfVisit">
-        <h2 class="jh-entity-heading" data-cy="detailsOfVisitDetailsHeading"><span>DetailsOfVisit</span> {{ detailsOfVisit.id }}</h2>
+        <h2 class="jh-entity-heading" data-cy="detailsOfVisitDetailsHeading"><span>تفاصيل الزيارات</span> {{ detailsOfVisit.id }}</h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span>Description Ailments</span>
+            <span>وصف الأمراض</span>
           </dt>
           <dd>
             <span>{{ detailsOfVisit.descriptionAilments }}</span>
           </dd>
           <dt>
-            <span>Name Of Disease</span>
+            <span>إسم المرض</span>
           </dt>
           <dd>
             <span>{{ detailsOfVisit.nameOfDisease }}</span>
           </dd>
           <dt>
-            <span>Recommendations</span>
+            <span>التوصيات</span>
           </dt>
           <dd>
             <span>{{ detailsOfVisit.recommendations }}</span>
           </dd>
           <dt>
-            <span>Medicines</span>
+            <span>الأدوية</span>
           </dt>
           <dd>
             <span>{{ detailsOfVisit.medicines }}</span>
           </dd>
           <dt>
-            <span>Dosage</span>
+            <span>الجرعة</span>
           </dt>
           <dd>
             <span>{{ detailsOfVisit.dosage }}</span>
           </dd>
           <dt>
-            <span>Visit</span>
+            <span>الزيارة</span>
           </dt>
           <dd>
             <div v-if="detailsOfVisit.visit">
@@ -46,7 +46,7 @@
           </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span> Back</span>
+          <font-awesome-icon icon="arrow-right"></font-awesome-icon>&nbsp;<span> رجوع</span>
         </button>
         <router-link
           v-if="detailsOfVisit.id"
@@ -55,7 +55,7 @@
           v-slot="{ navigate }"
         >
           <button @click="navigate" class="btn btn-primary">
-            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span> Edit</span>
+            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span> تعديل</span>
           </button>
         </router-link>
       </div>

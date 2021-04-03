@@ -2,18 +2,18 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" v-if="userAccount">
-        <h2 id="myUserLabel">Create or edit a User</h2>
+        <h2 id="myUserLabel">إنشاء او تعديل مستخدم</h2>
         <div>
           <div :hidden="!userAccount.id">
-            <base-input type="text" label="ID" name="id" v-model="userAccount.id" readonly />
+            <base-input type="text" label="الكود" name="id" v-model="userAccount.id" readonly />
           </div>
 
           <div>
             <base-input
               type="text"
-              name="login"
-              label="Login"
-              placeholder="Login"
+              name="إسم المستخدم"
+              label="إسم المستخدم"
+              placeholder="إسم المستخدم"
               alternative
               v-model="$v.userAccount.login.$model"
               :rules="{ required: true, max: 50, min: 1, pattern: '^[a-zA-Z0-9!#$&\'*+=?^_`{|}~.-]+@?[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$' }"
@@ -22,10 +22,10 @@
           <div>
             <base-input
               type="text"
-              name="First Name"
+              name="الإسم الأول"
               data-cy="firstName"
-              label="First Name"
-              placeholder="First Name"
+              label="الإسم الأول"
+              placeholder="الإسم الأول"
               alternative
               v-model="$v.userAccount.firstName.$model"
               :rules="{ max: 30 }"
@@ -34,9 +34,9 @@
           <div>
             <base-input
               type="text"
-              name="Last Name"
-              label="Last Name"
-              placeholder="Last Name"
+              name="الإسم الأخير"
+              label="الإسم الأخير"
+              placeholder="الإسم الأخير"
               alternative
               v-model="$v.userAccount.lastName.$model"
               :rules="{ max: 30 }"
@@ -46,9 +46,9 @@
             <base-input
               type="email"
               id="email"
-              name="Email"
-              label="Email"
-              placeholder="Email"
+              name="البريد الألكترونى"
+              label="البريد الألكترونى"
+              placeholder="البريد الألكترونى"
               alternative
               v-model="$v.userAccount.email.$model"
               :rules="{ required: true, email: true, min: 5, max: 200 }"
@@ -60,16 +60,16 @@
                 :disabled="userAccount.id === null"
                 type="checkbox"
                 id="activated"
-                name="activated"
+                name="نشط"
                 v-model="userAccount.activated"
                 :checked="userAccount.activated"
               />
-              <span>Activated</span>
+              <span>نشط</span>
             </label>
           </div>
 
           <div class="form-group">
-            <label>Profiles</label>
+            <label>الأذونات</label>
             <select class="form-control" multiple name="authority" v-model="userAccount.authorities">
               <option v-for="authority of authorities" :value="authority" :key="authority">{{ authority }}</option>
             </select>
@@ -77,10 +77,10 @@
         </div>
         <div>
           <button type="button" class="btn btn-secondary" v-on:click="previousState()">
-            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>Cancel</span>
+            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>إلغاء</span>
           </button>
           <button type="submit" :disabled="$v.userAccount.$invalid || isSaving" class="btn btn-primary">
-            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Save</span>
+            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>حفظ</span>
           </button>
         </div>
       </form>

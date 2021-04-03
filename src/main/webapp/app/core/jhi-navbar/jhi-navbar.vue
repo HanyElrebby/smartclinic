@@ -56,6 +56,7 @@
           right
           href="javascript:void(0);"
           id="account-menu"
+          style="text-align: center"
           :class="{ 'router-link-active': subIsActive('/account') }"
           active-class="active"
           class="pointer"
@@ -63,25 +64,25 @@
         >
           <span class="account-font" slot="button-content">
             <font-awesome-icon icon="user" />
-            <span> Account </span>
+            <span> الحساب </span>
           </span>
           <b-dropdown-item data-cy="settings" to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="wrench" />
-            <span>Settings</span>
+            <span>الإعدادات</span>
           </b-dropdown-item>
           <b-dropdown-item data-cy="passwordItem" to="/account/password" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="lock" />
-            <span>Password</span>
+            <span>كلمة المرور</span>
           </b-dropdown-item>
           <b-dropdown-item data-cy="logout" v-if="authenticated" v-on:click="logout()" id="logout" active-class="active">
             <font-awesome-icon icon="sign-out-alt" />
-            <span>Sign out</span>
+            <span>تسجيل الخروج</span>
           </b-dropdown-item>
           <b-dropdown-item data-cy="login" v-if="!authenticated" tag="b-dropdown-item" to="/login" id="login" active-class="active">
             <font-awesome-icon icon="sign-in-alt" />
-            <span>Sign in</span>
+            <span>تسجيل الدخول</span>
           </b-dropdown-item>
-          <b-dropdown-item
+          <!--<b-dropdown-item
             data-cy="register"
             to="/register"
             tag="b-dropdown-item"
@@ -91,7 +92,7 @@
           >
             <font-awesome-icon icon="user-plus" />
             <span>Register</span>
-          </b-dropdown-item>
+          </b-dropdown-item>-->
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
