@@ -41,6 +41,12 @@ public class DetailsOfVisit implements Serializable {
     @Column(name = "dosage", length = 30)
     private String dosage;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "clinic", "patient", "detailsOfVisits" }, allowSetters = true)
     private Visit visit;
@@ -124,6 +130,22 @@ public class DetailsOfVisit implements Serializable {
         this.dosage = dosage;
     }
 
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
     public Visit getVisit() {
         return this.visit;
     }
@@ -161,7 +183,11 @@ public class DetailsOfVisit implements Serializable {
     public String toString() {
         return "DetailsOfVisit{" +
             "id=" + getId() +
-            ", descriptionAilments='" + getDescriptionAilments() + "'" +
+            ", createdBy='" +
+            createdBy +
+            "', updatedBy='" +
+            updatedBy +
+            "', descriptionAilments='" + getDescriptionAilments() + "'" +
             ", nameOfDisease='" + getNameOfDisease() + "'" +
             ", recommendations='" + getRecommendations() + "'" +
             ", medicines='" + getMedicines() + "'" +

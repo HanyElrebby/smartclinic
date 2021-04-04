@@ -12,7 +12,7 @@ import VisitService from './visit.service';
 export default class Visit extends Vue {
   @Inject('visitService') private visitService: () => VisitService;
   private removeId: number = null;
-  public itemsPerPage = 20;
+  public itemsPerPage = 10;
   public queryCount: number = null;
   public page = 1;
   public previousPage = 1;
@@ -24,8 +24,24 @@ export default class Visit extends Vue {
 
   public isFetching = false;
 
+  public date = new Date();
+
+  public currentDate;
+
   public mounted(): void {
     this.retrieveAllVisits();
+  }
+
+  formatDate(date) {
+    var d = date,
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 
   public clear(): void {
@@ -36,13 +52,17 @@ export default class Visit extends Vue {
   public retrieveAllVisits(): void {
     this.isFetching = true;
 
+    if (!this.currentDate) {
+      this.currentDate = this.formatDate(new Date());
+    }
+
     const paginationQuery = {
       page: this.page - 1,
       size: this.itemsPerPage,
       sort: this.sort(),
     };
     this.visitService()
-      .retrieve(paginationQuery)
+      .retrieveByDate(this.currentDate, paginationQuery)
       .then(
         res => {
           this.visits = res.data;

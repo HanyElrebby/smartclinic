@@ -26,6 +26,15 @@ public class Visit implements Serializable {
     @Column(name = "visit_type", nullable = false)
     private String visitType;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "cost", nullable = false)
+    private Integer cost;
+
     @NotNull
     @Column(name = "date_of_visit", nullable = false)
     private ZonedDateTime dateOfVisit;
@@ -75,6 +84,30 @@ public class Visit implements Serializable {
 
     public void setVisitType(String visitType) {
         this.visitType = visitType;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
     }
 
     public Clinic getClinic() {
@@ -158,9 +191,15 @@ public class Visit implements Serializable {
         return (
             "Visit [id=" +
             id +
-            ", visitType=" +
+            ", visitType='" +
             visitType +
-            ", dateOfVisit=" +
+            "', cost=" +
+            cost +
+            ", createdBy='" +
+            createdBy +
+            "', updatedBy='" +
+            updatedBy +
+            "', dateOfVisit=" +
             dateOfVisit +
             ", clinic=" +
             clinic +

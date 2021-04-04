@@ -58,6 +58,12 @@ public class Patient implements Serializable {
     @Column(name = "blood_group", length = 30, nullable = false)
     private String bloodGroup;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
     @NotNull
     @Size(max = 11)
     @Column(name = "phone_number", length = 11, nullable = false)
@@ -183,6 +189,22 @@ public class Patient implements Serializable {
         this.gender = gender;
     }
 
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
     public Set<Visit> getVisits() {
         return this.visits;
     }
@@ -238,7 +260,11 @@ public class Patient implements Serializable {
         return (
             "Patient [id=" +
             id +
-            ", name=" +
+            ", createdBy='" +
+            createdBy +
+            "', updatedBy='" +
+            updatedBy +
+            "', name=" +
             name +
             ", contactNumber=" +
             contactNumber +

@@ -77,9 +77,15 @@ export default class PatientUpdate extends Vue {
     );
   }
 
+  public get username(): string {
+    return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
+
   public save(): void {
     this.isSaving = true;
     if (this.patient.id) {
+      this.patient.createdBy = this.username;
+      this.patient.updatedBy = this.username;
       this.patientService()
         .update(this.patient)
         .then(param => {
@@ -95,6 +101,7 @@ export default class PatientUpdate extends Vue {
           });
         });
     } else {
+      this.patient.updatedBy = this.username;
       this.patientService()
         .create(this.patient)
         .then(param => {

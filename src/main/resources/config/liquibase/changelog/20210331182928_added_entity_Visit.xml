@@ -20,6 +20,12 @@
             <column name="visit_type" type="varchar(30)">
                 <constraints nullable="false" />
             </column>
+            <column name="cost" type="int">
+            </column>
+            <column name="created_by" type="varchar(100)">
+            </column>
+            <column name="updated_by" type="varchar(100)">
+            </column>
             <column name="clinic_id" type="bigint">
                 <constraints nullable="true" />
             </column>

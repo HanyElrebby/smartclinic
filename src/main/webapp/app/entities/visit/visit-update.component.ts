@@ -26,6 +26,9 @@ const validations: any = {
       required,
       maxLength: maxLength(30),
     },
+    cost: {
+      required,
+    },
   },
 };
 
@@ -80,9 +83,15 @@ export default class VisitUpdate extends Vue {
     );
   }
 
+  public get username(): string {
+    return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
+
   public save(): void {
     this.isSaving = true;
     if (this.visit.id) {
+      this.visit.createdBy = this.username;
+      this.visit.updatedBy = this.username;
       this.visitService()
         .update(this.visit)
         .then(param => {
@@ -98,6 +107,7 @@ export default class VisitUpdate extends Vue {
           });
         });
     } else {
+      this.visit.updatedBy = this.username;
       this.visitService()
         .create(this.visit)
         .then(param => {

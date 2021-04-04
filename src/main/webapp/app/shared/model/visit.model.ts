@@ -9,6 +9,9 @@ export interface IVisit {
   clinic?: IClinic | null;
   patient?: IPatient | null;
   detailsOfVisits?: IDetailsOfVisit[] | null;
+  createdBy?: string;
+  updatedBy?: string;
+  cost?: number;
 }
 
 export class Visit implements IVisit {
@@ -18,6 +21,9 @@ export class Visit implements IVisit {
     public visitType?: string,
     public clinic?: IClinic | null,
     public patient?: IPatient | null,
-    public detailsOfVisits?: IDetailsOfVisit[] | null
+    public detailsOfVisits?: IDetailsOfVisit[] | null,
+    public createdBy?: string,
+    public updatedBy?: string,
+    public cost?: number
   ) {}
 }

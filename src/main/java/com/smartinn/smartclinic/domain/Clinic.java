@@ -41,6 +41,12 @@ public class Clinic implements Serializable {
     @Column(name = "street", length = 30, nullable = false)
     private String street;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "clinics" }, allowSetters = true)
     private Doctor doctor;
@@ -116,6 +122,22 @@ public class Clinic implements Serializable {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
     }
 
     public Doctor getDoctor() {
@@ -200,7 +222,11 @@ public class Clinic implements Serializable {
         return "Clinic{" +
             "id=" + getId() +
             ", nameOfClinic='" + getNameOfClinic() + "'" +
-            ", city='" + getCity() + "'" +
+            ", createdBy='" +
+            createdBy +
+            "', updatedBy='" +
+            updatedBy +
+            "', city='" + getCity() + "'" +
             ", postalCode='" + getPostalCode() + "'" +
             ", street='" + getStreet() + "'" +
             "}";
