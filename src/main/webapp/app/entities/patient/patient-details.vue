@@ -2,7 +2,6 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <div v-if="patient">
-        <h2 class="jh-entity-heading" data-cy="patientDetailsHeading"><span>المريض</span> {{ patient.id }}</h2>
         <dl class="row jh-entity-details">
           <dt>
             <span>الاسم</span>
@@ -11,34 +10,22 @@
             <span>{{ patient.name }}</span>
           </dd>
           <dt>
-            <span>Pesel</span>
+            <span>رقم الهاتف</span>
           </dt>
           <dd>
-            <span>{{ patient.pesel }}</span>
+            <span>{{ patient.phoneNumber }}</span>
           </dd>
           <dt>
-            <span>الإسم الأول للأب</span>
+            <span> العمر</span>
           </dt>
           <dd>
-            <span>{{ patient.firstFatherName }}</span>
+            <span>{{ patient.age }}</span>
           </dd>
           <dt>
-            <span>رقم التواصل</span>
+            <span> النوع</span>
           </dt>
           <dd>
-            <span>{{ patient.contactNumber }}</span>
-          </dd>
-          <dt>
-            <span>مكان الإقامة</span>
-          </dt>
-          <dd>
-            <span>{{ patient.placeOfResidence }}</span>
-          </dd>
-          <dt>
-            <span>تاريخ الميلاد</span>
-          </dt>
-          <dd>
-            <span>{{ patient.dateOfBirth }}</span>
+            <span>{{ patient.gender }}</span>
           </dd>
           <dt>
             <span>فصيلة الدم</span>
@@ -47,10 +34,10 @@
             <span>{{ patient.bloodGroup }}</span>
           </dd>
           <dt>
-            <span>رقم الهاتف</span>
+            <span> العنوان</span>
           </dt>
           <dd>
-            <span>{{ patient.phoneNumber }}</span>
+            <span>{{ patient.placeOfResidence }}</span>
           </dd>
         </dl>
         <div class="table-responsive" v-if="patient.visits && patient.visits.length > 0">

@@ -3,7 +3,7 @@
     <h2 id="page-heading" data-cy="PatientHeading">
       <span id="patient-heading">المرضى</span>
       <div class="d-flex justify-content-end">
-        <b-form class="navbar-search form-inline ml-sm-3 navbar-search-light" id="navbar-search-main">
+        <b-form class="navbar-search form-inline ml-sm-3 navbar-search-light mx-auto" id="navbar-search-main">
           <b-form-group class="mb-0">
             <b-input-group class="input-group-alternative input-group-merge">
               <b-form-input placeholder="إبحث" v-model="searchValue" style="margin-right: 10px" type="text"> </b-form-input>
@@ -61,84 +61,6 @@
           </template>
         </el-table-column>
       </el-table>
-
-      <!--<table class="table table-striped" aria-describedby="patients">
-        <thead>
-          <tr>
-            <th scope="row" v-on:click="changeOrder('firstName')">
-              <span>First Name</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'firstName'"></jhi-sort-indicator>
-            </th>
-            <th scope="row" v-on:click="changeOrder('lastName')">
-              <span>Last Name</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'lastName'"></jhi-sort-indicator>
-            </th>
-            <th scope="row" v-on:click="changeOrder('firstFatherName')">
-              <span>First Father Name</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'firstFatherName'"></jhi-sort-indicator>
-            </th>
-            <th scope="row" v-on:click="changeOrder('contactNumber')">
-              <span>Contact Number</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'contactNumber'"></jhi-sort-indicator>
-            </th>
-            <th scope="row" v-on:click="changeOrder('placeOfResidence')">
-              <span>Place Of Residence</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'placeOfResidence'"></jhi-sort-indicator>
-            </th>
-            <th scope="row" v-on:click="changeOrder('dateOfBirth')">
-              <span>Date Of Birth</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'dateOfBirth'"></jhi-sort-indicator>
-            </th>
-            <th scope="row" v-on:click="changeOrder('bloodGroup')">
-              <span>Blood Group</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'bloodGroup'"></jhi-sort-indicator>
-            </th>
-            <th scope="row" v-on:click="changeOrder('phoneNumber')">
-              <span>Phone Number</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'phoneNumber'"></jhi-sort-indicator>
-            </th>
-            <th scope="row"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="patient in patients" :key="patient.id" data-cy="entityTable">
-            <td>{{ patient.firstName }}</td>
-            <td>{{ patient.lastName }}</td>
-            <td>{{ patient.firstFatherName }}</td>
-            <td>{{ patient.contactNumber }}</td>
-            <td>{{ patient.placeOfResidence }}</td>
-            <td>{{ patient.dateOfBirth }}</td>
-            <td>{{ patient.bloodGroup }}</td>
-            <td>{{ patient.phoneNumber }}</td>
-            <td class="text-right">
-              <div class="btn-group">
-                <router-link :to="{ name: 'PatientView', params: { patientId: patient.id } }" custom v-slot="{ navigate }">
-                  <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
-                    <font-awesome-icon icon="eye"></font-awesome-icon>
-                    <span class="d-none d-md-inline">View</span>
-                  </button>
-                </router-link>
-                <router-link :to="{ name: 'PatientEdit', params: { patientId: patient.id } }" custom v-slot="{ navigate }">
-                  <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
-                    <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                    <span class="d-none d-md-inline">Edit</span>
-                  </button>
-                </router-link>
-                <b-button
-                  v-on:click="prepareRemove(patient)"
-                  variant="danger"
-                  class="btn btn-sm"
-                  data-cy="entityDeleteButton"
-                  v-b-modal.removeEntity
-                >
-                  <font-awesome-icon icon="times"></font-awesome-icon>
-                  <span class="d-none d-md-inline">Delete</span>
-                </b-button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>-->
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"

@@ -4,7 +4,7 @@
     <div id="app-header">
       <jhi-navbar></jhi-navbar>
     </div>
-    <div class="container-fluid">
+    <div class="container">
       <div class="wrapper">
         <div class="main-content">
           <div class="card jh-card">
