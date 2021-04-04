@@ -36,6 +36,12 @@ public class Doctor implements Serializable {
     @Column(name = "phone_number", length = 11, nullable = false)
     private String phoneNumber;
 
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
     @OneToMany(mappedBy = "doctor")
     @JsonIgnoreProperties(value = { "doctor", "visits", "user" }, allowSetters = true)
     private Set<Clinic> clinics = new HashSet<>();
@@ -93,6 +99,22 @@ public class Doctor implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
     public Set<Clinic> getClinics() {
         return this.clinics;
     }
@@ -148,7 +170,11 @@ public class Doctor implements Serializable {
     public String toString() {
         return "Doctor{" +
             "id=" + getId() +
-            ", name='" + getName() + "'" +
+            ", createdBy='" +
+            createdBy +
+            "', updatedBy='" +
+            updatedBy +
+            "', name='" + getName() + "'" +
             ", specialization='" + getSpecialization() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
             "}";

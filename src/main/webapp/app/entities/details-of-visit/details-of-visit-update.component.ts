@@ -62,9 +62,15 @@ export default class DetailsOfVisitUpdate extends Vue {
     );
   }
 
+  public get username(): string {
+    return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
+
   public save(): void {
     this.isSaving = true;
     if (this.detailsOfVisit.id) {
+      this.detailsOfVisit.createdBy = this.username;
+      this.detailsOfVisit.updatedBy = this.username;
       this.detailsOfVisitService()
         .update(this.detailsOfVisit)
         .then(param => {
@@ -80,6 +86,7 @@ export default class DetailsOfVisitUpdate extends Vue {
           });
         });
     } else {
+      this.detailsOfVisit.updatedBy = this.username;
       this.detailsOfVisitService()
         .create(this.detailsOfVisit)
         .then(param => {

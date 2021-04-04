@@ -26,6 +26,10 @@
             <column name="street" type="varchar(30)">
                 <constraints nullable="false" />
             </column>
+            <column name="created_by" type="varchar(100)">
+            </column>
+            <column name="updated_by" type="varchar(100)">
+            </column>
             <column name="doctor_id" type="bigint">
                 <constraints nullable="true" />
             </column>

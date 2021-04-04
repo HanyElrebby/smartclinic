@@ -11,6 +11,8 @@ export interface IPatient {
   bloodGroup?: string;
   phoneNumber?: string;
   visits?: IVisit[] | null;
+  createdBy?: string;
+  updatedBy?: string;
 }
 
 export class Patient implements IPatient {
@@ -27,6 +29,8 @@ export class Patient implements IPatient {
     public dateOfBirth?: Date,
     public bloodGroup?: string,
     public phoneNumber?: string,
-    public visits?: IVisit[] | null
+    public visits?: IVisit[] | null,
+    public createdBy?: string,
+    public updatedBy?: string
   ) {}
 }

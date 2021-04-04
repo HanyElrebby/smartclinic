@@ -1,6 +1,7 @@
 package com.smartinn.smartclinic.repository;
 
 import com.smartinn.smartclinic.domain.Visit;
+import java.time.ZonedDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -13,8 +14,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VisitRepository extends JpaRepository<Visit, Long> {
     @Query(
-        value = "select v.id , null as patient_id , v.clinic_id , v.visit_type , v.date_of_visit from visit v where v.patient_id = ?1",
+        value = "select v.id , null as patient_id , v.clinic_id , v.visit_type , v.date_of_visit , v.cost , v.created_by , v.updated_by from visit v where v.patient_id = ?1",
         nativeQuery = true
     )
     public Page<Visit> getVisitByPatientId(Long patientId, Pageable pageable);
+
+    @Query(value = "select * from visit where date_of_visit >= ?1 and date_of_visit <= ?2", nativeQuery = true)
+    public Page<Visit> getVisitByDates(ZonedDateTime startDate, ZonedDateTime endDate, Pageable pageable);
 }

@@ -37,6 +37,17 @@
               <option v-bind:value="visit.visitType && 'Other' === visit.visitType ? visit.visitType : 'Other'" :key="'Other'">أخرى</option>
             </select>
           </div>
+          <div>
+            <base-input
+              type="number"
+              name="السعر"
+              data-cy="cost"
+              label="السعر"
+              placeholder="السعر"
+              alternative
+              v-model="$v.visit.cost.$model"
+            />
+          </div>
           <div v-if="visit.id">
             <base-input type="text" label="الكود" name="id" v-model="visit.id" readonly />
           </div>

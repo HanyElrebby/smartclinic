@@ -6,6 +6,8 @@ export interface IDoctor {
   specialization?: string;
   phoneNumber?: string;
   clinics?: IClinic[] | null;
+  createdBy?: string;
+  updatedBy?: string;
 }
 
 export class Doctor implements IDoctor {
@@ -14,6 +16,8 @@ export class Doctor implements IDoctor {
     public name?: string,
     public specialization?: string,
     public phoneNumber?: string,
-    public clinics?: IClinic[] | null
+    public clinics?: IClinic[] | null,
+    public createdBy?: string,
+    public updatedBy?: string
   ) {}
 }

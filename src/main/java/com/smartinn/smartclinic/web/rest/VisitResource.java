@@ -158,6 +158,14 @@ public class VisitResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/visits/date/{date}")
+    public ResponseEntity<List<Visit>> getAllVisitsByPatientId(@PathVariable String date, Pageable pageable) {
+        log.debug("REST request to get a page of Visits");
+        Page<Visit> page = visitService.findAllByDate(date, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     /**
      * {@code GET  /visits/:id} : get the "id" visit.
      *
