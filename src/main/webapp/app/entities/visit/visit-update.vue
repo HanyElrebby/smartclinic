@@ -4,25 +4,19 @@
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
         <h2 id="smartclinicApp.visit.home.createOrEditLabel" data-cy="VisitCreateUpdateHeading">إنشاء او تعديل زيارة</h2>
         <div>
-          <div v-if="visit.id">
-            <base-input type="text" label="الكود" name="id" v-model="visit.id" readonly />
+          <div class="form-group">
+            <label class="form-control-label" for="visit-patient">المريض</label>
+            <select class="form-control" id="visit-patient" data-cy="patient" name="patient" v-model="visit.patient" disabled>
+              <option v-bind:value="null"></option>
+              <option
+                v-bind:value="visit.patient && patientOption.id === visit.patient.id ? visit.patient : patientOption"
+                v-for="patientOption in patients"
+                :key="patientOption.id"
+              >
+                {{ patientOption.name }}
+              </option>
+            </select>
           </div>
-          <div>
-            <div class="d-flex">
-              <base-input
-                data-cy="dateOfVisit"
-                type="datetime-local"
-                name="تاريخ الزيارة"
-                label="تاريخ الزيارة"
-                placeholder="تاريخ الزيارة"
-                alternative
-                :value="convertDateTimeFromServer($v.visit.dateOfVisit.$model)"
-                @change="updateZonedDateTimeField('dateOfVisit', $event)"
-                :rules="{ required: true, max: 30 }"
-              />
-            </div>
-          </div>
-
           <div class="form-group">
             <label class="form-control-label" for="visit-type">نوع الزيارة</label>
             <select
@@ -43,6 +37,24 @@
               <option v-bind:value="visit.visitType && 'Other' === visit.visitType ? visit.visitType : 'Other'" :key="'Other'">أخرى</option>
             </select>
           </div>
+          <div v-if="visit.id">
+            <base-input type="text" label="الكود" name="id" v-model="visit.id" readonly />
+          </div>
+          <div>
+            <div class="d-flex">
+              <base-input
+                data-cy="dateOfVisit"
+                type="datetime-local"
+                name="تاريخ الزيارة"
+                label="تاريخ الزيارة"
+                placeholder="تاريخ الزيارة"
+                alternative
+                :value="convertDateTimeFromServer($v.visit.dateOfVisit.$model)"
+                @change="updateZonedDateTimeField('dateOfVisit', $event)"
+                :rules="{ required: true, max: 30 }"
+              />
+            </div>
+          </div>
           <div v-if="$v.visit.visitType.$anyDirty && $v.visit.visitType.$invalid">
             <small class="form-text text-danger" v-if="!$v.visit.visitType.required"> نوع الزيارة مطلوب </small>
           </div>
@@ -56,19 +68,6 @@
                 :key="clinicOption.id"
               >
                 {{ clinicOption.nameOfClinic }}
-              </option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-control-label" for="visit-patient">المريض</label>
-            <select class="form-control" id="visit-patient" data-cy="patient" name="patient" v-model="visit.patient">
-              <option v-bind:value="null"></option>
-              <option
-                v-bind:value="visit.patient && patientOption.id === visit.patient.id ? visit.patient : patientOption"
-                v-for="patientOption in patients"
-                :key="patientOption.id"
-              >
-                {{ patientOption.name }}
               </option>
             </select>
           </div>

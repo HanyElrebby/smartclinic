@@ -1,22 +1,22 @@
 <template>
-  <b-navbar data-cy="navbar" toggleable="md" type="dark" class="jh-navbar">
+  <b-navbar data-cy="navbar" toggleable="md" type="dark" class="jh-navbar" v-if="authenticated">
     <b-collapse is-nav id="header-tabs">
       <b-navbar-nav class="mx-auto">
-        <b-nav-item to="/" exact>
+        <b-nav-item to="/visit" exact>
           <span>
             <font-awesome-icon icon="home" />
             <span class="account-font">الحجوزات</span>
           </span>
         </b-nav-item>
 
-        <b-nav-item to="/" exact>
+        <b-nav-item to="/patient" exact>
           <span>
             <font-awesome-icon icon="home" />
             <span class="account-font">المرضى</span>
           </span>
         </b-nav-item>
 
-        <b-nav-item to="/" exact>
+        <b-nav-item to="/home" exact>
           <span>
             <font-awesome-icon icon="home" />
             <span class="account-font">التقارير</span>
