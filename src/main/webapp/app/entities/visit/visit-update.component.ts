@@ -1,6 +1,7 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
-import { required } from 'vuelidate/lib/validators';
+import { required, maxLength } from 'vuelidate/lib/validators';
+
 import dayjs from 'dayjs';
 import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
 
@@ -20,6 +21,10 @@ const validations: any = {
   visit: {
     dateOfVisit: {
       required,
+    },
+    visitType: {
+      required,
+      maxLength: maxLength(30),
     },
   },
 };

@@ -23,6 +23,10 @@ public class Visit implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name = "visit_type", nullable = false)
+    private String visitType;
+
+    @NotNull
     @Column(name = "date_of_visit", nullable = false)
     private ZonedDateTime dateOfVisit;
 
@@ -63,6 +67,14 @@ public class Visit implements Serializable {
 
     public void setDateOfVisit(ZonedDateTime dateOfVisit) {
         this.dateOfVisit = dateOfVisit;
+    }
+
+    public String getVisitType() {
+        return visitType;
+    }
+
+    public void setVisitType(String visitType) {
+        this.visitType = visitType;
     }
 
     public Clinic getClinic() {
@@ -141,12 +153,24 @@ public class Visit implements Serializable {
         return getClass().hashCode();
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
-        return "Visit{" +
-            "id=" + getId() +
-            ", dateOfVisit='" + getDateOfVisit() + "'" +
-            "}";
+        return (
+            "Visit [id=" +
+            id +
+            ", visitType=" +
+            visitType +
+            ", dateOfVisit=" +
+            dateOfVisit +
+            ", clinic=" +
+            clinic +
+            ", patient=" +
+            patient +
+            ", detailsOfVisits=" +
+            detailsOfVisits +
+            "]"
+        );
     }
+    // prettier-ignore
+
 }
