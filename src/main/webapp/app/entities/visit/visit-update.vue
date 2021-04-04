@@ -22,6 +22,20 @@
               />
             </div>
           </div>
+          <div>
+            <div class="d-flex">
+              <base-input
+                data-cy="visitType"
+                type="text"
+                name="نوع الزيارة"
+                label="نوع الزيارة"
+                placeholder="نوع الزيارة"
+                alternative
+                v-model="$v.visit.visitType.$model"
+                :rules="{ required: true, max: 30 }"
+              />
+            </div>
+          </div>
           <div class="form-group">
             <label class="form-control-label" for="visit-clinic">العيادة</label>
             <select class="form-control" id="visit-clinic" data-cy="clinic" name="clinic" v-model="visit.clinic">

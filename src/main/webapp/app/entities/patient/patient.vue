@@ -14,9 +14,6 @@
             </b-input-group>
           </b-form-group>
         </b-form>
-        <button class="btn btn-info ml-2" v-on:click="handleSyncList" :disabled="isFetching">
-          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>تحديث الجدول</span>
-        </button>
         <router-link :to="{ name: 'PatientCreate' }" custom v-slot="{ navigate }">
           <button
             @click="navigate"
@@ -25,7 +22,7 @@
             class="btn btn-primary jh-create-entity create-patient"
           >
             <font-awesome-icon icon="plus"></font-awesome-icon>
-            <span> إنشاء مريض جديد </span>
+            <span> مريض جديد </span>
           </button>
         </router-link>
       </div>
@@ -36,23 +33,22 @@
     </div>
     <div class="table-responsive" v-if="patients && patients.length > 0">
       <el-table class="table-responsive table" header-row-class-name="thead-light" :data="patients">
-        <el-table-column label="الكود" prop="id" max-width="40px"> </el-table-column>
         <el-table-column label="الإسم" prop="name"> </el-table-column>
-        <el-table-column label="Pesel" prop="pesel"> </el-table-column>
-        <el-table-column label="الإسم الأول للأب" prop="firstFatherName"> </el-table-column>
-        <el-table-column label="رقم التواصل" prop="contactNumber"> </el-table-column>
-        <el-table-column label="مكان الإقامة" prop="placeOfResidence"> </el-table-column>
-        <el-table-column label="تاريخ الميلاد" prop="dateOfBirth"> </el-table-column>
-        <el-table-column label="فصيلة الدم" prop="bloodGroup"> </el-table-column>
         <el-table-column label="رقم الهاتف" prop="phoneNumber"> </el-table-column>
-
+        <el-table-column label="رقم الملف" prop="fileNumber"> </el-table-column>
         <el-table-column label="إجراء" prop="id">
           <template v-slot="{ row }">
             <div class="btn-group">
-              <router-link :to="{ name: 'PatientView', params: { patientId: row.id } }" custom v-slot="{ navigate }">
-                <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
+              <router-link :to="{ name: 'VisitotherCreate', params: { patientId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-success btn-sm details" data-cy="entityDetailsButton">
                   <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span class="d-none d-md-inline">مشاهدة</span>
+                  <span class="d-none d-md-inline"> حجز </span>
+                </button>
+              </router-link>
+              <router-link :to="{ name: 'PatientView', params: { patientId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-info btn-sm edit" data-cy="entityDetailsButton">
+                  <font-awesome-icon icon="eye"></font-awesome-icon>
+                  <span class="d-none d-md-inline"> بيانات </span>
                 </button>
               </router-link>
               <router-link :to="{ name: 'PatientEdit', params: { patientId: row.id } }" custom v-slot="{ navigate }">
@@ -61,16 +57,6 @@
                   <span class="d-none d-md-inline">تعديل</span>
                 </button>
               </router-link>
-              <b-button
-                v-on:click="prepareRemove(row)"
-                variant="danger"
-                class="btn btn-sm"
-                data-cy="entityDeleteButton"
-                v-b-modal.removeEntity
-              >
-                <font-awesome-icon icon="times"></font-awesome-icon>
-                <span class="d-none d-md-inline">حذف</span>
-              </b-button>
             </div>
           </template>
         </el-table-column>
@@ -79,9 +65,6 @@
       <!--<table class="table table-striped" aria-describedby="patients">
         <thead>
           <tr>
-            <th scope="row" v-on:click="changeOrder('id')">
-              <span>ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
-            </th>
             <th scope="row" v-on:click="changeOrder('firstName')">
               <span>First Name</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'firstName'"></jhi-sort-indicator>
@@ -89,10 +72,6 @@
             <th scope="row" v-on:click="changeOrder('lastName')">
               <span>Last Name</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'lastName'"></jhi-sort-indicator>
-            </th>
-            <th scope="row" v-on:click="changeOrder('pesel')">
-              <span>Pesel</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'pesel'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('firstFatherName')">
               <span>First Father Name</span>
@@ -123,12 +102,8 @@
         </thead>
         <tbody>
           <tr v-for="patient in patients" :key="patient.id" data-cy="entityTable">
-            <td>
-              <router-link :to="{ name: 'PatientView', params: { patientId: patient.id } }">{{ patient.id }}</router-link>
-            </td>
             <td>{{ patient.firstName }}</td>
             <td>{{ patient.lastName }}</td>
-            <td>{{ patient.pesel }}</td>
             <td>{{ patient.firstFatherName }}</td>
             <td>{{ patient.contactNumber }}</td>
             <td>{{ patient.placeOfResidence }}</td>

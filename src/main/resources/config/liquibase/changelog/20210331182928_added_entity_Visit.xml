@@ -17,6 +17,9 @@
             <column name="date_of_visit" type="${datetimeType}">
                 <constraints nullable="false" />
             </column>
+            <column name="visit_type" type="varchar(30)">
+                <constraints nullable="false" />
+            </column>
             <column name="clinic_id" type="bigint">
                 <constraints nullable="true" />
             </column>

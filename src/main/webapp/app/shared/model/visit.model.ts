@@ -14,6 +14,7 @@ export class Visit implements IVisit {
   constructor(
     public id?: number,
     public dateOfVisit?: Date,
+    public visitType?: string,
     public clinic?: IClinic | null,
     public patient?: IPatient | null,
     public detailsOfVisits?: IDetailsOfVisit[] | null
