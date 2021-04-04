@@ -1,57 +1,28 @@
 <template>
   <b-navbar data-cy="navbar" toggleable="md" type="dark" class="jh-navbar">
-    <b-navbar-toggle
-      left
-      class="jh-navbar-toggler d-lg-none"
-      href="javascript:void(0);"
-      data-toggle="collapse"
-      target="header-tabs"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <font-awesome-icon icon="bars" />
-    </b-navbar-toggle>
-
     <b-collapse is-nav id="header-tabs">
-      <b-navbar-nav class="mr-auto">
-        <b-nav-item-dropdown
-          left
-          id="admin-menu"
-          v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated"
-          :class="{ 'router-link-active': subIsActive('/admin') }"
-          active-class="active"
-          class="pointer"
-          data-cy="adminMenu"
-        >
-          <span slot="button-content" class="navbar-dropdown-menu">
-            <font-awesome-icon icon="users-cog" />
-            <span class="no-bold">Administration</span>
+      <b-navbar-nav class="mx-auto">
+        <b-nav-item to="/" exact>
+          <span>
+            <font-awesome-icon icon="home" />
+            <span class="account-font">الحجوزات</span>
           </span>
-          <b-dropdown-item to="/admin/user-management" active-class="active">
-            <font-awesome-icon icon="users" />
-            <span>User management</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/metrics" active-class="active">
-            <font-awesome-icon icon="tachometer-alt" />
-            <span>Metrics</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/health" active-class="active">
-            <font-awesome-icon icon="heart" />
-            <span>Health</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/configuration" active-class="active">
-            <font-awesome-icon icon="cogs" />
-            <span>Configuration</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/logs" active-class="active">
-            <font-awesome-icon icon="tasks" />
-            <span>Logs</span>
-          </b-dropdown-item>
-          <b-dropdown-item v-if="openAPIEnabled" to="/admin/docs" active-class="active">
-            <font-awesome-icon icon="book" />
-            <span>API</span>
-          </b-dropdown-item>
-        </b-nav-item-dropdown>
+        </b-nav-item>
+
+        <b-nav-item to="/" exact>
+          <span>
+            <font-awesome-icon icon="home" />
+            <span class="account-font">المرضى</span>
+          </span>
+        </b-nav-item>
+
+        <b-nav-item to="/" exact>
+          <span>
+            <font-awesome-icon icon="home" />
+            <span class="account-font">التقارير</span>
+          </span>
+        </b-nav-item>
+
         <b-nav-item-dropdown
           right
           href="javascript:void(0);"
