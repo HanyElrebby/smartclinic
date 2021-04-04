@@ -5,6 +5,7 @@ import { IDetailsOfVisit } from '@/shared/model/details-of-visit.model';
 export interface IVisit {
   id?: number;
   dateOfVisit?: Date;
+  visitType?: string;
   clinic?: IClinic | null;
   patient?: IPatient | null;
   detailsOfVisits?: IDetailsOfVisit[] | null;

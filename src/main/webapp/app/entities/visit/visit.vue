@@ -26,6 +26,11 @@
     <div class="table-responsive" v-if="visits && visits.length > 0">
       <el-table class="table-responsive table" header-row-class-name="thead-light" :data="visits">
         <el-table-column label="الكود" prop="id" min-width="140px"> </el-table-column>
+        <el-table-column label="نوع الزيارة" prop="visitType">
+          <template v-slot="{ row }">
+            {{ visitTypeVale(row.visitType) }}
+          </template>
+        </el-table-column>
         <el-table-column label="تاريخ الزيارة" prop="dateOfVisit"> </el-table-column>
         <el-table-column label="العيادة" prop="clinic.nameOfClinic">
           <template v-slot="{ row }">

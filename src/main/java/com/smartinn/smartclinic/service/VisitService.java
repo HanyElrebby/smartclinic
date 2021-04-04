@@ -71,6 +71,12 @@ public class VisitService {
         return visitRepository.findAll(pageable);
     }
 
+    @Transactional(readOnly = true)
+    public Page<Visit> findAllByPatientId(Long patientId, Pageable pageable) {
+        log.debug("Request to get all Visits");
+        return visitRepository.getVisitByPatientId(patientId, pageable);
+    }
+
     /**
      * Get one visit by id.
      *

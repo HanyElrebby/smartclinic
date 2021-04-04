@@ -9,7 +9,7 @@ import ClinicService from '@/entities/clinic/clinic.service';
 import { IClinic } from '@/shared/model/clinic.model';
 
 import PatientService from '@/entities/patient/patient.service';
-import { IPatient } from '@/shared/model/patient.model';
+import { IPatient, Patient } from '@/shared/model/patient.model';
 
 import DetailsOfVisitService from '@/entities/details-of-visit/details-of-visit.service';
 import { IDetailsOfVisit } from '@/shared/model/details-of-visit.model';
@@ -50,12 +50,21 @@ export default class VisitUpdate extends Vue {
   public isSaving = false;
   public currentLanguage = '';
 
+  public patientId;
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.visitId) {
         vm.retrieveVisit(to.params.visitId);
       } else {
         vm.visit.dateOfVisit = new Date();
+      }
+      if (to.params.patientId) {
+        vm.patientId = parseInt(to.params.patientId);
+        let patient = new Patient();
+        patient.id = vm.patientId;
+        vm.visit.patient = patient;
+        console.log(vm.visit);
       }
       vm.initRelationships();
     });
@@ -147,6 +156,9 @@ export default class VisitUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.clinics = res.data;
+        if (this.clinics && this.clinics.length > 0) {
+          this.visit.clinic = this.clinics[0];
+        }
       });
     this.patientService()
       .retrieve()

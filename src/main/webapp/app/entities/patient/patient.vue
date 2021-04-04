@@ -39,12 +39,6 @@
         <el-table-column label="إجراء" prop="id">
           <template v-slot="{ row }">
             <div class="btn-group">
-              <router-link :to="{ name: 'VisitotherCreate', params: { patientId: row.id } }" custom v-slot="{ navigate }">
-                <button @click="navigate" class="btn btn-success btn-sm details" data-cy="entityDetailsButton">
-                  <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span class="d-none d-md-inline"> حجز </span>
-                </button>
-              </router-link>
               <router-link :to="{ name: 'PatientView', params: { patientId: row.id } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-info btn-sm edit" data-cy="entityDetailsButton">
                   <font-awesome-icon icon="eye"></font-awesome-icon>
@@ -55,6 +49,12 @@
                 <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
                   <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                   <span class="d-none d-md-inline">تعديل</span>
+                </button>
+              </router-link>
+              <router-link :to="{ name: 'VisitotherCreate', params: { patientId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-success btn-sm details" data-cy="entityDetailsButton">
+                  <font-awesome-icon icon="eye"></font-awesome-icon>
+                  <span class="d-none d-md-inline"> حجز </span>
                 </button>
               </router-link>
             </div>
