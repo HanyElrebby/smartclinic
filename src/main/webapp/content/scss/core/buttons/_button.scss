@@ -100,6 +100,13 @@
   border-top-left-radius: 6px !important;
   border-bottom-left-radius: 6px !important;
 }
+.btn-group > .btn-success,
+.btn-group > .btn-group:not(:last-child) > .btn .btn-danger {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-top-left-radius: 6px !important;
+  border-bottom-left-radius: 6px !important;
+}
 .btn-group > .btn-primary {
   border-top-left-radius: 0px !important;
   border-bottom-left-radius: 0px !important;

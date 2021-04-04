@@ -60,6 +60,18 @@ export default class Visit extends Vue {
     this.clear();
   }
 
+  visitTypeVale(visitType) {
+    if (visitType === 'Reveal') {
+      return 'كشف';
+    } else if (visitType === 'Repeat') {
+      return 'أعادة';
+    } else if (visitType === 'Other') {
+      return 'أخرى';
+    } else {
+      return visitType;
+    }
+  }
+
   public prepareRemove(instance: IVisit): void {
     this.removeId = instance.id;
     if (<any>this.$refs.removeEntity) {

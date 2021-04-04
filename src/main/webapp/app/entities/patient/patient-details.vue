@@ -53,6 +53,24 @@
             <span>{{ patient.phoneNumber }}</span>
           </dd>
         </dl>
+        <div class="table-responsive" v-if="patient.visits && patient.visits.length > 0">
+          <el-table class="table-responsive table" header-row-class-name="thead-light" :data="patient.visits">
+            <el-table-column label="الكود" prop="id" min-width="140px"> </el-table-column>
+            <el-table-column label="نوع الزيارة" prop="visitType">
+              <template v-slot="{ row }">
+                {{ visitTypeVale(row.visitType) }}
+              </template>
+            </el-table-column>
+            <el-table-column label="تاريخ الزيارة" prop="dateOfVisit"> </el-table-column>
+            <el-table-column label="العيادة" prop="clinic.nameOfClinic">
+              <template v-slot="{ row }">
+                <div v-if="row.clinic">
+                  <router-link :to="{ name: 'ClinicView', params: { clinicId: row.clinic.id } }">{{ row.clinic.nameOfClinic }}</router-link>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
           <font-awesome-icon icon="arrow-right"></font-awesome-icon>&nbsp;<span> رجوع</span>
         </button>

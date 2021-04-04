@@ -22,19 +22,29 @@
               />
             </div>
           </div>
-          <div>
-            <div class="d-flex">
-              <base-input
-                data-cy="visitType"
-                type="text"
-                name="نوع الزيارة"
-                label="نوع الزيارة"
-                placeholder="نوع الزيارة"
-                alternative
-                v-model="$v.visit.visitType.$model"
-                :rules="{ required: true, max: 30 }"
-              />
-            </div>
+
+          <div class="form-group">
+            <label class="form-control-label" for="visit-type">نوع الزيارة</label>
+            <select
+              class="form-control"
+              aria-placeholder="نوع الزيارة"
+              id="visit-type"
+              data-cy="visitType"
+              name="visitType"
+              v-model="visit.visitType"
+            >
+              <option v-bind:value="null"></option>
+              <option v-bind:value="visit.visitType && 'Reveal' === visit.visitType ? visit.visitType : 'Reveal'" :key="'Reveal'">
+                كشف
+              </option>
+              <option v-bind:value="visit.visitType && 'Repeat' === visit.visitType ? visit.visitType : 'Repeat'" :key="'Repeat'">
+                أعادة
+              </option>
+              <option v-bind:value="visit.visitType && 'Other' === visit.visitType ? visit.visitType : 'Other'" :key="'Other'">أخرى</option>
+            </select>
+          </div>
+          <div v-if="$v.visit.visitType.$anyDirty && $v.visit.visitType.$invalid">
+            <small class="form-text text-danger" v-if="!$v.visit.visitType.required"> نوع الزيارة مطلوب </small>
           </div>
           <div class="form-group">
             <label class="form-control-label" for="visit-clinic">العيادة</label>

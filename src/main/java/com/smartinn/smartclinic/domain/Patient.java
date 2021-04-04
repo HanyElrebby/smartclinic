@@ -64,7 +64,7 @@ public class Patient implements Serializable {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "patient")
-    @JsonIgnoreProperties(value = { "clinic", "patient", "detailsOfVisits" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "patient", "detailsOfVisits" }, allowSetters = true)
     private Set<Visit> visits = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
