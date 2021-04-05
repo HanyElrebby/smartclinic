@@ -41,6 +41,18 @@ import GlobalComponents from './globalComponents';
 import ElTable from 'element-ui';
 import GlobalDirectives from './globalDirectives';
 
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+import 'vue2-datepicker/locale/ar';
+
+import { Datetime } from 'vue-datetime';
+// You need a specific loader for CSS files
+import 'vue-datetime/dist/vue-datetime.css';
+
+import { Settings } from 'luxon';
+
+Settings.defaultLocale = 'ar';
+
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -88,7 +100,7 @@ router.beforeEach((to, from, next) => {
 /* tslint:disable */
 new Vue({
   el: '#app',
-  components: { App },
+  components: { App, datetime: Datetime },
   template: '<App/>',
   router,
   provide: {

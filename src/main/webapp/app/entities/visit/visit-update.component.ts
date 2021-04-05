@@ -1,9 +1,9 @@
-import { Component, Vue, Inject } from 'vue-property-decorator';
+import { Component, Vue, Inject, VModel } from 'vue-property-decorator';
 
 import { required, maxLength } from 'vuelidate/lib/validators';
 
 import dayjs from 'dayjs';
-import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
+import { DATE_TIME_LONG_FORMAT, DATE_TIME_FORMAT } from '@/shared/date/filters';
 
 import ClinicService from '@/entities/clinic/clinic.service';
 import { IClinic } from '@/shared/model/clinic.model';
@@ -17,11 +17,15 @@ import { IDetailsOfVisit } from '@/shared/model/details-of-visit.model';
 import { IVisit, Visit } from '@/shared/model/visit.model';
 import VisitService from './visit.service';
 
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+
+import { Datetime } from 'vue-datetime';
+// You need a specific loader for CSS files
+import 'vue-datetime/dist/vue-datetime.css';
+
 const validations: any = {
   visit: {
-    dateOfVisit: {
-      required,
-    },
     visitType: {
       required,
       maxLength: maxLength(30),
@@ -30,10 +34,19 @@ const validations: any = {
       required,
     },
   },
+  value1: {
+    required,
+  },
 };
 
 @Component({
   validations,
+  components: { datetime: Datetime },
+  data() {
+    return {
+      value1: new Date().toISOString(),
+    };
+  },
 })
 export default class VisitUpdate extends Vue {
   @Inject('visitService') private visitService: () => VisitService;
@@ -55,12 +68,14 @@ export default class VisitUpdate extends Vue {
 
   public patientId;
 
+  public value: string = '2018-05-12T17:19:06.151Z';
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.visitId) {
         vm.retrieveVisit(to.params.visitId);
       } else {
-        vm.visit.dateOfVisit = new Date();
+        //vm.value = dayjs(new Date()).format(DATE_TIME_LONG_FORMAT);
       }
       if (to.params.patientId) {
         vm.patientId = parseInt(to.params.patientId);
@@ -89,6 +104,7 @@ export default class VisitUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
+    this.visit.dateOfVisit = new Date(this.$data.value1);
     if (this.visit.id) {
       this.visit.createdBy = this.username;
       this.visit.updatedBy = this.username;
@@ -127,7 +143,7 @@ export default class VisitUpdate extends Vue {
 
   public convertDateTimeFromServer(date: Date): string {
     if (date && dayjs(date).isValid()) {
-      return dayjs(date).format(DATE_TIME_LONG_FORMAT);
+      return dayjs(date).format(DATE_TIME_FORMAT);
     }
     return null;
   }
@@ -141,8 +157,10 @@ export default class VisitUpdate extends Vue {
   }
 
   public updateZonedDateTimeField(field, event) {
+    console.log('fffffffffffffffffffffffffffffff', event);
+
     if (event.target.value) {
-      this.visit[field] = dayjs(event.target.value, DATE_TIME_LONG_FORMAT);
+      this.visit[field] = dayjs(event.target.value, DATE_TIME_FORMAT);
     } else {
       this.visit[field] = null;
     }
@@ -152,7 +170,10 @@ export default class VisitUpdate extends Vue {
     this.visitService()
       .find(visitId)
       .then(res => {
-        res.dateOfVisit = new Date(res.dateOfVisit);
+        console.log(this.$data.value1, '4444444444444444444555555555555555555555');
+
+        this.$data.value1 = dayjs(new Date(res.dateOfVisit)).format(DATE_TIME_LONG_FORMAT);
+        console.log(this.$data.value1, '77777777777777777777777777777777777');
         this.visit = res;
       });
   }
