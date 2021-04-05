@@ -7,6 +7,7 @@ import { IVisit } from '@/shared/model/visit.model';
 
 import { IPatient, Patient } from '@/shared/model/patient.model';
 import PatientService from './patient.service';
+import { Datetime } from 'vue-datetime';
 
 const validations: any = {
   patient: {
@@ -31,9 +32,6 @@ const validations: any = {
       required,
       maxLength: maxLength(30),
     },
-    dateOfBirth: {
-      required,
-    },
     bloodGroup: {
       required,
       maxLength: maxLength(30),
@@ -43,10 +41,19 @@ const validations: any = {
       maxLength: maxLength(11),
     },
   },
+  value1: {
+    required,
+  },
 };
 
 @Component({
   validations,
+  components: { datetime: Datetime },
+  data() {
+    return {
+      value1: null,
+    };
+  },
 })
 export default class PatientUpdate extends Vue {
   @Inject('patientService') private patientService: () => PatientService;
@@ -83,6 +90,7 @@ export default class PatientUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
+    this.patient.dateOfBirth = new Date(this.$data.value1);
     if (this.patient.id) {
       this.patient.createdBy = this.username;
       this.patient.updatedBy = this.username;
@@ -124,6 +132,7 @@ export default class PatientUpdate extends Vue {
       .find(patientId)
       .then(res => {
         this.patient = res;
+        this.$data.value1 = new Date(this.patient.dateOfBirth).toISOString();
       });
   }
 

@@ -19,6 +19,7 @@
               :rules="{ required: true, max: 30 }"
             />
           </div>
+          ssssss
           <div>
             <base-input
               type="text"
@@ -81,7 +82,7 @@
           </div>
           <div class="form-group">
             <label class="form-control-label" for="patient-dateOfBirth">تاريخ الميلاد</label>
-            <b-input-group class="mb-3">
+            <!-- <b-input-group class="mb-3">
               <b-input-group-prepend>
                 <b-form-datepicker
                   aria-controls="patient-dateOfBirth"
@@ -106,9 +107,27 @@
                 v-model="$v.patient.dateOfBirth.$model"
                 required
               />
-            </b-input-group>
-            <div v-if="$v.patient.dateOfBirth.$anyDirty && $v.patient.dateOfBirth.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.dateOfBirth.required"> تاريخ الميلاد مطلوب </small>
+            </b-input-group>-->
+            <div class="d-flex">
+              <!-- <base-input
+                data-cy="dateOfVisit"
+                type="datetime-local"
+                name="تاريخ الزيارة"
+                label="تاريخ الزيارة"
+                placeholder="تاريخ الزيارة"
+                alternative
+                :value="convertDateTimeFromServer($v.visit.dateOfVisit.$model)"
+                @change="updateZonedDateTimeField('dateOfVisit', $event)"
+                :rules="{ required: true, max: 30 }"
+              /> -->
+
+              <datetime v-model="value1" @change="updateZonedDateTimeField('dateOfVisit', $event)" type="date">
+                <template slot="button-cancel"> ألغاء </template>
+                <template slot="button-confirm"> تاكيد </template>
+              </datetime>
+            </div>
+            <div v-if="$v.value1.$anyDirty && $v.value1.$invalid">
+              <small class="form-text text-danger" v-if="!$v.value1.required"> تاريخ الميلاد مطلوب </small>
             </div>
           </div>
           <div>
