@@ -3,6 +3,14 @@
     <h2 id="page-heading" data-cy="VisitHeading">
       <span id="visit-heading">الزيارات</span>
       <div class="d-flex justify-content-end">
+        <div class="form-group" style="margin-bottom: 0rem">
+          <div class="d-flex">
+            <datetime v-model="value1" type="date">
+              <template slot="button-cancel"> ألغاء </template>
+              <template slot="button-confirm"> تاكيد </template>
+            </datetime>
+          </div>
+        </div>
         <button class="btn btn-info ml-2" v-on:click="handleSyncList" :disabled="isFetching">
           <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>تحديث الجدول</span>
         </button>
@@ -31,7 +39,11 @@
             {{ visitTypeVale(row.visitType) }}
           </template>
         </el-table-column>
-        <el-table-column label="تاريخ الزيارة" prop="dateOfVisit"> </el-table-column>
+        <el-table-column label="تاريخ الزيارة" prop="dateOfVisit">
+          <template v-slot="{ row }">
+            {{ formatDateView(row.dateOfVisit) }}
+          </template>
+        </el-table-column>
         <el-table-column label="العيادة" prop="clinic.nameOfClinic">
           <template v-slot="{ row }">
             <div v-if="row.clinic">
@@ -46,7 +58,7 @@
             </div>
           </template>
         </el-table-column>
-
+        <el-table-column label="التكلفه" prop="cost"> </el-table-column>
         <el-table-column label="إجراء" prop="id">
           <template v-slot="{ row }">
             <div class="btn-group">

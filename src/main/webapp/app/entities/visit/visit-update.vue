@@ -37,6 +37,9 @@
               <option v-bind:value="visit.visitType && 'Other' === visit.visitType ? visit.visitType : 'Other'" :key="'Other'">أخرى</option>
             </select>
           </div>
+          <div v-if="$v.visit.visitType.$anyDirty && $v.visit.visitType.$invalid">
+            <small class="form-text text-danger" v-if="!$v.visit.visitType.required"> نوع الزيارة مطلوب </small>
+          </div>
           <div>
             <base-input
               type="number"
@@ -51,9 +54,10 @@
           <div v-if="visit.id">
             <base-input type="text" label="الكود" name="id" v-model="visit.id" readonly />
           </div>
-          <div>
+          <div class="form-group">
+            <label class="form-control-label" for="visit-type">تاريخ الزيارة</label>
             <div class="d-flex">
-              <base-input
+              <!-- <base-input
                 data-cy="dateOfVisit"
                 type="datetime-local"
                 name="تاريخ الزيارة"
@@ -63,12 +67,19 @@
                 :value="convertDateTimeFromServer($v.visit.dateOfVisit.$model)"
                 @change="updateZonedDateTimeField('dateOfVisit', $event)"
                 :rules="{ required: true, max: 30 }"
-              />
+              /> -->
+
+              <datetime v-model="value1" @change="updateZonedDateTimeField('dateOfVisit', $event)" type="datetime">
+                <template slot="button-cancel"> ألغاء </template>
+                <template slot="button-confirm"> تاكيد </template>
+              </datetime>
             </div>
           </div>
-          <div v-if="$v.visit.visitType.$anyDirty && $v.visit.visitType.$invalid">
-            <small class="form-text text-danger" v-if="!$v.visit.visitType.required"> نوع الزيارة مطلوب </small>
+          <!-- <date-picker v-model="$v.value" type="datetime"></date-picker>-->
+          <div v-if="$v.value1.$anyDirty && $v.value1.$invalid">
+            <small class="form-text text-danger" v-if="!$v.value1.required"> تاريخ الزيارة مطلوب </small>
           </div>
+
           <div class="form-group">
             <label class="form-control-label" for="visit-clinic">العيادة</label>
             <select class="form-control" id="visit-clinic" data-cy="clinic" name="clinic" v-model="visit.clinic">
