@@ -14,8 +14,11 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
-    @Query(value = "select * from patient p where UPPER(p.phone_number)  LIKE ?1 or UPPER(p.name) LIKE ?2", nativeQuery = true)
-    Page<Patient> searchPatients(String phoneNumber, String name, Pageable pageable);
+    @Query(
+        value = "select * from patient p where p.file_number = ?3 or UPPER(p.phone_number)  LIKE ?1 or UPPER(p.name) LIKE ?2",
+        nativeQuery = true
+    )
+    Page<Patient> searchPatients(String phoneNumber, String name, String fileNumber, Pageable pageable);
 
     @Query(value = "select * from patient p order by p.file_number desc Limit 1", nativeQuery = true)
     List<Patient> getLastPatient();

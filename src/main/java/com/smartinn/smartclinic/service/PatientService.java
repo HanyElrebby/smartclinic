@@ -46,6 +46,10 @@ public class PatientService {
         return patientRepository.save(patient);
     }
 
+    public List<Patient> getLatestPatient() {
+        return patientRepository.getLastPatient();
+    }
+
     /**
      * Partially update a patient.
      *
@@ -110,7 +114,7 @@ public class PatientService {
         }
         search = search.toUpperCase();
 
-        return patientRepository.searchPatients("%" + search + "%", "%" + search + "%", pageable);
+        return patientRepository.searchPatients("%" + search + "%", "%" + search + "%", search, pageable);
     }
 
     /**

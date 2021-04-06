@@ -76,14 +76,24 @@
           <div class="form-group row">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">فصيلة الدم</label>
             <div class="col-md-10">
-              <base-input
-                type="text"
-                name="فصيلة الدم"
-                data-cy="bloodGroup"
-                alternative
-                v-model="$v.patient.bloodGroup.$model"
-                :rules="{ required: true, max: 30 }"
-              />
+              <select class="form-control" id="bloodGroup" data-cy="bloodGroup" name="bloodGroup" v-model="patient.bloodGroup">
+                <option v-bind:value="null"></option>
+                <option v-bind:value="patient.bloodGroup && '-O' === patient.bloodGroup ? patient.bloodGroup : '-O'" :key="'-O'">-O</option>
+                <option v-bind:value="patient.bloodGroup && '+O' === patient.bloodGroup ? patient.bloodGroup : '+O'" :key="'+O'">+O</option>
+                <option v-bind:value="patient.bloodGroup && '-A' === patient.bloodGroup ? patient.bloodGroup : '-A'" :key="'-A'">-A</option>
+                <option v-bind:value="patient.bloodGroup && '+A' === patient.bloodGroup ? patient.bloodGroup : '+A'" :key="'+A'">+A</option>
+                <option v-bind:value="patient.bloodGroup && '-B' === patient.bloodGroup ? patient.bloodGroup : '-B'" :key="'-B'">-B</option>
+                <option v-bind:value="patient.bloodGroup && '+B' === patient.bloodGroup ? patient.bloodGroup : '+B'" :key="'+B'">+B</option>
+                <option v-bind:value="patient.bloodGroup && '-AB' === patient.bloodGroup ? patient.bloodGroup : '-AB'" :key="'-AB'">
+                  -AB
+                </option>
+                <option v-bind:value="patient.bloodGroup && '+AB' === patient.bloodGroup ? patient.bloodGroup : '+AB'" :key="'+AB'">
+                  +AB
+                </option>
+              </select>
+            </div>
+            <div v-if="$v.patient.bloodGroup.$anyDirty && $v.patient.bloodGroup.$invalid">
+              <small class="form-text text-danger" v-if="!$v.patient.bloodGroup.required"> فصيلة الدم مطلوبة </small>
             </div>
           </div>
 
@@ -97,6 +107,9 @@
                   أنثى
                 </option>
               </select>
+            </div>
+            <div v-if="$v.patient.gender.$anyDirty && $v.patient.gender.$invalid">
+              <small class="form-text text-danger" v-if="!$v.patient.gender.required"> النوع مطلوب </small>
             </div>
           </div>
         </div>

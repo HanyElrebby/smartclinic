@@ -160,6 +160,12 @@ public class PatientResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/patients/getLatestPatient")
+    public ResponseEntity<List<Patient>> getLatestPatient() {
+        List<Patient> patients = patientService.getLatestPatient();
+        return ResponseEntity.ok().body(patients);
+    }
+
     /**
      * {@code GET  /patients/:id} : get the "id" patient.
      *
