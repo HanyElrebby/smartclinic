@@ -1,4 +1,4 @@
-import { Component, Vue, Inject } from 'vue-property-decorator';
+import { Component, Vue, Inject, VModel } from 'vue-property-decorator';
 
 import { required, maxLength } from 'vuelidate/lib/validators';
 
@@ -8,6 +8,7 @@ import { IVisit } from '@/shared/model/visit.model';
 import { IPatient, Patient } from '@/shared/model/patient.model';
 import PatientService from './patient.service';
 import { Datetime } from 'vue-datetime';
+import { faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 
 const validations: any = {
   patient: {
@@ -23,11 +24,9 @@ const validations: any = {
       required,
       maxLength: maxLength(6),
     },
-    contactNumber: {
+    fileNumber: {
       required,
-      maxLength: maxLength(11),
     },
-    fileNumber: {},
     placeOfResidence: {
       required,
       maxLength: maxLength(30),
@@ -65,11 +64,17 @@ export default class PatientUpdate extends Vue {
   public isSaving = false;
   public currentLanguage = '';
 
+  public lastPatients = [];
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.patientId) {
         vm.retrievePatient(to.params.patientId);
       }
+      vm.patient.fileNumber = '1';
+      vm.patient.bloodGroup = '-O';
+      vm.patient.gender = 'Male';
+
       vm.initRelationships();
     });
   }
@@ -145,6 +150,14 @@ export default class PatientUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.visits = res.data;
+      });
+    this.patientService()
+      .gatLastPatient()
+      .then(res => {
+        this.lastPatients = res.data;
+        if (this.lastPatients != null && this.lastPatients != undefined && this.lastPatients.length > 0) {
+          this.patient.fileNumber = parseInt(this.lastPatients[0].fileNumber) + 1 + '';
+        }
       });
   }
 }
