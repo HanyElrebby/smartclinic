@@ -1,8 +1,7 @@
 <template>
   <div>
     <h2 id="page-heading" data-cy="VisitHeading">
-      <span id="visit-heading">الزيارات</span>
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-center">
         <div class="form-group" style="margin-bottom: 0rem">
           <div class="d-flex">
             <datetime v-model="value1" type="date">

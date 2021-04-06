@@ -6,8 +6,11 @@
 
         <hr />
         <div>
-          <div v-if="patient.id">
-            <base-input type="text" label="الكود" name="id" v-model="patient.id" readonly />
+          <div class="form-group row" v-if="patient.id">
+            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">الكود</label>
+            <div class="col-md-10">
+              <base-input type="text" name="id" v-model="patient.id" readonly />
+            </div>
           </div>
 
           <div class="form-group row">
@@ -97,7 +100,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row" style="margin-top: 3rem">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">النوع</label>
             <div class="col-md-10">
               <select class="form-control" id="gender" data-cy="clinic" name="clinic" v-model="patient.gender">

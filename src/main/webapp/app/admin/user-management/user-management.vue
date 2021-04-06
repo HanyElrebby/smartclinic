@@ -1,9 +1,7 @@
 <template>
   <div>
     <h2>
-      <span id="user-management-page-heading" data-cy="userManagementPageHeading">المستخدمين</span>
-
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-center">
         <button class="btn btn-info ml-2" v-on:click="handleSyncList" :disabled="isLoading">
           <font-awesome-icon icon="sync" :spin="isLoading"></font-awesome-icon> <span>تحديث الجدول</span>
         </button>
