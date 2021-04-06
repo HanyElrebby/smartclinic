@@ -7,7 +7,7 @@
     <div class="container">
       <div class="wrapper">
         <div class="main-content">
-          <div class="card jh-card">
+          <div class="card jh-card bg-secondary">
             <router-view></router-view>
           </div>
           <b-modal id="login-page" hide-footer lazy>

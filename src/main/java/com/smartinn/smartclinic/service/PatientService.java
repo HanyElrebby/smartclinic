@@ -71,9 +71,6 @@ public class PatientService {
                     if (patient.getGender() != null) {
                         existingPatient.setGender(patient.getGender());
                     }
-                    if (patient.getContactNumber() != null) {
-                        existingPatient.setContactNumber(patient.getContactNumber());
-                    }
                     if (patient.getPlaceOfResidence() != null) {
                         existingPatient.setPlaceOfResidence(patient.getPlaceOfResidence());
                     }

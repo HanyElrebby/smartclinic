@@ -1,32 +1,29 @@
 <template>
   <div>
-    <h2 id="page-heading" data-cy="PatientHeading">
-      <span id="patient-heading">المرضى</span>
-      <div class="d-flex justify-content-end">
-        <b-form class="navbar-search form-inline ml-sm-3 navbar-search-light mx-auto" id="navbar-search-main">
-          <b-form-group class="mb-0">
-            <b-input-group class="input-group-alternative input-group-merge">
-              <b-form-input placeholder="إبحث" v-model="searchValue" style="margin-right: 10px" type="text"> </b-form-input>
+    <div class="d-flex justify-content-center">
+      <b-form class="navbar-search form-inline ml-sm-3 navbar-search-light" id="navbar-search-main">
+        <b-form-group class="mb-0">
+          <b-input-group class="input-group-alternative input-group-merge">
+            <b-form-input placeholder="إبحث" v-model="searchValue" style="margin-right: 10px" type="text"> </b-form-input>
 
-              <div class="input-group-append" style="margin-top: 10px; margin-left: 5px">
-                <font-awesome-icon v-on:click="handleSyncList" icon="search"></font-awesome-icon>
-              </div>
-            </b-input-group>
-          </b-form-group>
-        </b-form>
-        <router-link :to="{ name: 'PatientCreate' }" custom v-slot="{ navigate }">
-          <button
-            @click="navigate"
-            id="jh-create-entity"
-            data-cy="entityCreateButton"
-            class="btn btn-primary jh-create-entity create-patient"
-          >
-            <font-awesome-icon icon="plus"></font-awesome-icon>
-            <span> مريض جديد </span>
-          </button>
-        </router-link>
-      </div>
-    </h2>
+            <div class="input-group-append" style="margin-top: 10px; margin-left: 5px">
+              <font-awesome-icon v-on:click="handleSyncList" icon="search"></font-awesome-icon>
+            </div>
+          </b-input-group>
+        </b-form-group>
+      </b-form>
+      <router-link :to="{ name: 'PatientCreate' }" custom v-slot="{ navigate }">
+        <button
+          @click="navigate"
+          id="jh-create-entity"
+          data-cy="entityCreateButton"
+          class="btn btn-primary jh-create-entity create-patient"
+        >
+          <font-awesome-icon icon="plus"></font-awesome-icon>
+          <span> مريض جديد </span>
+        </button>
+      </router-link>
+    </div>
     <br />
     <div class="alert alert-warning" v-if="!isFetching && patients && patients.length === 0">
       <span>لا يوجد مرضى</span>
@@ -62,6 +59,9 @@
         </el-table-column>
       </el-table>
     </div>
+
+    <hr />
+
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
         ><span id="smartclinicApp.patient.delete.question" data-cy="patientDeleteDialogHeading">تأكيد عملية الحذف</span></span

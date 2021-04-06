@@ -27,11 +27,6 @@ public class Patient implements Serializable {
     @Column(name = "name", length = 30, nullable = false)
     private String name;
 
-    @NotNull
-    @Size(max = 11)
-    @Column(name = "contact_number", length = 11, nullable = false)
-    private String contactNumber;
-
     @Column(name = "file_number", length = 11, nullable = false)
     private String fileNumber;
 
@@ -98,19 +93,6 @@ public class Patient implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getContactNumber() {
-        return this.contactNumber;
-    }
-
-    public Patient contactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-        return this;
-    }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
     }
 
     public String getPlaceOfResidence() {
@@ -260,14 +242,8 @@ public class Patient implements Serializable {
         return (
             "Patient [id=" +
             id +
-            ", createdBy='" +
-            createdBy +
-            "', updatedBy='" +
-            updatedBy +
-            "', name=" +
+            ", name=" +
             name +
-            ", contactNumber=" +
-            contactNumber +
             ", fileNumber=" +
             fileNumber +
             ", placeOfResidence=" +
@@ -280,6 +256,10 @@ public class Patient implements Serializable {
             gender +
             ", bloodGroup=" +
             bloodGroup +
+            ", createdBy=" +
+            createdBy +
+            ", updatedBy=" +
+            updatedBy +
             ", phoneNumber=" +
             phoneNumber +
             ", visits=" +
@@ -287,6 +267,4 @@ public class Patient implements Serializable {
             "]"
         );
     }
-    // prettier-ignore
-
 }
