@@ -11,6 +11,9 @@ export interface IVisit {
   detailsOfVisits?: IDetailsOfVisit[] | null;
   createdBy?: string;
   updatedBy?: string;
+  description?: string;
+  medicine?: string;
+  note?: string;
   cost?: number;
 }
 
@@ -24,6 +27,9 @@ export class Visit implements IVisit {
     public detailsOfVisits?: IDetailsOfVisit[] | null,
     public createdBy?: string,
     public updatedBy?: string,
+    public description?: string,
+    public medicine?: string,
+    public note?: string,
     public cost?: number
   ) {}
 }

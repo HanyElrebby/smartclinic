@@ -51,6 +51,41 @@
               v-model="$v.visit.cost.$model"
             />
           </div>
+
+          <div>
+            <base-input
+              type="textarea"
+              name="الوصف"
+              data-cy="description"
+              label="الوصف"
+              placeholder="الوصف"
+              alternative
+              v-model="$v.visit.description.$model"
+            />
+          </div>
+          <div>
+            <base-input
+              type="textarea"
+              name="الادوىة الموصوفة"
+              data-cy="medicine"
+              label="الادوىة الموصوفة"
+              placeholder="الادوىة الموصوفة"
+              alternative
+              v-model="$v.visit.medicine.$model"
+            />
+          </div>
+          <div>
+            <base-input
+              type="textarea"
+              name="ملاحظات"
+              data-cy="note"
+              label="ملاحظات"
+              placeholder="ملاحظات"
+              alternative
+              v-model="$v.visit.note.$model"
+            />
+          </div>
+
           <div v-if="visit.id">
             <base-input type="text" label="الكود" name="id" v-model="visit.id" readonly />
           </div>
