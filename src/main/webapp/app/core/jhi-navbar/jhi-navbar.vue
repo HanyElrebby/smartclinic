@@ -83,7 +83,6 @@
 }
 
 .jh-navbar {
-  //background-color: #6495ED;
   padding: 0.2em 1em;
 }
 
