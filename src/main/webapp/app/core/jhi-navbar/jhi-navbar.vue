@@ -1,5 +1,5 @@
 <template>
-  <b-navbar data-cy="navbar" toggleable="md" type="dark" class="jh-navbar" v-if="authenticated">
+  <b-navbar data-cy="navbar" toggleable="md" type="dark" class="container bg-info jh-navbar" v-if="authenticated">
     <b-collapse is-nav id="header-tabs">
       <b-navbar-nav class="mx-auto">
         <b-nav-item to="/visit" exact>
@@ -83,7 +83,7 @@
 }
 
 .jh-navbar {
-  background-color: #ffffff;
+  //background-color: #6495ED;
   padding: 0.2em 1em;
 }
 
@@ -160,7 +160,7 @@
 }
 
 .account-font {
-  color: #000000;
+  color: #ffffff;
 }
 .logo-img {
   height: 100%;
