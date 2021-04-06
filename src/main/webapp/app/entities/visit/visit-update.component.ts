@@ -32,12 +32,28 @@ const validations: any = {
     },
     cost: {
       required,
+      maxLength: maxLength(7),
     },
-    description: {},
-    medicine: {},
-    note: {},
+    description: { maxLength: maxLength(1000) },
+    medicine: { maxLength: maxLength(1000) },
+    note: { maxLength: maxLength(1000) },
+    clinic: {
+      required,
+    },
+    patient: {
+      required,
+    },
   },
   value1: {
+    required,
+  },
+  hour: {
+    required,
+  },
+  minute: {
+    required,
+  },
+  period: {
     required,
   },
 };
@@ -48,6 +64,9 @@ const validations: any = {
   data() {
     return {
       value1: new Date().toISOString(),
+      hour: new Date().getHours() > 12 ? new Date().getHours() % 12 : new Date().getHours(),
+      minute: new Date().getMinutes(),
+      period: new Date().getHours() >= 12 ? 'pm' : 'am',
     };
   },
 })
@@ -107,7 +126,46 @@ export default class VisitUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
-    this.visit.dateOfVisit = new Date(this.$data.value1);
+    console.log(this.$data.value1, 'valueeeeeeeeeeee');
+    console.log(this.$data.hour);
+    console.log(this.$data.minute);
+    console.log(this.$data.period);
+
+    let hourv = '';
+
+    if (this.$data.period === 'pm') {
+      if (this.$data.hour < 12) {
+        hourv = this.$data.hour + 12 + '';
+      } else {
+        hourv = this.$data.hour + '';
+      }
+    } else {
+      hourv = (this.$data.hour % 12) + '';
+    }
+
+    let minuteV = this.$data.minute + '';
+    if (hourv.length < 2) {
+      hourv = '0' + hourv;
+      if (hourv.length < 2) {
+        hourv = '0' + hourv;
+      }
+    }
+    if (minuteV.length < 2) {
+      minuteV = '0' + minuteV;
+      if (minuteV.length < 2) {
+        minuteV = '0' + minuteV;
+      }
+    }
+
+    let dateFor = this.$data.value1.substring(0, this.$data.value1.indexOf('T') + 1) + hourv + ':' + minuteV + ':00';
+
+    let dated = new Date(this.$data.value1.indexOf('T'));
+
+    console.log(dateFor, 'ddddddddddddddddddddddddddddddd');
+
+    this.visit.dateOfVisit = new Date(dateFor);
+    console.log(this.visit.dateOfVisit);
+
     if (this.visit.id) {
       this.visit.createdBy = this.username;
       this.visit.updatedBy = this.username;
@@ -176,6 +234,10 @@ export default class VisitUpdate extends Vue {
         console.log(this.$data.value1, '4444444444444444444555555555555555555555');
 
         this.$data.value1 = dayjs(new Date(res.dateOfVisit)).format(DATE_TIME_LONG_FORMAT);
+        this.$data.hour =
+          new Date(res.dateOfVisit).getHours() > 12 ? new Date(res.dateOfVisit).getHours() % 12 : new Date(res.dateOfVisit).getHours();
+        this.$data.minute = new Date(res.dateOfVisit).getMinutes();
+        this.$data.period = new Date(res.dateOfVisit).getHours() >= 12 ? 'pm' : 'am';
         console.log(this.$data.value1, '77777777777777777777777777777777777');
         this.visit = res;
       });
