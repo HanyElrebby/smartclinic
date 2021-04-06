@@ -50,6 +50,18 @@
           <dd>
             <span>{{ patient.placeOfResidence }}</span>
           </dd>
+          <dt>
+            <span> الامراض المزمنة </span>
+          </dt>
+          <dd>
+            <span>{{ patient.diseases }}</span>
+          </dd>
+          <dt>
+            <span> العمليات السابقة</span>
+          </dt>
+          <dd>
+            <span>{{ patient.surgery }}</span>
+          </dd>
         </dl>
 
         <h1 class="text-danger">الزيارات السابقة:</h1>

@@ -9,6 +9,8 @@ export interface IPatient {
   fileNumber?: string;
   dateOfBirth?: Date;
   bloodGroup?: string;
+  diseases?: string;
+  surgery?: string;
   phoneNumber?: string;
   visits?: IVisit[] | null;
   createdBy?: string;
@@ -27,6 +29,8 @@ export class Patient implements IPatient {
     public placeOfResidence?: string,
     public dateOfBirth?: Date,
     public bloodGroup?: string,
+    public diseases?: string,
+    public surgery?: string,
     public phoneNumber?: string,
     public visits?: IVisit[] | null,
     public createdBy?: string,

@@ -39,6 +39,12 @@ const validations: any = {
       required,
       maxLength: maxLength(11),
     },
+    diseases: {
+      maxLength: maxLength(1000),
+    },
+    surgery: {
+      maxLength: maxLength(1000),
+    },
   },
   value1: {
     required,

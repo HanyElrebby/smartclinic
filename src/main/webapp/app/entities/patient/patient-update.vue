@@ -63,6 +63,22 @@
           </div>
 
           <div class="form-group row">
+            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">النوع</label>
+            <div class="col-md-10">
+              <select class="form-control" id="gender" data-cy="clinic" name="clinic" v-model="patient.gender">
+                <option v-bind:value="null"></option>
+                <option v-bind:value="patient.gender && 'Male' === patient.gender ? patient.gender : 'Male'" :key="'Male'">ذكر</option>
+                <option v-bind:value="patient.gender && 'Female' === patient.gender ? patient.gender : 'Female'" :key="'Female'">
+                  أنثى
+                </option>
+              </select>
+            </div>
+            <div v-if="$v.patient.gender.$anyDirty && $v.patient.gender.$invalid">
+              <small class="form-text text-danger" v-if="!$v.patient.gender.required"> النوع مطلوب </small>
+            </div>
+          </div>
+
+          <div class="form-group row">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">العنوان</label>
             <div class="col-md-10">
               <base-input
@@ -73,6 +89,37 @@
                 v-model="$v.patient.placeOfResidence.$model"
                 :rules="{ required: true, max: 30 }"
               />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">الامراض المزمنة</label>
+            <div class="col-md-10">
+              <textarea
+                class="form-control"
+                rows="2"
+                name="الامراض المزمنة "
+                data-cy="diseases"
+                alternative
+                v-model="$v.patient.diseases.$model"
+                :rules="{ max: 1000 }"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">العمليات السابقة </label>
+            <div class="col-md-10">
+              <textarea
+                class="form-control"
+                type="text"
+                rows="2"
+                name="العمليات السابقة "
+                data-cy="surgery"
+                alternative
+                v-model="$v.patient.surgery.$model"
+                :rules="{ max: 1000 }"
+              ></textarea>
             </div>
           </div>
 
@@ -97,22 +144,6 @@
             </div>
             <div v-if="$v.patient.bloodGroup.$anyDirty && $v.patient.bloodGroup.$invalid">
               <small class="form-text text-danger" v-if="!$v.patient.bloodGroup.required"> فصيلة الدم مطلوبة </small>
-            </div>
-          </div>
-
-          <div class="form-group row" style="margin-top: 3rem">
-            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">النوع</label>
-            <div class="col-md-10">
-              <select class="form-control" id="gender" data-cy="clinic" name="clinic" v-model="patient.gender">
-                <option v-bind:value="null"></option>
-                <option v-bind:value="patient.gender && 'Male' === patient.gender ? patient.gender : 'Male'" :key="'Male'">ذكر</option>
-                <option v-bind:value="patient.gender && 'Female' === patient.gender ? patient.gender : 'Female'" :key="'Female'">
-                  أنثى
-                </option>
-              </select>
-            </div>
-            <div v-if="$v.patient.gender.$anyDirty && $v.patient.gender.$invalid">
-              <small class="form-text text-danger" v-if="!$v.patient.gender.required"> النوع مطلوب </small>
             </div>
           </div>
         </div>

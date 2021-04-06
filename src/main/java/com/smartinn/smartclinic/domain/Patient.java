@@ -48,6 +48,12 @@ public class Patient implements Serializable {
     @Column(name = "gender", length = 6, nullable = false)
     private String gender;
 
+    @Column(name = "diseases")
+    private String diseases;
+
+    @Column(name = "surgery")
+    private String surgery;
+
     @NotNull
     @Size(max = 30)
     @Column(name = "blood_group", length = 30, nullable = false)
@@ -97,6 +103,22 @@ public class Patient implements Serializable {
 
     public String getPlaceOfResidence() {
         return this.placeOfResidence;
+    }
+
+    public String getDiseases() {
+        return diseases;
+    }
+
+    public void setDiseases(String diseases) {
+        this.diseases = diseases;
+    }
+
+    public String getSurgery() {
+        return surgery;
+    }
+
+    public void setSurgery(String surgery) {
+        this.surgery = surgery;
     }
 
     public Patient placeOfResidence(String placeOfResidence) {
@@ -254,6 +276,10 @@ public class Patient implements Serializable {
             age +
             ", gender=" +
             gender +
+            ", diseases=" +
+            diseases +
+            ", surgery=" +
+            surgery +
             ", bloodGroup=" +
             bloodGroup +
             ", createdBy=" +
