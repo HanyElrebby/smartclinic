@@ -1,8 +1,7 @@
 <template>
   <div>
     <h2 id="page-heading" data-cy="DoctorHeading">
-      <span id="doctor-heading">الأطباء</span>
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-center">
         <button class="btn btn-info ml-2" v-on:click="handleSyncList" :disabled="isFetching">
           <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>تحديث الجدول</span>
         </button>
