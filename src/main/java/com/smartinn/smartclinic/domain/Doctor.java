@@ -23,13 +23,8 @@ public class Doctor implements Serializable {
 
     @NotNull
     @Size(max = 30)
-    @Column(name = "first_name", length = 30, nullable = false)
-    private String firstName;
-
-    @NotNull
-    @Size(max = 30)
-    @Column(name = "last_name", length = 30, nullable = false)
-    private String lastName;
+    @Column(name = "name", length = 30, nullable = false)
+    private String name;
 
     @NotNull
     @Size(max = 30)
@@ -40,6 +35,12 @@ public class Doctor implements Serializable {
     @Size(max = 11)
     @Column(name = "phone_number", length = 11, nullable = false)
     private String phoneNumber;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
 
     @OneToMany(mappedBy = "doctor")
     @JsonIgnoreProperties(value = { "doctor", "visits", "user" }, allowSetters = true)
@@ -59,30 +60,17 @@ public class Doctor implements Serializable {
         return this;
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    public String getName() {
+        return this.name;
     }
 
-    public Doctor firstName(String firstName) {
-        this.firstName = firstName;
+    public Doctor name(String name) {
+        this.name = name;
         return this;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public Doctor lastName(String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSpecialization() {
@@ -109,6 +97,22 @@ public class Doctor implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
     }
 
     public Set<Clinic> getClinics() {
@@ -166,8 +170,11 @@ public class Doctor implements Serializable {
     public String toString() {
         return "Doctor{" +
             "id=" + getId() +
-            ", firstName='" + getFirstName() + "'" +
-            ", lastName='" + getLastName() + "'" +
+            ", createdBy='" +
+            createdBy +
+            "', updatedBy='" +
+            updatedBy +
+            "', name='" + getName() + "'" +
             ", specialization='" + getSpecialization() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
             "}";

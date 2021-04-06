@@ -2,36 +2,121 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
-        <h2 id="smartclinicApp.visit.home.createOrEditLabel" data-cy="VisitCreateUpdateHeading">Create or edit a Visit</h2>
+        <h2 id="smartclinicApp.visit.home.createOrEditLabel" data-cy="VisitCreateUpdateHeading">إنشاء او تعديل زيارة</h2>
         <div>
-          <div class="form-group" v-if="visit.id">
-            <label for="id">ID</label>
-            <input type="text" class="form-control" id="id" name="id" v-model="visit.id" readonly />
+          <div class="form-group">
+            <label class="form-control-label" for="visit-patient">المريض</label>
+            <select class="form-control" id="visit-patient" data-cy="patient" name="patient" v-model="visit.patient" disabled>
+              <option v-bind:value="null"></option>
+              <option
+                v-bind:value="visit.patient && patientOption.id === visit.patient.id ? visit.patient : patientOption"
+                v-for="patientOption in patients"
+                :key="patientOption.id"
+              >
+                {{ patientOption.name }}
+              </option>
+            </select>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="visit-dateOfVisit">Date Of Visit</label>
+            <label class="form-control-label" for="visit-type">نوع الزيارة</label>
+            <select
+              class="form-control"
+              aria-placeholder="نوع الزيارة"
+              id="visit-type"
+              data-cy="visitType"
+              name="visitType"
+              v-model="visit.visitType"
+            >
+              <option v-bind:value="null"></option>
+              <option v-bind:value="visit.visitType && 'Reveal' === visit.visitType ? visit.visitType : 'Reveal'" :key="'Reveal'">
+                كشف
+              </option>
+              <option v-bind:value="visit.visitType && 'Repeat' === visit.visitType ? visit.visitType : 'Repeat'" :key="'Repeat'">
+                أعادة
+              </option>
+              <option v-bind:value="visit.visitType && 'Other' === visit.visitType ? visit.visitType : 'Other'" :key="'Other'">أخرى</option>
+            </select>
+          </div>
+          <div v-if="$v.visit.visitType.$anyDirty && $v.visit.visitType.$invalid">
+            <small class="form-text text-danger" v-if="!$v.visit.visitType.required"> نوع الزيارة مطلوب </small>
+          </div>
+          <div>
+            <base-input
+              type="number"
+              name="السعر"
+              data-cy="cost"
+              label="السعر"
+              placeholder="السعر"
+              alternative
+              v-model="$v.visit.cost.$model"
+            />
+          </div>
+
+          <div>
+            <base-input
+              type="textarea"
+              name="الوصف"
+              data-cy="description"
+              label="الوصف"
+              placeholder="الوصف"
+              alternative
+              v-model="$v.visit.description.$model"
+            />
+          </div>
+          <div>
+            <base-input
+              type="textarea"
+              name="الادوىة الموصوفة"
+              data-cy="medicine"
+              label="الادوىة الموصوفة"
+              placeholder="الادوىة الموصوفة"
+              alternative
+              v-model="$v.visit.medicine.$model"
+            />
+          </div>
+          <div>
+            <base-input
+              type="textarea"
+              name="ملاحظات"
+              data-cy="note"
+              label="ملاحظات"
+              placeholder="ملاحظات"
+              alternative
+              v-model="$v.visit.note.$model"
+            />
+          </div>
+
+          <div v-if="visit.id">
+            <base-input type="text" label="الكود" name="id" v-model="visit.id" readonly />
+          </div>
+          <div class="form-group">
+            <label class="form-control-label" for="visit-type">تاريخ الزيارة</label>
             <div class="d-flex">
-              <input
-                id="visit-dateOfVisit"
+              <!-- <base-input
                 data-cy="dateOfVisit"
                 type="datetime-local"
-                class="form-control"
-                name="dateOfVisit"
-                :class="{ valid: !$v.visit.dateOfVisit.$invalid, invalid: $v.visit.dateOfVisit.$invalid }"
-                required
+                name="تاريخ الزيارة"
+                label="تاريخ الزيارة"
+                placeholder="تاريخ الزيارة"
+                alternative
                 :value="convertDateTimeFromServer($v.visit.dateOfVisit.$model)"
                 @change="updateZonedDateTimeField('dateOfVisit', $event)"
-              />
-            </div>
-            <div v-if="$v.visit.dateOfVisit.$anyDirty && $v.visit.dateOfVisit.$invalid">
-              <small class="form-text text-danger" v-if="!$v.visit.dateOfVisit.required"> This field is required. </small>
-              <small class="form-text text-danger" v-if="!$v.visit.dateOfVisit.ZonedDateTimelocal">
-                This field should be a date and time.
-              </small>
+                :rules="{ required: true, max: 30 }"
+              /> -->
+
+              <datetime v-model="value1" @change="updateZonedDateTimeField('dateOfVisit', $event)" type="datetime">
+                <template slot="button-cancel"> ألغاء </template>
+                <template slot="button-confirm"> تاكيد </template>
+              </datetime>
             </div>
           </div>
+          <!-- <date-picker v-model="$v.value" type="datetime"></date-picker>-->
+          <div v-if="$v.value1.$anyDirty && $v.value1.$invalid">
+            <small class="form-text text-danger" v-if="!$v.value1.required"> تاريخ الزيارة مطلوب </small>
+          </div>
+
           <div class="form-group">
-            <label class="form-control-label" for="visit-clinic">Clinic</label>
+            <label class="form-control-label" for="visit-clinic">العيادة</label>
             <select class="form-control" id="visit-clinic" data-cy="clinic" name="clinic" v-model="visit.clinic">
               <option v-bind:value="null"></option>
               <option
@@ -43,23 +128,10 @@
               </option>
             </select>
           </div>
-          <div class="form-group">
-            <label class="form-control-label" for="visit-patient">Patient</label>
-            <select class="form-control" id="visit-patient" data-cy="patient" name="patient" v-model="visit.patient">
-              <option v-bind:value="null"></option>
-              <option
-                v-bind:value="visit.patient && patientOption.id === visit.patient.id ? visit.patient : patientOption"
-                v-for="patientOption in patients"
-                :key="patientOption.id"
-              >
-                {{ patientOption.firstName }}
-              </option>
-            </select>
-          </div>
         </div>
         <div>
           <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>Cancel</span>
+            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>إلغاء</span>
           </button>
           <button
             type="submit"
@@ -68,7 +140,7 @@
             :disabled="$v.visit.$invalid || isSaving"
             class="btn btn-primary"
           >
-            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Save</span>
+            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>حفظ</span>
           </button>
         </div>
       </form>

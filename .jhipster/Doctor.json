@@ -1,13 +1,7 @@
 {
   "fields": [
     {
-      "fieldName": "firstName",
-      "fieldType": "String",
-      "fieldValidateRules": ["required", "maxlength"],
-      "fieldValidateRulesMaxlength": "30"
-    },
-    {
-      "fieldName": "lastName",
+      "fieldName": "name",
       "fieldType": "String",
       "fieldValidateRules": ["required", "maxlength"],
       "fieldValidateRulesMaxlength": "30"

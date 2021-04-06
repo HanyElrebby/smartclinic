@@ -23,6 +23,28 @@ public class Visit implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name = "visit_type", nullable = false)
+    private String visitType;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "medicine")
+    private String medicine;
+
+    @Column(name = "note")
+    private String note;
+
+    @Column(name = "cost", nullable = false)
+    private Integer cost;
+
+    @NotNull
     @Column(name = "date_of_visit", nullable = false)
     private ZonedDateTime dateOfVisit;
 
@@ -52,6 +74,30 @@ public class Visit implements Serializable {
         return this;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(String medicine) {
+        this.medicine = medicine;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     public ZonedDateTime getDateOfVisit() {
         return this.dateOfVisit;
     }
@@ -63,6 +109,38 @@ public class Visit implements Serializable {
 
     public void setDateOfVisit(ZonedDateTime dateOfVisit) {
         this.dateOfVisit = dateOfVisit;
+    }
+
+    public String getVisitType() {
+        return visitType;
+    }
+
+    public void setVisitType(String visitType) {
+        this.visitType = visitType;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
     }
 
     public Clinic getClinic() {
@@ -141,12 +219,34 @@ public class Visit implements Serializable {
         return getClass().hashCode();
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
-        return "Visit{" +
-            "id=" + getId() +
-            ", dateOfVisit='" + getDateOfVisit() + "'" +
-            "}";
+        return (
+            "Visit [id=" +
+            id +
+            ", visitType=" +
+            visitType +
+            ", createdBy=" +
+            createdBy +
+            ", updatedBy=" +
+            updatedBy +
+            ", description=" +
+            description +
+            ", medicine=" +
+            medicine +
+            ", note=" +
+            note +
+            ", cost=" +
+            cost +
+            ", dateOfVisit=" +
+            dateOfVisit +
+            ", clinic=" +
+            clinic +
+            ", patient=" +
+            patient +
+            ", detailsOfVisits=" +
+            detailsOfVisits +
+            "]"
+        );
     }
 }

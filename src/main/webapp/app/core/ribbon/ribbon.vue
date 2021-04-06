@@ -1,8 +1,4 @@
-<template>
-  <div class="ribbon" v-if="ribbonEnabled">
-    <a href="">{{ ribbonEnv }}</a>
-  </div>
-</template>
+<template></template>
 
 <script lang="ts" src="./ribbon.component.ts"></script>
 

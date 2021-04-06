@@ -11,6 +11,8 @@ export interface IClinic {
   doctor?: IDoctor | null;
   visits?: IVisit[] | null;
   user?: IUser | null;
+  createdBy?: string;
+  updatedBy?: string;
 }
 
 export class Clinic implements IClinic {
@@ -22,6 +24,8 @@ export class Clinic implements IClinic {
     public street?: string,
     public doctor?: IDoctor | null,
     public visits?: IVisit[] | null,
-    public user?: IUser | null
+    public user?: IUser | null,
+    public createdBy?: string,
+    public updatedBy?: string
   ) {}
 }

@@ -152,6 +152,20 @@ public class PatientResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/patients/search/{search}")
+    public ResponseEntity<List<Patient>> getSearchPatients(@PathVariable String search, Pageable pageable) {
+        log.debug("REST request to get a page of Patients");
+        Page<Patient> page = patientService.searchPatients(search, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/patients/getLatestPatient")
+    public ResponseEntity<List<Patient>> getLatestPatient() {
+        List<Patient> patients = patientService.getLatestPatient();
+        return ResponseEntity.ok().body(patients);
+    }
+
     /**
      * {@code GET  /patients/:id} : get the "id" patient.
      *

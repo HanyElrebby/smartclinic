@@ -24,42 +24,40 @@ public class Patient implements Serializable {
 
     @NotNull
     @Size(max = 30)
-    @Column(name = "first_name", length = 30, nullable = false)
-    private String firstName;
+    @Column(name = "name", length = 30, nullable = false)
+    private String name;
 
-    @NotNull
-    @Size(max = 30)
-    @Column(name = "last_name", length = 30, nullable = false)
-    private String lastName;
-
-    @NotNull
-    @Size(max = 11)
-    @Column(name = "pesel", length = 11, nullable = false)
-    private String pesel;
-
-    @NotNull
-    @Size(max = 30)
-    @Column(name = "first_father_name", length = 30, nullable = false)
-    private String firstFatherName;
-
-    @NotNull
-    @Size(max = 11)
-    @Column(name = "contact_number", length = 11, nullable = false)
-    private String contactNumber;
+    @Column(name = "file_number", length = 11, nullable = false)
+    private String fileNumber;
 
     @NotNull
     @Size(max = 30)
     @Column(name = "place_of_residence", length = 30, nullable = false)
     private String placeOfResidence;
 
-    @NotNull
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "date_of_birth", nullable = true)
     private LocalDate dateOfBirth;
+
+    @NotNull
+    @Size(max = 3)
+    @Column(name = "age", length = 3, nullable = false)
+    private String age;
+
+    @NotNull
+    @Size(max = 6)
+    @Column(name = "gender", length = 6, nullable = false)
+    private String gender;
 
     @NotNull
     @Size(max = 30)
     @Column(name = "blood_group", length = 30, nullable = false)
     private String bloodGroup;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
 
     @NotNull
     @Size(max = 11)
@@ -67,7 +65,7 @@ public class Patient implements Serializable {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "patient")
-    @JsonIgnoreProperties(value = { "clinic", "patient", "detailsOfVisits" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "patient", "detailsOfVisits" }, allowSetters = true)
     private Set<Visit> visits = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -84,69 +82,17 @@ public class Patient implements Serializable {
         return this;
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    public String getName() {
+        return this.name;
     }
 
-    public Patient firstName(String firstName) {
-        this.firstName = firstName;
+    public Patient name(String name) {
+        this.name = name;
         return this;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public Patient lastName(String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPesel() {
-        return this.pesel;
-    }
-
-    public Patient pesel(String pesel) {
-        this.pesel = pesel;
-        return this;
-    }
-
-    public void setPesel(String pesel) {
-        this.pesel = pesel;
-    }
-
-    public String getFirstFatherName() {
-        return this.firstFatherName;
-    }
-
-    public Patient firstFatherName(String firstFatherName) {
-        this.firstFatherName = firstFatherName;
-        return this;
-    }
-
-    public void setFirstFatherName(String firstFatherName) {
-        this.firstFatherName = firstFatherName;
-    }
-
-    public String getContactNumber() {
-        return this.contactNumber;
-    }
-
-    public Patient contactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-        return this;
-    }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPlaceOfResidence() {
@@ -201,6 +147,46 @@ public class Patient implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getFileNumber() {
+        return fileNumber;
+    }
+
+    public void setFileNumber(String fileNumber) {
+        this.fileNumber = fileNumber;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
     public Set<Visit> getVisits() {
         return this.visits;
     }
@@ -251,20 +237,34 @@ public class Patient implements Serializable {
         return getClass().hashCode();
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
-        return "Patient{" +
-            "id=" + getId() +
-            ", firstName='" + getFirstName() + "'" +
-            ", lastName='" + getLastName() + "'" +
-            ", pesel='" + getPesel() + "'" +
-            ", firstFatherName='" + getFirstFatherName() + "'" +
-            ", contactNumber='" + getContactNumber() + "'" +
-            ", placeOfResidence='" + getPlaceOfResidence() + "'" +
-            ", dateOfBirth='" + getDateOfBirth() + "'" +
-            ", bloodGroup='" + getBloodGroup() + "'" +
-            ", phoneNumber='" + getPhoneNumber() + "'" +
-            "}";
+        return (
+            "Patient [id=" +
+            id +
+            ", name=" +
+            name +
+            ", fileNumber=" +
+            fileNumber +
+            ", placeOfResidence=" +
+            placeOfResidence +
+            ", dateOfBirth=" +
+            dateOfBirth +
+            ", age=" +
+            age +
+            ", gender=" +
+            gender +
+            ", bloodGroup=" +
+            bloodGroup +
+            ", createdBy=" +
+            createdBy +
+            ", updatedBy=" +
+            updatedBy +
+            ", phoneNumber=" +
+            phoneNumber +
+            ", visits=" +
+            visits +
+            "]"
+        );
     }
 }

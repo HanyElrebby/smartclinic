@@ -8,6 +8,8 @@ export interface IDetailsOfVisit {
   medicines?: string | null;
   dosage?: string | null;
   visit?: IVisit | null;
+  createdBy?: string;
+  updatedBy?: string;
 }
 
 export class DetailsOfVisit implements IDetailsOfVisit {
@@ -18,6 +20,8 @@ export class DetailsOfVisit implements IDetailsOfVisit {
     public recommendations?: string | null,
     public medicines?: string | null,
     public dosage?: string | null,
-    public visit?: IVisit | null
+    public visit?: IVisit | null,
+    public createdBy?: string,
+    public updatedBy?: string
   ) {}
 }

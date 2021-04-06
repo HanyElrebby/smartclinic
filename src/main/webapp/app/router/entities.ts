@@ -120,6 +120,12 @@ export default [
     meta: { authorities: [Authority.USER] },
   },
   {
+    path: '/visit/:patientId/new',
+    name: 'VisitotherCreate',
+    component: VisitUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
     path: '/visit/:visitId/edit',
     name: 'VisitEdit',
     component: VisitUpdate,

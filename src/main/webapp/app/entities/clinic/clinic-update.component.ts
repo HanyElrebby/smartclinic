@@ -12,6 +12,7 @@ import UserService from '@/admin/user-management/user-management.service';
 
 import { IClinic, Clinic } from '@/shared/model/clinic.model';
 import ClinicService from './clinic.service';
+import AccountService from '@/account/account.service';
 
 const validations: any = {
   clinic: {
@@ -50,6 +51,8 @@ export default class ClinicUpdate extends Vue {
   public visits: IVisit[] = [];
 
   @Inject('userService') private userService: () => UserService;
+
+  @Inject('accountService') private accountService: () => AccountService;
 
   labelClasses: {
     type: String;
@@ -110,9 +113,15 @@ export default class ClinicUpdate extends Vue {
     );
   }
 
+  public get username(): string {
+    return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
+
   public save(): void {
     this.isSaving = true;
     if (this.clinic.id) {
+      this.clinic.updatedBy = this.username;
+      this.clinic.createdBy = this.username;
       this.clinicService()
         .update(this.clinic)
         .then(param => {
@@ -128,6 +137,7 @@ export default class ClinicUpdate extends Vue {
           });
         });
     } else {
+      this.clinic.updatedBy = this.username;
       this.clinicService()
         .create(this.clinic)
         .then(param => {

@@ -1,9 +1,9 @@
 <template>
-  <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <nav class="navbar navbar-vertical fixed-right navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <!--Toggler-->
       <navbar-toggle-button @click.native="showSidebar"> </navbar-toggle-button>
-      <router-link class="navbar-brand" to="/">
+      <router-link class="navbar-brand" to="/home">
         <img :src="logo" class="navbar-brand-img" alt="..." />
       </router-link>
 
@@ -74,27 +74,6 @@
           <slot name="links"> </slot>
         </ul>
         <!--Divider-->
-        <hr class="my-3" />
-        <!--Heading-->
-        <h6 class="navbar-heading text-muted">Documentation</h6>
-        <!--Navigation-->
-        <ul class="navbar-nav mb-md-3">
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.creative-tim.com/learning-lab/bootstrap-vue/alerts/argon-dashboard">
-              <i class="ni ni-spaceship"></i> Getting started
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.creative-tim.com/learning-lab/bootstrap-vue/colors/argon-dashboard">
-              <i class="ni ni-palette"></i> Foundation
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.creative-tim.com/learning-lab/bootstrap-vue/alerts/argon-dashboard">
-              <i class="ni ni-ui-04"></i> Components
-            </a>
-          </li>
-        </ul>
       </div>
     </div>
   </nav>

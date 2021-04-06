@@ -1,4 +1,4 @@
-import { Component, Vue, Inject } from 'vue-property-decorator';
+import { Component, Vue, Inject, VModel } from 'vue-property-decorator';
 
 import { required, maxLength } from 'vuelidate/lib/validators';
 
@@ -7,35 +7,29 @@ import { IVisit } from '@/shared/model/visit.model';
 
 import { IPatient, Patient } from '@/shared/model/patient.model';
 import PatientService from './patient.service';
+import { Datetime } from 'vue-datetime';
+import { faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 
 const validations: any = {
   patient: {
-    firstName: {
+    name: {
       required,
       maxLength: maxLength(30),
     },
-    lastName: {
+    age: {
       required,
-      maxLength: maxLength(30),
+      maxLength: maxLength(3),
     },
-    pesel: {
+    gender: {
       required,
-      maxLength: maxLength(11),
+      maxLength: maxLength(6),
     },
-    firstFatherName: {
+    fileNumber: {
       required,
-      maxLength: maxLength(30),
-    },
-    contactNumber: {
-      required,
-      maxLength: maxLength(11),
     },
     placeOfResidence: {
       required,
       maxLength: maxLength(30),
-    },
-    dateOfBirth: {
-      required,
     },
     bloodGroup: {
       required,
@@ -46,10 +40,19 @@ const validations: any = {
       maxLength: maxLength(11),
     },
   },
+  value1: {
+    required,
+  },
 };
 
 @Component({
   validations,
+  components: { datetime: Datetime },
+  data() {
+    return {
+      value1: null,
+    };
+  },
 })
 export default class PatientUpdate extends Vue {
   @Inject('patientService') private patientService: () => PatientService;
@@ -61,11 +64,17 @@ export default class PatientUpdate extends Vue {
   public isSaving = false;
   public currentLanguage = '';
 
+  public lastPatients = [];
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.patientId) {
         vm.retrievePatient(to.params.patientId);
       }
+      vm.patient.fileNumber = '1';
+      vm.patient.bloodGroup = '-O';
+      vm.patient.gender = 'Male';
+
       vm.initRelationships();
     });
   }
@@ -80,9 +89,16 @@ export default class PatientUpdate extends Vue {
     );
   }
 
+  public get username(): string {
+    return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
+
   public save(): void {
     this.isSaving = true;
+    this.patient.dateOfBirth = new Date(this.$data.value1);
     if (this.patient.id) {
+      this.patient.createdBy = this.username;
+      this.patient.updatedBy = this.username;
       this.patientService()
         .update(this.patient)
         .then(param => {
@@ -98,6 +114,7 @@ export default class PatientUpdate extends Vue {
           });
         });
     } else {
+      this.patient.updatedBy = this.username;
       this.patientService()
         .create(this.patient)
         .then(param => {
@@ -120,6 +137,7 @@ export default class PatientUpdate extends Vue {
       .find(patientId)
       .then(res => {
         this.patient = res;
+        this.$data.value1 = new Date(this.patient.dateOfBirth).toISOString();
       });
   }
 
@@ -132,6 +150,14 @@ export default class PatientUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.visits = res.data;
+      });
+    this.patientService()
+      .gatLastPatient()
+      .then(res => {
+        this.lastPatients = res.data;
+        if (this.lastPatients != null && this.lastPatients != undefined && this.lastPatients.length > 0) {
+          this.patient.fileNumber = parseInt(this.lastPatients[0].fileNumber) + 1 + '';
+        }
       });
   }
 }

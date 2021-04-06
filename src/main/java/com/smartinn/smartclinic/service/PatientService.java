@@ -2,6 +2,7 @@ package com.smartinn.smartclinic.service;
 
 import com.smartinn.smartclinic.domain.Patient;
 import com.smartinn.smartclinic.repository.PatientRepository;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,20 @@ public class PatientService {
      */
     public Patient save(Patient patient) {
         log.debug("Request to save Patient : {}", patient);
+        String fileNumber = "1";
+        List<Patient> patients = patientRepository.getLastPatient();
+        if (patients != null && patients.size() > 0) {
+            Patient lastPatient = patients.get(0);
+            int lastFileNumber = Integer.parseInt(lastPatient.getFileNumber());
+            fileNumber = (lastFileNumber + 1) + "";
+        }
+        patient.setFileNumber(fileNumber);
+
         return patientRepository.save(patient);
+    }
+
+    public List<Patient> getLatestPatient() {
+        return patientRepository.getLastPatient();
     }
 
     /**
@@ -49,20 +63,17 @@ public class PatientService {
             .findById(patient.getId())
             .map(
                 existingPatient -> {
-                    if (patient.getFirstName() != null) {
-                        existingPatient.setFirstName(patient.getFirstName());
+                    if (patient.getName() != null) {
+                        existingPatient.setName(patient.getName());
                     }
-                    if (patient.getLastName() != null) {
-                        existingPatient.setLastName(patient.getLastName());
+                    if (patient.getFileNumber() != null) {
+                        existingPatient.setFileNumber(patient.getFileNumber());
                     }
-                    if (patient.getPesel() != null) {
-                        existingPatient.setPesel(patient.getPesel());
+                    if (patient.getAge() != null) {
+                        existingPatient.setAge(patient.getAge());
                     }
-                    if (patient.getFirstFatherName() != null) {
-                        existingPatient.setFirstFatherName(patient.getFirstFatherName());
-                    }
-                    if (patient.getContactNumber() != null) {
-                        existingPatient.setContactNumber(patient.getContactNumber());
+                    if (patient.getGender() != null) {
+                        existingPatient.setGender(patient.getGender());
                     }
                     if (patient.getPlaceOfResidence() != null) {
                         existingPatient.setPlaceOfResidence(patient.getPlaceOfResidence());
@@ -93,6 +104,17 @@ public class PatientService {
     public Page<Patient> findAll(Pageable pageable) {
         log.debug("Request to get all Patients");
         return patientRepository.findAll(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Patient> searchPatients(String search, Pageable pageable) {
+        log.debug("Request to get all Patients");
+        if (search == null || search.equals("zZnull")) {
+            search = "";
+        }
+        search = search.toUpperCase();
+
+        return patientRepository.searchPatients("%" + search + "%", "%" + search + "%", search, pageable);
     }
 
     /**

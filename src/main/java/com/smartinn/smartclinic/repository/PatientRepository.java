@@ -1,7 +1,11 @@
 package com.smartinn.smartclinic.repository;
 
 import com.smartinn.smartclinic.domain.Patient;
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +13,13 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PatientRepository extends JpaRepository<Patient, Long> {}
+public interface PatientRepository extends JpaRepository<Patient, Long> {
+    @Query(
+        value = "select * from patient p where p.file_number = ?3 or UPPER(p.phone_number)  LIKE ?1 or UPPER(p.name) LIKE ?2",
+        nativeQuery = true
+    )
+    Page<Patient> searchPatients(String phoneNumber, String name, String fileNumber, Pageable pageable);
+
+    @Query(value = "select * from patient p order by p.file_number desc Limit 1", nativeQuery = true)
+    List<Patient> getLastPatient();
+}

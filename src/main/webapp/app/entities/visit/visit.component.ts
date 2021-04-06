@@ -1,5 +1,6 @@
 import { mixins } from 'vue-class-component';
 
+import { Datetime } from 'vue-datetime';
 import { Component, Vue, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
 import { IVisit } from '@/shared/model/visit.model';
@@ -8,11 +9,17 @@ import VisitService from './visit.service';
 
 @Component({
   mixins: [Vue2Filters.mixin],
+  components: { datetime: Datetime },
+  data() {
+    return {
+      value1: new Date().toISOString(),
+    };
+  },
 })
 export default class Visit extends Vue {
   @Inject('visitService') private visitService: () => VisitService;
   private removeId: number = null;
-  public itemsPerPage = 20;
+  public itemsPerPage = 10;
   public queryCount: number = null;
   public page = 1;
   public previousPage = 1;
@@ -24,8 +31,24 @@ export default class Visit extends Vue {
 
   public isFetching = false;
 
+  public date = new Date();
+
+  public currentDate;
+
   public mounted(): void {
     this.retrieveAllVisits();
+  }
+
+  formatDate(date) {
+    var d = date,
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 
   public clear(): void {
@@ -36,13 +59,15 @@ export default class Visit extends Vue {
   public retrieveAllVisits(): void {
     this.isFetching = true;
 
+    this.currentDate = this.formatDate(new Date(this.$data.value1));
+
     const paginationQuery = {
       page: this.page - 1,
       size: this.itemsPerPage,
       sort: this.sort(),
     };
     this.visitService()
-      .retrieve(paginationQuery)
+      .retrieveByDate(this.currentDate, paginationQuery)
       .then(
         res => {
           this.visits = res.data;
@@ -58,6 +83,18 @@ export default class Visit extends Vue {
 
   public handleSyncList(): void {
     this.clear();
+  }
+
+  visitTypeVale(visitType) {
+    if (visitType === 'Reveal') {
+      return 'كشف';
+    } else if (visitType === 'Repeat') {
+      return 'أعادة';
+    } else if (visitType === 'Other') {
+      return 'أخرى';
+    } else {
+      return visitType;
+    }
   }
 
   public prepareRemove(instance: IVisit): void {
@@ -91,6 +128,49 @@ export default class Visit extends Vue {
       result.push('id');
     }
     return result;
+  }
+
+  public formatDateView(dateString: string) {
+    let date = new Date(dateString);
+    let months = ['يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+    var days = ['اﻷحد', 'اﻷثنين', 'الثلاثاء', 'اﻷربعاء', 'الخميس', 'الجمعة', 'السبت'];
+
+    let ha = 'ص';
+    let hourNumber = date.getHours();
+    if (hourNumber > 12) {
+      ha = 'م';
+      hourNumber = hourNumber % 12;
+    }
+    if (hourNumber === 12) {
+      ha = 'م';
+    }
+
+    let hour = hourNumber + '';
+
+    if (hour.length < 2) {
+      hour = '0' + hour;
+    }
+    let minute = date.getMinutes() + '';
+    if (minute.length < 2) {
+      minute = '0' + minute;
+    }
+
+    var delDateString =
+      days[date.getDay()] +
+      ', ' +
+      date.getDate() +
+      ' ' +
+      months[date.getMonth()] +
+      ', ' +
+      date.getFullYear() +
+      ' ' +
+      hour +
+      ':' +
+      minute +
+      ' ' +
+      ha;
+
+    return delDateString;
   }
 
   public loadPage(page: number): void {

@@ -2,63 +2,58 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
-        <h2 id="smartclinicApp.doctor.home.createOrEditLabel" data-cy="DoctorCreateUpdateHeading">Create or edit a Doctor</h2>
+        <h2 id="smartclinicApp.doctor.home.createOrEditLabel" data-cy="DoctorCreateUpdateHeading">إنشاء او تعديل طبيب</h2>
+        <hr />
         <div>
-          <div v-if="doctor.id">
-            <base-input type="text" label="ID" name="id" v-model="doctor.id" readonly />
+          <div class="form-group row" v-if="doctor.id">
+            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">الكود</label>
+            <div class="col-md-10">
+              <base-input type="text" name="id" v-model="doctor.id" readonly />
+            </div>
           </div>
-          <div>
-            <base-input
-              type="text"
-              name="First Name"
-              label="First Name"
-              placeholder="First Name"
-              data-cy="firstName"
-              alternative
-              v-model="$v.doctor.firstName.$model"
-              :rules="{ required: true, max: 30 }"
-            />
+          <div class="form-group row">
+            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">الإسم</label>
+            <div class="col-md-10">
+              <base-input
+                type="text"
+                name="الإسم"
+                data-cy="name"
+                alternative
+                v-model="$v.doctor.name.$model"
+                :rules="{ required: true, max: 30 }"
+              />
+            </div>
           </div>
-          <div>
-            <base-input
-              type="text"
-              name="Last Name"
-              data-cy="lastName"
-              label="Last Name"
-              placeholder="Last Name"
-              alternative
-              v-model="$v.doctor.lastName.$model"
-              :rules="{ required: true, max: 30 }"
-            />
+          <div class="form-group row">
+            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">التخصص</label>
+            <div class="col-md-10">
+              <base-input
+                type="text"
+                name="التخصص"
+                data-cy="specialization"
+                alternative
+                v-model="$v.doctor.specialization.$model"
+                :rules="{ required: true, max: 30 }"
+              />
+            </div>
           </div>
-          <div>
-            <base-input
-              type="text"
-              name="Specialization"
-              data-cy="specialization"
-              label="Specialization"
-              placeholder="Specialization"
-              alternative
-              v-model="$v.doctor.specialization.$model"
-              :rules="{ required: true, max: 30 }"
-            />
-          </div>
-          <div>
-            <base-input
-              type="number"
-              name="Phone Number"
-              data-cy="phoneNumber"
-              label="Phone Number"
-              placeholder="Phone Number"
-              alternative
-              v-model="$v.doctor.phoneNumber.$model"
-              :rules="{ required: true, max: 11 }"
-            />
+          <div class="form-group row">
+            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">رقم الهاتف</label>
+            <div class="col-md-10">
+              <base-input
+                type="number"
+                name="رقم الهاتف"
+                data-cy="phoneNumber"
+                alternative
+                v-model="$v.doctor.phoneNumber.$model"
+                :rules="{ required: true, max: 11 }"
+              />
+            </div>
           </div>
         </div>
         <div>
           <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>Cancel</span>
+            <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>رجوع</span>
           </button>
           <button
             type="submit"
@@ -67,7 +62,7 @@
             :disabled="$v.doctor.$invalid || isSaving"
             class="btn btn-primary"
           >
-            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Save</span>
+            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>حفظ</span>
           </button>
         </div>
       </form>

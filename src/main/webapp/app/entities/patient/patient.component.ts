@@ -24,6 +24,8 @@ export default class Patient extends Vue {
 
   public isFetching = false;
 
+  public searchValue = '';
+
   public mounted(): void {
     this.retrieveAllPatients();
   }
@@ -36,13 +38,20 @@ export default class Patient extends Vue {
   public retrieveAllPatients(): void {
     this.isFetching = true;
 
+    console.log(this.searchValue, 'searchValue ---------->');
+
+    let search = 'zZnull';
+    if (this.searchValue !== null && this.searchValue !== undefined && this.searchValue !== '') {
+      search = this.searchValue;
+    }
+
     const paginationQuery = {
       page: this.page - 1,
       size: this.itemsPerPage,
       sort: this.sort(),
     };
     this.patientService()
-      .retrieve(paginationQuery)
+      .search(search, paginationQuery)
       .then(
         res => {
           this.patients = res.data;

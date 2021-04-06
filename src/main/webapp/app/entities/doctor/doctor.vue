@@ -1,10 +1,9 @@
 <template>
   <div>
     <h2 id="page-heading" data-cy="DoctorHeading">
-      <span id="doctor-heading">Doctors</span>
-      <div class="d-flex justify-content-end">
-        <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
-          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>Refresh List</span>
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-info ml-2" v-on:click="handleSyncList" :disabled="isFetching">
+          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>تحديث الجدول</span>
         </button>
         <router-link :to="{ name: 'DoctorCreate' }" custom v-slot="{ navigate }">
           <button
@@ -14,36 +13,35 @@
             class="btn btn-primary jh-create-entity create-doctor"
           >
             <font-awesome-icon icon="plus"></font-awesome-icon>
-            <span> Create a new Doctor </span>
+            <span> انشاء طبيب </span>
           </button>
         </router-link>
       </div>
     </h2>
     <br />
     <div class="alert alert-warning" v-if="!isFetching && doctors && doctors.length === 0">
-      <span>No doctors found</span>
+      <span>لا يوجد أطباء</span>
     </div>
     <div class="table-responsive" v-if="doctors && doctors.length > 0">
       <el-table class="table-responsive table" header-row-class-name="thead-light" :data="doctors">
-        <el-table-column label="ID" prop="id" min-width="140px"> </el-table-column>
-        <el-table-column label="First Name" prop="firstName"> </el-table-column>
-        <el-table-column label="Last Name" prop="lastName"> </el-table-column>
-        <el-table-column label="Specialization" prop="specialization"> </el-table-column>
-        <el-table-column label="Phone Number" prop="phoneNumber"> </el-table-column>
+        <el-table-column label="الكود" prop="id" min-width="140px"> </el-table-column>
+        <el-table-column label="الإسم" prop="name"> </el-table-column>
+        <el-table-column label="التخصص" prop="specialization"> </el-table-column>
+        <el-table-column label="رقم الهاتف" prop="phoneNumber"> </el-table-column>
 
-        <el-table-column label="Action" prop="id">
+        <el-table-column label="إجراء" prop="id">
           <template v-slot="{ row }">
             <div class="btn-group">
               <router-link :to="{ name: 'DoctorView', params: { doctorId: row.id } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
                   <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span class="d-none d-md-inline">View</span>
+                  <span class="d-none d-md-inline">مشاهدة</span>
                 </button>
               </router-link>
               <router-link :to="{ name: 'DoctorEdit', params: { doctorId: row.id } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
                   <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                  <span class="d-none d-md-inline">Edit</span>
+                  <span class="d-none d-md-inline">تعديل</span>
                 </button>
               </router-link>
               <b-button
@@ -54,7 +52,7 @@
                 v-b-modal.removeEntity
               >
                 <font-awesome-icon icon="times"></font-awesome-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline">حذف</span>
               </b-button>
             </div>
           </template>
@@ -67,7 +65,7 @@
             <th scope="row" v-on:click="changeOrder('id')">
               <span>ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
-            <th scope="row" v-on:click="changeOrder('firstName')">
+            <th scope="row" v-on:click="changeOrder('name')">
               <span>First Name</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'firstName'"></jhi-sort-indicator>
             </th>
@@ -127,13 +125,13 @@
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
-        ><span id="smartclinicApp.doctor.delete.question" data-cy="doctorDeleteDialogHeading">Confirm delete operation</span></span
+        ><span id="smartclinicApp.doctor.delete.question" data-cy="doctorDeleteDialogHeading">تأكيد عملية الحذف</span></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-doctor-heading">Are you sure you want to delete this Doctor?</p>
+        <p id="jhi-delete-doctor-heading">هل تريد حقا حذف هذا الطبيب؟</p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">Cancel</button>
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">إلغاء</button>
         <button
           type="button"
           class="btn btn-primary"
@@ -141,7 +139,7 @@
           data-cy="entityConfirmDeleteButton"
           v-on:click="removeDoctor()"
         >
-          Delete
+          حذف
         </button>
       </div>
     </b-modal>

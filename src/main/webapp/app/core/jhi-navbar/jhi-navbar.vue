@@ -1,128 +1,59 @@
 <template>
-  <b-navbar data-cy="navbar" toggleable="md" type="dark" class="jh-navbar">
-    <b-navbar-brand class="logo" b-link to="/">
-      <span class="logo-img"></span>
-      <span class="navbar-title">smartclinic</span> <span class="navbar-version">{{ version }}</span>
-    </b-navbar-brand>
-    <b-navbar-toggle
-      right
-      class="jh-navbar-toggler d-lg-none"
-      href="javascript:void(0);"
-      data-toggle="collapse"
-      target="header-tabs"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <font-awesome-icon icon="bars" />
-    </b-navbar-toggle>
-
+  <b-navbar data-cy="navbar" toggleable="md" type="dark" class="container bg-info jh-navbar" v-if="authenticated">
     <b-collapse is-nav id="header-tabs">
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item to="/" exact>
+      <b-navbar-nav class="mx-auto">
+        <b-nav-item to="/visit" exact>
           <span>
             <font-awesome-icon icon="home" />
-            <span>Home</span>
+            <span class="account-font">الحجوزات</span>
           </span>
         </b-nav-item>
-        <b-nav-item-dropdown right id="entity-menu" v-if="authenticated" active-class="active" class="pointer" data-cy="entity">
-          <span slot="button-content" class="navbar-dropdown-menu">
-            <font-awesome-icon icon="th-list" />
-            <span class="no-bold">Entities</span>
+
+        <b-nav-item to="/patient" exact>
+          <span>
+            <font-awesome-icon icon="home" />
+            <span class="account-font">المرضى</span>
           </span>
-          <b-dropdown-item to="/doctor">
-            <font-awesome-icon icon="asterisk" />
-            <span>Doctor</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/clinic">
-            <font-awesome-icon icon="asterisk" />
-            <span>Clinic</span>
-          </b-dropdown-item>
+        </b-nav-item>
 
-          <b-dropdown-item to="/patient">
-            <font-awesome-icon icon="asterisk" />
-            <span>Patient</span>
-          </b-dropdown-item>
-
-          <b-dropdown-item to="/visit">
-            <font-awesome-icon icon="asterisk" />
-            <span>Visit</span>
-          </b-dropdown-item>
-
-          <b-dropdown-item to="/details-of-visit">
-            <font-awesome-icon icon="asterisk" />
-            <span>Details Of Visit</span>
-          </b-dropdown-item>
-
-          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-        </b-nav-item-dropdown>
-        <b-nav-item-dropdown
-          right
-          id="admin-menu"
-          v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated"
-          :class="{ 'router-link-active': subIsActive('/admin') }"
-          active-class="active"
-          class="pointer"
-          data-cy="adminMenu"
-        >
-          <span slot="button-content" class="navbar-dropdown-menu">
-            <font-awesome-icon icon="users-cog" />
-            <span class="no-bold">Administration</span>
+        <b-nav-item to="/home" exact>
+          <span>
+            <font-awesome-icon icon="home" />
+            <span class="account-font">التقارير</span>
           </span>
-          <b-dropdown-item to="/admin/user-management" active-class="active">
-            <font-awesome-icon icon="users" />
-            <span>User management</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/metrics" active-class="active">
-            <font-awesome-icon icon="tachometer-alt" />
-            <span>Metrics</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/health" active-class="active">
-            <font-awesome-icon icon="heart" />
-            <span>Health</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/configuration" active-class="active">
-            <font-awesome-icon icon="cogs" />
-            <span>Configuration</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/logs" active-class="active">
-            <font-awesome-icon icon="tasks" />
-            <span>Logs</span>
-          </b-dropdown-item>
-          <b-dropdown-item v-if="openAPIEnabled" to="/admin/docs" active-class="active">
-            <font-awesome-icon icon="book" />
-            <span>API</span>
-          </b-dropdown-item>
-        </b-nav-item-dropdown>
+        </b-nav-item>
+
         <b-nav-item-dropdown
           right
           href="javascript:void(0);"
           id="account-menu"
+          style="text-align: center"
           :class="{ 'router-link-active': subIsActive('/account') }"
           active-class="active"
           class="pointer"
           data-cy="accountMenu"
         >
-          <span slot="button-content" class="navbar-dropdown-menu">
+          <span class="account-font" slot="button-content">
             <font-awesome-icon icon="user" />
-            <span class="no-bold"> Account </span>
+            <span> الحساب </span>
           </span>
           <b-dropdown-item data-cy="settings" to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="wrench" />
-            <span>Settings</span>
+            <span>الإعدادات</span>
           </b-dropdown-item>
           <b-dropdown-item data-cy="passwordItem" to="/account/password" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="lock" />
-            <span>Password</span>
+            <span>كلمة المرور</span>
           </b-dropdown-item>
           <b-dropdown-item data-cy="logout" v-if="authenticated" v-on:click="logout()" id="logout" active-class="active">
             <font-awesome-icon icon="sign-out-alt" />
-            <span>Sign out</span>
+            <span>تسجيل الخروج</span>
           </b-dropdown-item>
           <b-dropdown-item data-cy="login" v-if="!authenticated" tag="b-dropdown-item" to="/login" id="login" active-class="active">
             <font-awesome-icon icon="sign-in-alt" />
-            <span>Sign in</span>
+            <span>تسجيل الدخول</span>
           </b-dropdown-item>
-          <b-dropdown-item
+          <!--<b-dropdown-item
             data-cy="register"
             to="/register"
             tag="b-dropdown-item"
@@ -132,7 +63,7 @@
           >
             <font-awesome-icon icon="user-plus" />
             <span>Register</span>
-          </b-dropdown-item>
+          </b-dropdown-item>-->
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -152,7 +83,6 @@
 }
 
 .jh-navbar {
-  background-color: #353d47;
   padding: 0.2em 1em;
 }
 
@@ -228,6 +158,9 @@
   width: 70px;
 }
 
+.account-font {
+  color: #ffffff;
+}
 .logo-img {
   height: 100%;
   background: url('../../../content/images/logo-jhipster.png') no-repeat center center;

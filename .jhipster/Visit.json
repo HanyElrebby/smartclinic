@@ -17,7 +17,7 @@
       "relationshipName": "patient",
       "otherEntityName": "patient",
       "relationshipType": "many-to-one",
-      "otherEntityField": "firstName"
+      "otherEntityField": "name"
     },
     {
       "relationshipName": "detailsOfVisit",
