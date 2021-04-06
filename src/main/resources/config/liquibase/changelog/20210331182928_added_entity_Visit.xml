@@ -26,6 +26,12 @@
             </column>
             <column name="updated_by" type="varchar(100)">
             </column>
+            <column name="description" type="varchar(1000)">
+            </column>
+            <column name="medicine" type="varchar(1000)">
+            </column>
+            <column name="note" type="varchar(1000)">
+            </column>            
             <column name="clinic_id" type="bigint">
                 <constraints nullable="true" />
             </column>

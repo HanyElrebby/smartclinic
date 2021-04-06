@@ -32,6 +32,15 @@ public class Visit implements Serializable {
     @Column(name = "updated_by")
     private String updatedBy;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "medicine")
+    private String medicine;
+
+    @Column(name = "note")
+    private String note;
+
     @Column(name = "cost", nullable = false)
     private Integer cost;
 
@@ -63,6 +72,30 @@ public class Visit implements Serializable {
     public Visit id(Long id) {
         this.id = id;
         return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(String medicine) {
+        this.medicine = medicine;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public ZonedDateTime getDateOfVisit() {
@@ -191,15 +224,21 @@ public class Visit implements Serializable {
         return (
             "Visit [id=" +
             id +
-            ", visitType='" +
+            ", visitType=" +
             visitType +
-            "', cost=" +
-            cost +
-            ", createdBy='" +
+            ", createdBy=" +
             createdBy +
-            "', updatedBy='" +
+            ", updatedBy=" +
             updatedBy +
-            "', dateOfVisit=" +
+            ", description=" +
+            description +
+            ", medicine=" +
+            medicine +
+            ", note=" +
+            note +
+            ", cost=" +
+            cost +
+            ", dateOfVisit=" +
             dateOfVisit +
             ", clinic=" +
             clinic +
@@ -210,6 +249,4 @@ public class Visit implements Serializable {
             "]"
         );
     }
-    // prettier-ignore
-
 }

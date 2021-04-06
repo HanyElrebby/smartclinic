@@ -33,6 +33,9 @@ const validations: any = {
     cost: {
       required,
     },
+    description: {},
+    medicine: {},
+    note: {},
   },
   value1: {
     required,
