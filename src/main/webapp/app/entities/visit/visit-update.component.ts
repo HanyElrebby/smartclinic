@@ -34,6 +34,9 @@ const validations: any = {
       required,
       maxLength: maxLength(7),
     },
+    status: {
+      required,
+    },
     description: { maxLength: maxLength(1000) },
     medicine: { maxLength: maxLength(1000) },
     note: { maxLength: maxLength(1000) },

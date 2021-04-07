@@ -30,6 +30,24 @@
             </div>
           </div>
           <div class="form-group row" style="margin-top: 3rem">
+            <label class="col-md-2 col-form-label form-control-label" for="status">الحالة</label>
+            <div class="col-md-10">
+              <select class="form-control" aria-placeholder="الحالة" id="status" data-cy="status" name="status" v-model="visit.status">
+                <option v-bind:value="null"></option>
+                <option v-bind:value="visit.status && 'Reserved' === visit.status ? visit.status : 'Reserved'" :key="'Reserved'">
+                  حجز
+                </option>
+                <option v-bind:value="visit.status && 'Waiting' === visit.status ? visit.status : 'Waiting'" :key="'Waiting'">
+                  أنتظار
+                </option>
+                <option v-bind:value="visit.status && 'Served' === visit.status ? visit.status : 'Served'" :key="'Served'">تم كشف</option>
+              </select>
+              <div v-if="$v.visit.status.$invalid">
+                <small class="form-text text-danger" v-if="!$v.visit.status.required"> الحالة مطلوب </small>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row" style="margin-top: 3rem">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">نوع الزيارة</label>
             <div class="col-md-10">
               <select

@@ -46,6 +46,19 @@ export default class VisitService {
     });
   }
 
+  public retrieveWaited(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrl + '/waited')
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
   public retrieveByDate(date, paginationQuery?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios

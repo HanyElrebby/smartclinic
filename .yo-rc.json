@@ -42,7 +42,7 @@
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
     "languages": ["en", "fr"],
-    "lastLiquibaseTimestamp": 1617215693000,
-    "entities": ["Doctor", "Clinic", "Patient", "Visit", "DetailsOfVisit"]
+    "lastLiquibaseTimestamp": 1617808129000,
+    "entities": ["Doctor", "Clinic", "Patient", "Visit", "DetailsOfVisit", "Medicine", "File"]
   }
 }
