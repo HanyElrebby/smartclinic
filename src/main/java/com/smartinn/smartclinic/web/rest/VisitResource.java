@@ -150,6 +150,13 @@ public class VisitResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/visits/waited")
+    public ResponseEntity<List<Visit>> getAllVisitsWaited() {
+        log.debug("REST request to get a page of Visits");
+        List<Visit> page = visitService.findAllWaited();
+        return ResponseEntity.ok().body(page);
+    }
+
     @GetMapping("/visits/patientId/{patientId}")
     public ResponseEntity<List<Visit>> getAllVisitsByPatientId(@PathVariable Long patientId, Pageable pageable) {
         log.debug("REST request to get a page of Visits");

@@ -11,7 +11,59 @@
     <link rel="manifest" href="manifest.webapp" />
     <link rel="stylesheet" href="content/css/loading.css" />
     <!-- jhipster-needle-add-resources-to-root - JHipster will add new resources here -->
+
+    <!--<script src="content/js/sockjs-0.3.4.js"></script>
+  <script src="content/js/stomp.js"></script>
+  <script type="text/javascript">
+    var stompClient = null;
+
+    function setConnected(connected) {
+     
+    }
+
+    function connect() {
+      var socket = new WebSocket('ws://localhost:8081/chat');
+      const headers = {};
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, function (frame) {
+        setConnected(true);
+        console.log('Connected: ' + frame);
+        stompClient.subscribe('/topic/messages', function (messageOutput) {
+          showMessageOutput(JSON.parse(messageOutput.body));
+        });
+      });
+    }
+
+    function disconnect() {
+      if (stompClient != null) {
+        stompClient.disconnect();
+      }
+      setConnected(false);
+      console.log("Disconnected");
+    }
+
+    setTimeout(() => {
+      connect()
+    }, 10000);
+    
+
+    setTimeout(() => {
+      sendMessage()
+    }, 20000);
+
+    function sendMessage() {
+     
+      stompClient.send("/app/chat", {},
+        JSON.stringify({ 'from': 'ff', 'text': 'text' }));
+    }
+
+    function showMessageOutput(messageOutput) {
+      var response = document.getElementById('response');
+      console.log(response , 'responceeeeeeeeeee');
+    }
+  </script>-->
   </head>
+
   <body>
     <!--[if lt IE 9]>
       <p class="browserupgrade">

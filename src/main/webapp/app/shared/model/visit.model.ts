@@ -15,6 +15,7 @@ export interface IVisit {
   medicine?: string;
   note?: string;
   cost?: number;
+  status?: string;
 }
 
 export class Visit implements IVisit {
@@ -30,6 +31,7 @@ export class Visit implements IVisit {
     public description?: string,
     public medicine?: string,
     public note?: string,
-    public cost?: number
+    public cost?: number,
+    public status?: string
   ) {}
 }

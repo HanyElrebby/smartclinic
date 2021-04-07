@@ -3,9 +3,14 @@
     <div class="col-10">
       <div class="row d-flex justify-content-end">
         <div class="col-50">
-          <router-link :to="{}" custom v-slot="{ navigate }">
+          <router-link
+            v-if="visit.patient"
+            :to="{ name: 'VisitotherCreate', params: { patientId: visit.patient.id } }"
+            custom
+            v-slot="{ navigate }"
+          >
             <button @click="navigate" class="btn btn-success ml-2">
-              <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span> الكشف الحالى</span>
+              <font-awesome-icon icon="sync"></font-awesome-icon> <span> الكشف الحالى</span>
             </button>
           </router-link>
         </div>

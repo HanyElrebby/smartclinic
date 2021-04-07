@@ -50,6 +50,8 @@ import { Datetime } from 'vue-datetime';
 import 'vue-datetime/dist/vue-datetime.css';
 
 import { Settings } from 'luxon';
+import MedicineService from './entities/medicine/medicine.service';
+import FileService from './entities/file/file.service';
 
 Settings.defaultLocale = 'ar';
 
@@ -119,6 +121,8 @@ new Vue({
     patientService: () => new PatientService(),
     visitService: () => new VisitService(),
     detailsOfVisitService: () => new DetailsOfVisitService(),
+    medicineService: () => new MedicineService(),
+    fileService: () => new FileService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
   },

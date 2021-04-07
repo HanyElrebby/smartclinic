@@ -32,6 +32,18 @@ const DetailsOfVisit = () => import('@/entities/details-of-visit/details-of-visi
 const DetailsOfVisitUpdate = () => import('@/entities/details-of-visit/details-of-visit-update.vue');
 // prettier-ignore
 const DetailsOfVisitDetails = () => import('@/entities/details-of-visit/details-of-visit-details.vue');
+
+const Medicine = () => import('@/entities/medicine/medicine.vue');
+// prettier-ignore
+const MedicineUpdate = () => import('@/entities/medicine/medicine-update.vue');
+// prettier-ignore
+const MedicineDetails = () => import('@/entities/medicine/medicine-details.vue');
+
+const File = () => import('@/entities/file/file.vue');
+// prettier-ignore
+const FileUpdate = () => import('@/entities/file/file-update.vue');
+// prettier-ignore
+const FileDetails = () => import('@/entities/file/file-details.vue');
 // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 export default [
@@ -159,6 +171,54 @@ export default [
     path: '/details-of-visit/:detailsOfVisitId/view',
     name: 'DetailsOfVisitView',
     component: DetailsOfVisitDetails,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/medicine',
+    name: 'Medicine',
+    component: Medicine,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/medicine/new',
+    name: 'MedicineCreate',
+    component: MedicineUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/medicine/:medicineId/edit',
+    name: 'MedicineEdit',
+    component: MedicineUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/medicine/:medicineId/view',
+    name: 'MedicineView',
+    component: MedicineDetails,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/file',
+    name: 'File',
+    component: File,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/file/new',
+    name: 'FileCreate',
+    component: FileUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/file/:fileId/edit',
+    name: 'FileEdit',
+    component: FileUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/file/:fileId/view',
+    name: 'FileView',
+    component: FileDetails,
     meta: { authorities: [Authority.USER] },
   },
   // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here

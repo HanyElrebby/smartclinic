@@ -74,6 +74,10 @@ public class Patient implements Serializable {
     @JsonIgnoreProperties(value = { "patient", "detailsOfVisits" }, allowSetters = true)
     private Set<Visit> visits = new HashSet<>();
 
+    @OneToMany(mappedBy = "patient")
+    @JsonIgnoreProperties(value = { "patient" }, allowSetters = true)
+    private Set<File> files = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -218,6 +222,31 @@ public class Patient implements Serializable {
         return this;
     }
 
+    public Patient files(Set<File> files) {
+        this.setFiles(files);
+        return this;
+    }
+
+    public Set<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<File> files) {
+        this.files = files;
+    }
+
+    public Patient addFile(File file) {
+        this.files.add(file);
+        file.setPatient(this);
+        return this;
+    }
+
+    public Patient removeFile(File file) {
+        this.files.remove(file);
+        file.setPatient(null);
+        return this;
+    }
+
     public Patient addVisit(Visit visit) {
         this.visits.add(visit);
         visit.setPatient(this);
@@ -290,6 +319,8 @@ public class Patient implements Serializable {
             phoneNumber +
             ", visits=" +
             visits +
+            ", files=" +
+            files +
             "]"
         );
     }
