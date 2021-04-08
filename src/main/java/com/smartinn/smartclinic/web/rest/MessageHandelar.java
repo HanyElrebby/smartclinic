@@ -14,6 +14,13 @@ public class MessageHandelar {
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
     public OutputMessage send(Message message) throws Exception {
+        System.out.println("---------------------------------------------------------------------");
+        System.out.println();
+        System.out.println();
+        System.out.println("send --------->");
+        System.out.println();
+        System.out.println("---------------------------------------------------------------------");
+
         String time = new SimpleDateFormat("HH:mm").format(new Date());
         return new OutputMessage(message.getFrom(), message.getText(), time);
     }
