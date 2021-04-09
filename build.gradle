@@ -234,15 +234,12 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
     implementation "org.zalando:problem-spring-web"
     implementation "org.springframework.security:spring-security-config"
-    implementation group: 'org.springframework', name: 'spring-websocket', version: '5.2.2.RELEASE'
-    implementation group: 'org.springframework', name: 'spring-messaging', version: '5.2.2.RELEASE'
+
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.2'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.2'
 
 
-    compileOnly group: 'javax.websocket', name: 'javax.websocket-api', version: '1.1'
-    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
-    implementation "org.springframework.boot:spring-boot-starter-websocket"
+
 
 
     implementation "org.springframework.security:spring-security-data"
@@ -260,6 +257,8 @@ dependencies {
     implementation "io.springfox:springfox-bean-validators"
     implementation "org.postgresql:postgresql"
     liquibaseRuntime "org.postgresql:postgresql"
+    implementation "org.springframework.boot:spring-boot-starter-websocket"
+    implementation "org.springframework.security:spring-security-messaging"
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
     annotationProcessor "org.hibernate:hibernate-jpamodelgen:${hibernateVersion}"
