@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { Store } from 'vuex';
 import VueRouter from 'vue-router';
+import TrackerService from '@/core/SidebarPlugin/tracker.service';
 
 export default class AccountService {
-  constructor(private store: Store<any>, private router: VueRouter) {
+  constructor(private store: Store<any>, private trackerService: TrackerService, private router: VueRouter) {
     this.init();
   }
 
@@ -39,6 +40,7 @@ export default class AccountService {
               this.router.replace(sessionStorage.getItem('requested-url'));
               sessionStorage.removeItem('requested-url');
             }
+            this.trackerService.connect();
           } else {
             this.store.commit('logout');
             this.router.push('/', () => {});

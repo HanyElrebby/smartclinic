@@ -4,7 +4,7 @@
     <div id="app-header">
       <jhi-navbar></jhi-navbar>
     </div>
-    <waiting-panel></waiting-panel>
+    <waiting-panel v-if="authenticated"></waiting-panel>
     <div class="container">
       <div class="wrapper">
         <div class="main-content">

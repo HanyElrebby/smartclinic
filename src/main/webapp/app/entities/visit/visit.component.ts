@@ -6,6 +6,7 @@ import Vue2Filters from 'vue2-filters';
 import { IVisit } from '@/shared/model/visit.model';
 
 import VisitService from './visit.service';
+import TrackerService from '@/core/SidebarPlugin/tracker.service';
 
 @Component({
   mixins: [Vue2Filters.mixin],

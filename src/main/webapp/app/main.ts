@@ -52,6 +52,7 @@ import 'vue-datetime/dist/vue-datetime.css';
 import { Settings } from 'luxon';
 import MedicineService from './entities/medicine/medicine.service';
 import FileService from './entities/file/file.service';
+import TrackerService from './core/SidebarPlugin/tracker.service';
 
 Settings.defaultLocale = 'ar';
 
@@ -74,10 +75,12 @@ Vue.use(GlobalDirectives);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
+const trackerService = new TrackerService(router);
+
 const store = config.initVueXStore(Vue);
 
 const loginService = new LoginService();
-const accountService = new AccountService(store, router);
+const accountService = new AccountService(store, trackerService, router);
 
 router.beforeEach((to, from, next) => {
   if (!to.matched.length) {
@@ -114,7 +117,7 @@ new Vue({
     configurationService: () => new ConfigurationService(),
     logsService: () => new LogsService(),
     metricsService: () => new MetricsService(),
-
+    trackerService: () => trackerService,
     userOAuth2Service: () => new UserOAuth2Service(),
     doctorService: () => new DoctorService(),
     clinicService: () => new ClinicService(),

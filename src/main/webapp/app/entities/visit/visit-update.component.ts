@@ -23,6 +23,7 @@ import 'vue2-datepicker/index.css';
 import { Datetime } from 'vue-datetime';
 // You need a specific loader for CSS files
 import 'vue-datetime/dist/vue-datetime.css';
+import TrackerService from '@/core/SidebarPlugin/tracker.service';
 
 const validations: any = {
   visit: {
@@ -76,6 +77,8 @@ const validations: any = {
 export default class VisitUpdate extends Vue {
   @Inject('visitService') private visitService: () => VisitService;
   public visit: IVisit = new Visit();
+
+  @Inject('trackerService') private trackerService: () => TrackerService;
 
   @Inject('clinicService') private clinicService: () => ClinicService;
 
@@ -178,6 +181,9 @@ export default class VisitUpdate extends Vue {
           this.isSaving = false;
           this.$router.go(-1);
           const message = 'A Visit is updated with identifier ' + param.id;
+          console.log('sucesss ------------>');
+          this.trackerService().sendActivity();
+
           return this.$root.$bvToast.toast(message.toString(), {
             toaster: 'b-toaster-top-center',
             title: 'Info',
@@ -193,6 +199,9 @@ export default class VisitUpdate extends Vue {
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
+          console.log('sucesss ------------>');
+
+          this.trackerService().sendActivity();
           const message = 'A Visit is created with identifier ' + param.id;
           this.$root.$bvToast.toast(message.toString(), {
             toaster: 'b-toaster-top-center',

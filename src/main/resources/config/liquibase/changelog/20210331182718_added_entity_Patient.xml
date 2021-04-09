@@ -36,10 +36,9 @@
                 <constraints nullable="false" />
             </column>
             <column name="diseases" type="varchar(1000)">
-                <constraints nullable="false" />
             </column>
             <column name="surgery" type="varchar(1000)">
-                <constraints nullable="false" />
+               
             </column>
             <column name="phone_number" type="varchar(11)">
                 <constraints nullable="false" />
