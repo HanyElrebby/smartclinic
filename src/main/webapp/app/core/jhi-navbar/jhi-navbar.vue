@@ -2,6 +2,13 @@
   <b-navbar data-cy="navbar" toggleable="md" type="dark" class="container bg-info jh-navbar" v-if="authenticated">
     <b-collapse is-nav id="header-tabs">
       <b-navbar-nav class="mx-auto">
+        <b-nav-item :to="{ name: 'PatientView', params: { patientId: -1 } }" exact>
+          <span>
+            <font-awesome-icon icon="home" />
+            <span class="account-font">الطبيب</span>
+          </span>
+        </b-nav-item>
+
         <b-nav-item to="/visit" exact>
           <span>
             <font-awesome-icon icon="home" />

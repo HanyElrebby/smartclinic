@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="col-10 d-flex justify-content-center">
-      <div v-if="patient">
+      <div v-if="patient.fileNumber">
         <dl class="row jh-entity-details">
           <dt>
             <span>الاسم</span>
@@ -95,6 +95,7 @@
           </el-table>
         </div>
       </div>
+      <h1 v-else></h1>
     </div>
   </div>
 </template>
