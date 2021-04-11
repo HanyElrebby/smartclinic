@@ -24,6 +24,8 @@ import { Datetime } from 'vue-datetime';
 // You need a specific loader for CSS files
 import 'vue-datetime/dist/vue-datetime.css';
 import TrackerService from '@/core/SidebarPlugin/tracker.service';
+import { EventBus } from '@/event-bus';
+import AccountService from '@/account/account.service';
 
 const validations: any = {
   visit: {
@@ -90,6 +92,8 @@ export default class VisitUpdate extends Vue {
 
   @Inject('detailsOfVisitService') private detailsOfVisitService: () => DetailsOfVisitService;
 
+  @Inject('accountService') private accountService: () => AccountService;
+
   public detailsOfVisits: IDetailsOfVisit[] = [];
   public isSaving = false;
   public currentLanguage = '';
@@ -97,6 +101,10 @@ export default class VisitUpdate extends Vue {
   public patientId;
 
   public value: string = '2018-05-12T17:19:06.151Z';
+
+  visits: IVisit[] = [];
+
+  hasAnyAuthorityValue = false;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -114,6 +122,21 @@ export default class VisitUpdate extends Vue {
       }
       vm.initRelationships();
     });
+  }
+
+  mounted(): void {
+    EventBus.$on('waitedVisits', waitedVisits => {
+      this.visits = waitedVisits;
+    });
+  }
+
+  public hasAnyAuthority(authorities: any): boolean {
+    this.accountService()
+      .hasAnyAuthorityAndCheckAuth(authorities)
+      .then(value => {
+        this.hasAnyAuthorityValue = value;
+      });
+    return this.hasAnyAuthorityValue;
   }
 
   created(): void {
@@ -179,7 +202,17 @@ export default class VisitUpdate extends Vue {
         .update(this.visit)
         .then(param => {
           this.isSaving = false;
-          this.$router.go(-1);
+
+          if (this.visit.status === 'Served' && this.accountService().hasAnyAuthorityAndCheckAuth('ROLE_ADMIN')) {
+            if (this.visits.length > 1) {
+              this.$router.push({ name: 'PatientView', params: { patientId: this.visits[1].patient.id + '' } });
+            } else {
+              this.$router.push({ name: 'PatientView', params: { patientId: '-1' } });
+            }
+          } else {
+            this.$router.go(-1);
+          }
+
           const message = 'A Visit is updated with identifier ' + param.id;
           console.log('sucesss ------------>');
           this.trackerService().sendActivity();
@@ -198,7 +231,15 @@ export default class VisitUpdate extends Vue {
         .create(this.visit)
         .then(param => {
           this.isSaving = false;
-          this.$router.go(-1);
+          if (this.visit.status === 'Served' && this.accountService().hasAnyAuthorityAndCheckAuth('ROLE_ADMIN')) {
+            if (this.visits.length > 1) {
+              this.$router.push({ name: 'PatientView', params: { patientId: this.visits[1].patient.id + '' } });
+            } else {
+              this.$router.push({ name: 'PatientView', params: { patientId: '-1' } });
+            }
+          } else {
+            this.$router.go(-1);
+          }
           console.log('sucesss ------------>');
 
           this.trackerService().sendActivity();

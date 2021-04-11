@@ -2,6 +2,8 @@ package com.smartinn.smartclinic.service;
 
 import com.smartinn.smartclinic.domain.File;
 import com.smartinn.smartclinic.repository.FileRepository;
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,7 @@ public class FileService {
      */
     public File save(File file) {
         log.debug("Request to save File : {}", file);
+        file.setDateUpload(ZonedDateTime.now());
         return fileRepository.save(file);
     }
 
@@ -70,7 +73,7 @@ public class FileService {
                     if (file.getUpdatedBy() != null) {
                         existingFile.setUpdatedBy(file.getUpdatedBy());
                     }
-
+                    existingFile.setDateUpload(ZonedDateTime.now());
                     return existingFile;
                 }
             )
@@ -87,6 +90,10 @@ public class FileService {
     public Page<File> findAll(Pageable pageable) {
         log.debug("Request to get all Files");
         return fileRepository.findAll(pageable);
+    }
+
+    public List<File> getFilesByPatientId(Long patientId) {
+        return fileRepository.getFilesByPatientId(patientId);
     }
 
     /**

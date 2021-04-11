@@ -35,6 +35,49 @@ export default class File extends mixins(JhiDataUtils) {
     this.retrieveAllFiles();
   }
 
+  formatDate(dateString: string) {
+    let date = new Date(dateString);
+    let months = ['يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+    var days = ['اﻷحد', 'اﻷثنين', 'الثلاثاء', 'اﻷربعاء', 'الخميس', 'الجمعة', 'السبت'];
+
+    let ha = 'ص';
+    let hourNumber = date.getHours();
+    if (hourNumber > 12) {
+      ha = 'م';
+      hourNumber = hourNumber % 12;
+    }
+    if (hourNumber === 12) {
+      ha = 'م';
+    }
+
+    let hour = hourNumber + '';
+
+    if (hour.length < 2) {
+      hour = '0' + hour;
+    }
+    let minute = date.getMinutes() + '';
+    if (minute.length < 2) {
+      minute = '0' + minute;
+    }
+
+    var delDateString =
+      days[date.getDay()] +
+      ', ' +
+      date.getDate() +
+      ' ' +
+      months[date.getMonth()] +
+      ', ' +
+      date.getFullYear() +
+      ' ' +
+      hour +
+      ':' +
+      minute +
+      ' ' +
+      ha;
+
+    return delDateString;
+  }
+
   public retrieveAllFiles(): void {
     this.isFetching = true;
 

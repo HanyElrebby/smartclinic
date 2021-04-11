@@ -3,7 +3,12 @@
     <div class="col-10">
       <div class="row d-flex justify-content-end">
         <div class="col-50">
-          <router-link :to="{ name: 'VisitotherCreate', params: { patientId: patient.id } }" custom v-slot="{ navigate }">
+          <router-link v-if="visit" :to="{ name: 'VisitEdit', params: { visitId: visit.id } }" custom v-slot="{ navigate }">
+            <button @click="navigate" class="btn btn-success ml-2">
+              <font-awesome-icon icon="sync"></font-awesome-icon> <span> الكشف الحالى</span>
+            </button>
+          </router-link>
+          <router-link v-if="!visit" :to="{ name: 'VisitotherCreate', params: { patientId: patient.id } }" custom v-slot="{ navigate }">
             <button @click="navigate" class="btn btn-success ml-2">
               <font-awesome-icon icon="sync"></font-awesome-icon> <span> الكشف الحالى</span>
             </button>
@@ -83,12 +88,51 @@
             <el-table-column label="إجراء" prop="id">
               <template v-slot="{ row }">
                 <div class="btn-group">
-                  <router-link :to="{ name: 'VisitView', params: { visitId: row.id } }" custom v-slot="{ navigate }">
+                  <router-link
+                    v-if="visit"
+                    :to="{ name: 'VisitViewNew', params: { visitId: row.id, currentVisitId: visit.id } }"
+                    custom
+                    v-slot="{ navigate }"
+                  >
                     <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
                       <font-awesome-icon icon="eye"></font-awesome-icon>
                       <span class="d-none d-md-inline">مشاهدة</span>
                     </button>
                   </router-link>
+                  <router-link v-if="!visit" :to="{ name: 'VisitView', params: { visitId: row.id } }" custom v-slot="{ navigate }">
+                    <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
+                      <font-awesome-icon icon="eye"></font-awesome-icon>
+                      <span class="d-none d-md-inline">مشاهدة</span>
+                    </button>
+                  </router-link>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+
+        <h1 class="text-danger">الملفات:</h1>
+        <div class="table-responsive" v-if="files && files.length > 0">
+          <el-table class="table-responsive table" header-row-class-name="thead-light" :data="files">
+            <el-table-column label="إسم الملف" prop="fileName"> </el-table-column>
+            <el-table-column label="نوغ الملف" prop="fileContentType"> </el-table-column>
+            <el-table-column label="تاريخ الانشاء" prop="dateUpload">
+              <template v-slot="{ row }">
+                {{ formatDate(row.dateUpload) }}
+              </template>
+            </el-table-column>
+            <el-table-column label="إجراء" prop="id">
+              <template v-slot="{ row }">
+                <div class="btn-group">
+                  <button
+                    @click="navigate"
+                    v-on:click="openFile(row.fileContentType, row.file)"
+                    class="btn btn-info btn-sm details"
+                    data-cy="entityDetailsButton"
+                  >
+                    <font-awesome-icon icon="eye"></font-awesome-icon>
+                    <span class="d-none d-md-inline">مشاهدة</span>
+                  </button>
                 </div>
               </template>
             </el-table-column>

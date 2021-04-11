@@ -23,6 +23,6 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
     @Query(value = "select * from visit where date_of_visit >= ?1 and date_of_visit <= ?2", nativeQuery = true)
     public Page<Visit> getVisitByDates(ZonedDateTime startDate, ZonedDateTime endDate, Pageable pageable);
 
-    @Query(value = "select * from visit where status = 'Waiting' order By date_of_visit desc", nativeQuery = true)
+    @Query(value = "select * from visit where status = 'Waiting' order By date_of_visit asc", nativeQuery = true)
     public List<Visit> getWaitedVisits();
 }

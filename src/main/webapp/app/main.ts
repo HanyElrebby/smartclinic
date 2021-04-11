@@ -122,7 +122,7 @@ new Vue({
     doctorService: () => new DoctorService(),
     clinicService: () => new ClinicService(),
     patientService: () => new PatientService(),
-    visitService: () => new VisitService(),
+    visitService: () => new VisitService(store),
     detailsOfVisitService: () => new DetailsOfVisitService(),
     medicineService: () => new MedicineService(),
     fileService: () => new FileService(),

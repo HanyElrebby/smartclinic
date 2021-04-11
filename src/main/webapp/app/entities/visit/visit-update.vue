@@ -40,7 +40,13 @@
                 <option v-bind:value="visit.status && 'Waiting' === visit.status ? visit.status : 'Waiting'" :key="'Waiting'">
                   أنتظار
                 </option>
-                <option v-bind:value="visit.status && 'Served' === visit.status ? visit.status : 'Served'" :key="'Served'">تم كشف</option>
+                <option
+                  v-if="hasAnyAuthority('ROLE_ADMIN')"
+                  v-bind:value="visit.status && 'Served' === visit.status ? visit.status : 'Served'"
+                  :key="'Served'"
+                >
+                  تم كشف
+                </option>
               </select>
               <div v-if="$v.visit.status.$invalid">
                 <small class="form-text text-danger" v-if="!$v.visit.status.required"> الحالة مطلوب </small>
@@ -88,7 +94,7 @@
               />
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group row" v-if="hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">الوصف</label>
             <div class="col-md-10">
               <base-input
@@ -101,7 +107,7 @@
               />
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group row" v-if="hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">الادوية الموصوفة</label>
             <div class="col-md-10">
               <base-input
@@ -114,7 +120,7 @@
               />
             </div>
           </div>
-          <div class="form-group row">
+          <div class="form-group row" v-if="hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">ملاحظات</label>
             <div class="col-md-10">
               <base-input type="textarea" name="ملاحظات" :rules="{ max: 1000 }" data-cy="note" alternative v-model="$v.visit.note.$model" />
