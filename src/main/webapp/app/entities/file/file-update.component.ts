@@ -1,5 +1,7 @@
 import { Component, Inject } from 'vue-property-decorator';
 
+import { required, maxLength } from 'vuelidate/lib/validators';
+
 import { mixins } from 'vue-class-component';
 import JhiDataUtils from '@/shared/data/data-utils.service';
 
@@ -7,19 +9,26 @@ import dayjs from 'dayjs';
 import { DATE_TIME_LONG_FORMAT } from '@/shared/date/filters';
 
 import PatientService from '@/entities/patient/patient.service';
-import { IPatient } from '@/shared/model/patient.model';
+import { IPatient, Patient } from '@/shared/model/patient.model';
 
 import { IFile, File } from '@/shared/model/file.model';
 import FileService from './file.service';
 
 const validations: any = {
   file: {
-    fileName: {},
-    file: {},
+    fileName: {
+      required,
+    },
+    file: {
+      required,
+    },
     dateUpload: {},
     note: {},
     createdBy: {},
     updatedBy: {},
+    patient: {
+      required,
+    },
   },
 };
 
@@ -36,10 +45,19 @@ export default class FileUpdate extends mixins(JhiDataUtils) {
   public isSaving = false;
   public currentLanguage = '';
 
+  patientId: number;
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.fileId) {
         vm.retrieveFile(to.params.fileId);
+      }
+      if (to.params.patientId) {
+        vm.patientId = parseInt(to.params.patientId);
+        let patient = new Patient();
+        patient.id = vm.patientId;
+        vm.file.patient = patient;
+        console.log(vm.visit);
       }
       vm.initRelationships();
     });
@@ -55,9 +73,14 @@ export default class FileUpdate extends mixins(JhiDataUtils) {
     );
   }
 
+  public get username(): string {
+    return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
+
   public save(): void {
     this.isSaving = true;
     if (this.file.id) {
+      this.file.updatedBy = this.username;
       this.fileService()
         .update(this.file)
         .then(param => {
@@ -73,6 +96,8 @@ export default class FileUpdate extends mixins(JhiDataUtils) {
           });
         });
     } else {
+      this.file.updatedBy = this.username;
+      this.file.createdBy = this.username;
       this.fileService()
         .create(this.file)
         .then(param => {
@@ -88,6 +113,13 @@ export default class FileUpdate extends mixins(JhiDataUtils) {
           });
         });
     }
+  }
+
+  public getFileName(file: File, $event): void {
+    console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+    console.log(file, $event);
+
+    this.file.fileName = $event.target.files[0].name;
   }
 
   public convertDateTimeFromServer(date: Date): string {

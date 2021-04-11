@@ -44,6 +44,10 @@
             <font-awesome-icon icon="user" />
             <span> الحساب </span>
           </span>
+          <b-dropdown-item data-cy="settings" to="/medicine" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+            <font-awesome-icon icon="wrench" />
+            <span>الادوية</span>
+          </b-dropdown-item>
           <b-dropdown-item data-cy="settings" to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="wrench" />
             <span>الإعدادات</span>

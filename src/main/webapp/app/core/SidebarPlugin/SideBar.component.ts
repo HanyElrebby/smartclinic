@@ -1,4 +1,6 @@
+import AccountService from '@/account/account.service';
 import VisitService from '@/entities/visit/visit.service';
+import { EventBus } from '@/event-bus';
 import { IVisit } from '@/shared/model/visit.model';
 import { Component, Vue } from 'vue-property-decorator';
 import { Inject } from 'vue-property-decorator';
@@ -11,14 +13,16 @@ import TrackerService from './tracker.service';
 export default class Visit extends Vue {
   @Inject('visitService') private visitService: () => VisitService;
   @Inject('trackerService') private trackerService: () => TrackerService;
+  @Inject('accountService') private accountService: () => AccountService;
 
-  public visits: IVisit[] = [];
+  visits: IVisit[] = [];
 
   public loadWaited() {
     this.visitService()
       .retrieveWaited()
       .then(res => {
-        this.visits = res.data;
+        res.data;
+        console.log(this.visits);
       });
   }
 
@@ -40,6 +44,9 @@ export default class Visit extends Vue {
   public mounted(): void {
     console.log('tttttttttttttttttttttttttttttt');
     this.init();
+    EventBus.$on('waitedVisits', waitedVisits => {
+      this.visits = waitedVisits;
+    });
     this.loadWaited();
   }
 }

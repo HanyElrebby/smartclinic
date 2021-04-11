@@ -150,6 +150,12 @@ export default [
     meta: { authorities: [Authority.USER] },
   },
   {
+    path: '/visit/:visitId/:currentVisitId/view',
+    name: 'VisitViewNew',
+    component: VisitDetails,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
     path: '/details-of-visit',
     name: 'DetailsOfVisit',
     component: DetailsOfVisit,
@@ -206,6 +212,12 @@ export default [
   {
     path: '/file/new',
     name: 'FileCreate',
+    component: FileUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/file/:patientId/new',
+    name: 'FileOtherCreate',
     component: FileUpdate,
     meta: { authorities: [Authority.USER] },
   },

@@ -1,8 +1,7 @@
 <template>
   <div>
     <h2 id="page-heading" data-cy="MedicineHeading">
-      <span id="medicine-heading">Medicines</span>
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-center">
         <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
           <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>Refresh List</span>
         </button>
@@ -24,7 +23,41 @@
       <span>No medicines found</span>
     </div>
     <div class="table-responsive" v-if="medicines && medicines.length > 0">
-      <table class="table table-striped" aria-describedby="medicines">
+      <el-table class="table-responsive table" header-row-class-name="thead-light" :data="medicines">
+        <el-table-column label="الاسم" prop="name"> </el-table-column>
+        <el-table-column label="الكمية" prop="quantity"> </el-table-column>
+        <el-table-column label="ملاحظات" prop="note"> </el-table-column>
+        <el-table-column label="إجراء" prop="id">
+          <template v-slot="{ row }">
+            <div class="btn-group">
+              <router-link :to="{ name: 'MedicineView', params: { medicineId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
+                  <font-awesome-icon icon="eye"></font-awesome-icon>
+                  <span class="d-none d-md-inline">View</span>
+                </button>
+              </router-link>
+              <router-link :to="{ name: 'MedicineEdit', params: { medicineId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
+                  <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                  <span class="d-none d-md-inline">Edit</span>
+                </button>
+              </router-link>
+              <b-button
+                v-on:click="prepareRemove(row)"
+                variant="danger"
+                class="btn btn-sm"
+                data-cy="entityDeleteButton"
+                v-b-modal.removeEntity
+              >
+                <font-awesome-icon icon="times"></font-awesome-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </b-button>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+
+      <!--  <table class="table table-striped" aria-describedby="medicines">
         <thead>
           <tr>
             <th scope="row" v-on:click="changeOrder('id')">
@@ -90,7 +123,7 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table>-->
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"

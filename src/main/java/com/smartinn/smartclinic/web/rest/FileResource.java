@@ -146,6 +146,13 @@ public class FileResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/files/ByPatientId/{patientId}")
+    public ResponseEntity<List<File>> getAllFiles(@PathVariable Long patientId) {
+        log.debug("REST request to get a page of Files");
+        List<File> page = fileService.getFilesByPatientId(patientId);
+        return ResponseEntity.ok().body(page);
+    }
+
     /**
      * {@code GET  /files/:id} : get the "id" file.
      *

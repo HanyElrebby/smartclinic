@@ -2,14 +2,17 @@ import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { IMedicine, Medicine } from '@/shared/model/medicine.model';
 import MedicineService from './medicine.service';
+import { required, maxLength } from 'vuelidate/lib/validators';
 
 const validations: any = {
   medicine: {
-    name: {},
-    quantity: {},
+    name: {
+      required,
+    },
+    quantity: {
+      required,
+    },
     notes: {},
-    createdBy: {},
-    updatedBy: {},
   },
 };
 
@@ -40,9 +43,14 @@ export default class MedicineUpdate extends Vue {
     );
   }
 
+  public get username(): string {
+    return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
+
   public save(): void {
     this.isSaving = true;
     if (this.medicine.id) {
+      this.medicine.updatedBy = this.username;
       this.medicineService()
         .update(this.medicine)
         .then(param => {
@@ -58,6 +66,8 @@ export default class MedicineUpdate extends Vue {
           });
         });
     } else {
+      this.medicine.createdBy = this.username;
+      this.medicine.updatedBy = this.username;
       this.medicineService()
         .create(this.medicine)
         .then(param => {
