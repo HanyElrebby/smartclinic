@@ -39,6 +39,7 @@ import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
 import { faUsersCog } from '@fortawesome/free-solid-svg-icons/faUsersCog';
 import { faWrench } from '@fortawesome/free-solid-svg-icons/faWrench';
+import { translationStore } from '@/shared/config/store/translation-store';
 
 import VueCookie from 'vue-cookie';
 import Vuelidate from 'vuelidate';
@@ -46,6 +47,8 @@ import Vue2Filters from 'vue2-filters';
 
 import * as filters from '@/shared/date/filters';
 import { accountStore } from '@/shared/config/store/account-store';
+import VueI18n, { DateTimeFormats } from 'vue-i18n';
+import JhiFormatter from './formatter';
 
 export function initVueApp(vue) {
   vue.use(VueCookie);
@@ -96,12 +99,75 @@ export function initFortAwesome(vue) {
     faWrench
   );
 }
+const dateTimeFormats: DateTimeFormats = {
+  en: {
+    short: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    },
+    medium: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      weekday: 'short',
+      hour: 'numeric',
+      minute: 'numeric',
+    },
+    long: {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      hour: 'numeric',
+      minute: 'numeric',
+    },
+  },
+  'ar-ly': {
+    short: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+    },
+    medium: {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      weekday: 'short',
+      hour: 'numeric',
+      minute: 'numeric',
+    },
+    long: {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+      hour: 'numeric',
+      minute: 'numeric',
+    },
+  },
+  // jhipster-needle-i18n-language-date-time-format - JHipster will add/remove format options in this object
+};
+
+export function initI18N(vue) {
+  vue.use(VueI18n);
+  return new VueI18n({
+    dateTimeFormats,
+    silentTranslationWarn: true,
+    formatter: new JhiFormatter(),
+  });
+}
 
 export function initVueXStore(vue) {
   vue.use(Vuex);
   return new Vuex.Store({
     modules: {
       accountStore,
+      translationStore,
     },
   });
 }

@@ -2,11 +2,14 @@ import { Component, Inject, Vue } from 'vue-property-decorator';
 import { VERSION } from '@/constants';
 import LoginService from '@/account/login.service';
 import AccountService from '@/account/account.service';
+import TranslationService from '@/locale/translation.service';
 
 @Component
 export default class JhiNavbar extends Vue {
   @Inject('loginService')
   private loginService: () => LoginService;
+
+  @Inject('translationService') private translationService: () => TranslationService;
 
   @Inject('accountService') private accountService: () => AccountService;
   public version = VERSION ? 'v' + VERSION : '';
@@ -28,6 +31,14 @@ export default class JhiNavbar extends Vue {
     sessionStorage.removeItem('jhi-authenticationToken');
     this.$store.commit('logout');
     this.$router.push('/', () => {});
+  }
+
+  public changeLanguage(newLanguage: string): void {
+    this.translationService().refreshTranslation(newLanguage);
+  }
+
+  public isActiveLanguage(key: string): boolean {
+    return key === this.$store.getters.currentLanguage;
   }
 
   public openLogin(): void {

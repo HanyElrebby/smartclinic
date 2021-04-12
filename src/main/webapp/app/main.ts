@@ -53,6 +53,7 @@ import { Settings } from 'luxon';
 import MedicineService from './entities/medicine/medicine.service';
 import FileService from './entities/file/file.service';
 import TrackerService from './core/SidebarPlugin/tracker.service';
+import TranslationService from './locale/translation.service';
 
 Settings.defaultLocale = 'ar';
 
@@ -80,7 +81,12 @@ const trackerService = new TrackerService(router);
 const store = config.initVueXStore(Vue);
 
 const loginService = new LoginService();
-const accountService = new AccountService(store, trackerService, router);
+
+const i18n = config.initI18N(Vue);
+
+const translationService = new TranslationService(store, i18n);
+
+const accountService = new AccountService(store, translationService, trackerService, router);
 
 router.beforeEach((to, from, next) => {
   if (!to.matched.length) {
@@ -108,6 +114,7 @@ new Vue({
   components: { App, datetime: Datetime },
   template: '<App/>',
   router,
+  i18n,
   provide: {
     loginService: () => loginService,
     activateService: () => new ActivateService(),
@@ -126,6 +133,7 @@ new Vue({
     detailsOfVisitService: () => new DetailsOfVisitService(),
     medicineService: () => new MedicineService(),
     fileService: () => new FileService(),
+    translationService: () => translationService,
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
   },

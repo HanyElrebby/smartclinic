@@ -3,7 +3,8 @@
     <h2 id="page-heading" data-cy="ClinicHeading">
       <div class="d-flex justify-content-center">
         <button class="btn btn-info ml-2" v-on:click="handleSyncList" :disabled="isFetching">
-          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>تحديث الجدول</span>
+          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
+          <span v-text="$t('entities.refreshTable')">تحديث الجدول</span>
         </button>
         <router-link :to="{ name: 'ClinicCreate' }" custom v-slot="{ navigate }">
           <button
@@ -13,31 +14,31 @@
             class="btn btn-primary jh-create-entity create-clinic"
           >
             <font-awesome-icon icon="plus"></font-awesome-icon>
-            <span> أنشاء عيادة </span>
+            <span v-text="$t('entities.createClinic')"> أنشاء عيادة </span>
           </button>
         </router-link>
       </div>
     </h2>
     <br />
     <div class="alert alert-warning" v-if="!isFetching && clinics && clinics.length === 0">
-      <span>لا يوجد عيادات</span>
+      <span v-text="$t('entities.noClinicsFound')">لا يوجد عيادات</span>
     </div>
     <div class="table-responsive" v-if="clinics && clinics.length > 0">
       <el-table class="table-responsive table" header-row-class-name="thead-light" :data="clinics">
-        <el-table-column label="الكود" prop="id" min-width="140px"> </el-table-column>
-        <el-table-column label="إسم العيادة" prop="nameOfClinic"> </el-table-column>
-        <el-table-column label="المدينة" prop="City"> </el-table-column>
-        <el-table-column label="الكود البريدى" prop="postalCode"> </el-table-column>
-        <el-table-column label="الشارع" prop="street"> </el-table-column>
-        <el-table-column label="الطبيب" prop="doctor.name">
+        <el-table-column :label="translate('entities.id')" prop="id" min-width="140px"> </el-table-column>
+        <el-table-column :label="translate('entities.clinicName')" prop="nameOfClinic"> </el-table-column>
+        <el-table-column :label="translate('entities.city')" prop="City"> </el-table-column>
+        <el-table-column :label="translate('entities.postalCode')" prop="postalCode"> </el-table-column>
+        <el-table-column :label="translate('entities.street')" prop="street"> </el-table-column>
+        <el-table-column :label="translate('entities.doctor')" prop="doctor.name">
           <template v-slot="{ row }">
             <div v-if="row.doctor">
               <router-link :to="{ name: 'DoctorView', params: { doctorId: row.doctor.id } }">{{ row.doctor.name }}</router-link>
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="المستخدم" prop="user.login"> </el-table-column>
-        <el-table-column label="أجراء" prop="id">
+        <el-table-column :label="translate('entities.user')" prop="user.login"> </el-table-column>
+        <el-table-column :label="translate('entities.action')" prop="id">
           <template v-slot="{ row }">
             <div class="btn-group">
               <router-link :to="{ name: 'ClinicView', params: { clinicId: row.id } }" custom v-slot="{ navigate }">
