@@ -2,9 +2,15 @@ import axios from 'axios';
 import { Store } from 'vuex';
 import VueRouter from 'vue-router';
 import TrackerService from '@/core/SidebarPlugin/tracker.service';
+import TranslationService from '@/locale/translation.service';
 
 export default class AccountService {
-  constructor(private store: Store<any>, private trackerService: TrackerService, private router: VueRouter) {
+  constructor(
+    private store: Store<any>,
+    private translationService: TranslationService,
+    private trackerService: TrackerService,
+    private router: VueRouter
+  ) {
     this.init();
   }
 
@@ -46,6 +52,7 @@ export default class AccountService {
             this.router.push('/', () => {});
             sessionStorage.removeItem('requested-url');
           }
+          this.translationService.refreshTranslation(this.store.getters.currentLanguage);
           resolve(true);
         })
         .catch(() => {

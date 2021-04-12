@@ -2,10 +2,12 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <div v-if="detailsOfVisit">
-        <h2 class="jh-entity-heading" data-cy="detailsOfVisitDetailsHeading"><span>تفاصيل الزيارات</span> {{ detailsOfVisit.id }}</h2>
+        <h2 class="jh-entity-heading" data-cy="detailsOfVisitDetailsHeading">
+          <span v-text="$t('entities.visitDetails')">تفاصيل الزيارات</span> {{ detailsOfVisit.id }}
+        </h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span>وصف الأمراض</span>
+            <span v-text="$t('entities.DescriptionOfDiseases')">وصف الأمراض</span>
           </dt>
           <dd>
             <span>{{ detailsOfVisit.descriptionAilments }}</span>

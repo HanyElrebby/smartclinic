@@ -30,6 +30,21 @@
           </span>
         </b-nav-item>
 
+        <b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
+          <span slot="button-content">
+            <font-awesome-icon icon="flag" />
+            <span class="no-bold" v-text="$t('global.menu.language')">Language</span>
+          </span>
+          <b-dropdown-item
+            v-for="(value, key) in languages"
+            :key="`lang-${key}`"
+            v-on:click="changeLanguage(key)"
+            :class="{ active: isActiveLanguage(key) }"
+          >
+            {{ value.name }}
+          </b-dropdown-item>
+        </b-nav-item-dropdown>
+
         <b-nav-item-dropdown
           right
           href="javascript:void(0);"
