@@ -5,7 +5,7 @@
         <h2 id="smartclinicApp.visit.home.createOrEditLabel" data-cy="VisitCreateUpdateHeading">إنشاء او تعديل زيارة</h2>
         <hr />
         <div>
-          <div class="form-group row" v-if="visit.id">
+          <div class="form-group row" v-if="visit.id && !hasAnyAuthority('ROLE_ADMIN')">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">الكود</label>
             <div class="col-md-10">
               <base-input type="text" name="id" v-model="visit.id" readonly />
@@ -29,7 +29,7 @@
               </div>
             </div>
           </div>
-          <div class="form-group row" style="margin-top: 3rem">
+          <div class="form-group row" style="margin-top: 3rem" v-if="!hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="status">الحالة</label>
             <div class="col-md-10">
               <select class="form-control" aria-placeholder="الحالة" id="status" data-cy="status" name="status" v-model="visit.status">
@@ -53,7 +53,7 @@
               </div>
             </div>
           </div>
-          <div class="form-group row" style="margin-top: 3rem">
+          <div class="form-group row" style="margin-top: 3rem" v-if="!hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">نوع الزيارة</label>
             <div class="col-md-10">
               <select
@@ -81,7 +81,7 @@
             </div>
           </div>
 
-          <div class="form-group row" style="margin-top: 3rem">
+          <div class="form-group row" style="margin-top: 3rem" v-if="!hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">السعر</label>
             <div class="col-md-10">
               <base-input
@@ -97,37 +97,58 @@
           <div class="form-group row" v-if="hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">الوصف</label>
             <div class="col-md-10">
-              <base-input
+              <b-form-textarea
                 type="textarea"
                 name="الوصف"
+                rows="5"
                 :rules="{ max: 1000 }"
                 data-cy="description"
-                alternative
                 v-model="$v.visit.description.$model"
               />
+              <div v-if="$v.visit.description.$anyDirty && $v.visit.description.$invalid">
+                <small class="form-text text-danger" v-if="!$v.visit.description.maxLength"> لا يمكن ان تتعدى 1000 حرف </small>
+              </div>
             </div>
           </div>
           <div class="form-group row" v-if="hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">الادوية الموصوفة</label>
-            <div class="col-md-10">
-              <base-input
+            <div class="col-md-8">
+              <b-form-textarea
                 type="textarea"
+                rows="5"
                 name="الادوىة الموصوفة"
                 :rules="{ max: 1000 }"
                 data-cy="medicine"
-                alternative
                 v-model="$v.visit.medicine.$model"
               />
+              <div v-if="$v.visit.medicine.$anyDirty && $v.visit.medicine.$invalid">
+                <small class="form-text text-danger" v-if="!$v.visit.medicine.maxLength"> لا يمكن ان تتعدى 1000 حرف </small>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <b-button variant="success" class="btn btn-sm" data-cy="entityDeleteButton" v-b-modal.chooseMedicine>
+                <span class="d-none d-md-inline">اختيار ادويه</span>
+              </b-button>
             </div>
           </div>
           <div class="form-group row" v-if="hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">ملاحظات</label>
             <div class="col-md-10">
-              <base-input type="textarea" name="ملاحظات" :rules="{ max: 1000 }" data-cy="note" alternative v-model="$v.visit.note.$model" />
+              <b-form-textarea
+                rows="5"
+                type="textarea"
+                name="ملاحظات"
+                :rules="{ max: 1000 }"
+                data-cy="note"
+                v-model="$v.visit.note.$model"
+              />
+              <div v-if="$v.visit.note.$anyDirty && $v.visit.note.$invalid">
+                <small class="form-text text-danger" v-if="!$v.visit.note.maxLength"> لا يمكن ان تتعدى 1000 حرف </small>
+              </div>
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="!hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">تاريخ الزيارة</label>
             <div class="d-flex col-md-4">
               <!-- <base-input
@@ -250,7 +271,7 @@
           </div>
           <!-- <date-picker v-model="$v.value" type="datetime"></date-picker>-->
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="!hasAnyAuthority('ROLE_ADMIN')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-clinic">العيادة</label>
             <div class="col-md-10">
               <select class="form-control" id="visit-clinic" data-cy="clinic" name="clinic" v-model="visit.clinic">
@@ -275,6 +296,7 @@
           </button>
           <button
             type="submit"
+            v-if="!hasAnyAuthority('ROLE_ADMIN')"
             id="save-entity"
             data-cy="entityCreateSaveButton"
             :disabled="$v.visit.$invalid || isSaving"
@@ -282,9 +304,145 @@
           >
             <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>حفظ</span>
           </button>
+          <button
+            type="submit"
+            v-if="hasAnyAuthority('ROLE_ADMIN')"
+            id="save-entity"
+            data-cy="entityCreateSaveButton"
+            :disabled="$v.visit.$invalid || isSaving"
+            class="btn btn-primary"
+          >
+            <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span> حفظ و الانتقال الى المريض التالى</span>
+          </button>
         </div>
       </form>
     </div>
+
+    <b-modal ref="chooseMedicines" id="chooseMedicine" style="width: 1000px">
+      <div class="modal-title row">
+        <div class="col-md-6">
+          <span slot="modal-title"
+            ><span id="smartclinicApp.visit.delete.question" data-cy="visitDeleteDialogHeading">اختيار ادوية</span>
+          </span>
+        </div>
+        <div class="col-md-6">
+          <b-button variant="success" style="width: 100%" class="btn btn-sm" data-cy="entityDeleteButton" v-b-modal.addMedicines>
+            <span class="d-none d-md-inline">اضافة دواء</span>
+          </b-button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <table class="table table-striped" aria-describedby="medicines">
+          <thead>
+            <tr>
+              <th scope="row" v-on:click="changeOrder('name')">
+                <span>Name</span>
+              </th>
+              <th scope="row" v-on:click="changeOrder('quantity')">
+                <span>Quantity</span>
+              </th>
+
+              <th scope="row"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="medicine in medicines" :key="medicine.id" data-cy="entityTable">
+              <td>{{ medicine.name }}</td>
+              <td>{{ medicine.quantity }}</td>
+
+              <td class="text-center">
+                <div class="btn-group">
+                  <b-form-checkbox
+                    type="checkbox"
+                    :id="'select_' + medicine.id"
+                    @change="changeSelect(medicine)"
+                    :name="'select' + medicine.id"
+                    :checked="haveMedicine(medicine)"
+                  >
+                  </b-form-checkbox>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div slot="modal-footer">
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">إلغاء</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="jhi-confirm-delete-visit"
+          data-cy="entityConfirmDeleteButton"
+          v-on:click="
+            confirmSelect();
+            closeDialog();
+          "
+        >
+          تاكيد
+        </button>
+      </div>
+    </b-modal>
+
+    <b-modal ref="addMedicines" id="addMedicines" style="width: 1000px">
+      <div class="modal-body">
+        <form name="editForm" role="form" novalidate>
+          <h2 id="smartclinicApp.medicine.home.createOrEditLabel" data-cy="MedicineCreateUpdateHeading">Create or edit a Medicine</h2>
+          <hr />
+          <div>
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label form-control-label" for="medicine-name">Name</label>
+              <div class="col-md-10">
+                <base-input
+                  type="text"
+                  name="name"
+                  id="medicine-name"
+                  data-cy="name"
+                  alternative
+                  v-model="$v.medicine.name.$model"
+                  :rules="{ required: true }"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label form-control-label" for="medicine-quantity">Quantity</label>
+              <div class="col-md-10">
+                <base-input
+                  type="text"
+                  name="quantity"
+                  id="medicine-quantity"
+                  data-cy="quantity"
+                  alternative
+                  v-model="$v.medicine.quantity.$model"
+                  :rules="{ required: true }"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label form-control-label" for="medicine-notes">Notes</label>
+              <div class="col-md-10">
+                <base-input type="text" name="notes" id="medicine-notes" data-cy="notes" v-model="$v.medicine.notes.$model" />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div slot="modal-footer">
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialogMedicine()">إلغاء</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="jhi-confirm-delete-visit"
+          data-cy="entityConfirmDeleteButton"
+          v-on:click="
+            saveMedicine();
+            closeDialogMedicine();
+          "
+        >
+          حفظ
+        </button>
+      </div>
+    </b-modal>
   </div>
 </template>
 <script lang="ts" src="./visit-update.component.ts"></script>

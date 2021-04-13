@@ -26,6 +26,8 @@ import 'vue-datetime/dist/vue-datetime.css';
 import TrackerService from '@/core/SidebarPlugin/tracker.service';
 import { EventBus } from '@/event-bus';
 import AccountService from '@/account/account.service';
+import MedicineService from '../medicine/medicine.service';
+import { IMedicine, Medicine } from '@/shared/model/medicine.model';
 
 const validations: any = {
   visit: {
@@ -62,6 +64,15 @@ const validations: any = {
   period: {
     required,
   },
+  medicine: {
+    name: {
+      required,
+    },
+    quantity: {
+      required,
+    },
+    notes: {},
+  },
 };
 
 @Component({
@@ -94,6 +105,12 @@ export default class VisitUpdate extends Vue {
 
   @Inject('accountService') private accountService: () => AccountService;
 
+  @Inject('medicineService') private medicineService: () => MedicineService;
+
+  lastSelected = '';
+
+  public medicine: IMedicine = new Medicine();
+
   public detailsOfVisits: IDetailsOfVisit[] = [];
   public isSaving = false;
   public currentLanguage = '';
@@ -106,8 +123,12 @@ export default class VisitUpdate extends Vue {
 
   hasAnyAuthorityValue = false;
 
+  public medicines: IMedicine[] = [];
+  public SelectedMedicines: IMedicine[] = [];
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
+      vm.retrieveAllMedicines();
       if (to.params.visitId) {
         vm.retrieveVisit(to.params.visitId);
       } else {
@@ -147,6 +168,97 @@ export default class VisitUpdate extends Vue {
         this.currentLanguage = this.$store.getters.currentLanguage;
       }
     );
+  }
+
+  public saveMedicine(): void {
+    if (this.medicine.id) {
+      this.medicine.updatedBy = this.username;
+      this.medicineService()
+        .update(this.medicine)
+        .then(param => {
+          this.medicines.push(param);
+          this.SelectedMedicines.push(param);
+        });
+    } else {
+      this.medicine.createdBy = this.username;
+      this.medicine.updatedBy = this.username;
+      this.medicineService()
+        .create(this.medicine)
+        .then(param => {
+          this.medicines.push(param);
+          this.SelectedMedicines.push(param);
+        });
+    }
+  }
+
+  public retrieveAllMedicines(): void {
+    this.medicineService()
+      .retrieve()
+      .then(
+        res => {
+          this.medicines = res.data;
+        },
+        err => {}
+      );
+  }
+
+  public haveMedicine(medicine) {
+    return this.SelectedMedicines.filter(m => m.id === medicine.id).length > 0;
+  }
+
+  public changeSelect(medicine) {
+    console.log('change ------------------------->');
+
+    if (this.SelectedMedicines.filter(m => m.id === medicine.id).length > 0) {
+      this.SelectedMedicines = this.SelectedMedicines.filter(m => m.id !== medicine.id);
+    } else {
+      this.SelectedMedicines.push(medicine);
+    }
+  }
+
+  public closeDialog(): void {
+    (<any>this.$refs.chooseMedicines).hide();
+  }
+
+  public closeDialogMedicine(): void {
+    (<any>this.$refs.addMedicines).hide();
+  }
+
+  public confirmSelect() {
+    console.log('confirm -------------------->');
+
+    if (this.visit.medicine && this.visit.medicine.indexOf(this.lastSelected) >= 0) {
+      console.log('ifffffffffffffffffffffffffffffffffffff');
+
+      let selectedText = '';
+      for (let index = 0; index < this.SelectedMedicines.length; index++) {
+        const element = this.SelectedMedicines[index];
+        selectedText += element.name + ' - ' + element.quantity + '\n';
+      }
+      this.visit.medicine = this.visit.medicine.replace(this.lastSelected, selectedText);
+      this.lastSelected = selectedText;
+
+      console.log(selectedText);
+
+      console.log(this.visit.medicine);
+    } else {
+      console.log('elseeeeeeeeeeeeeeeeeeeee');
+
+      let selectedText = '';
+      for (let index = 0; index < this.SelectedMedicines.length; index++) {
+        const element = this.SelectedMedicines[index];
+        selectedText += element.name + ' - ' + element.quantity + '\n';
+      }
+      console.log(selectedText);
+      if (this.visit.medicine) {
+        this.visit.medicine += '\n' + selectedText;
+      } else {
+        this.visit.medicine = selectedText;
+      }
+      this.lastSelected = selectedText;
+
+      console.log(this.visit.medicine);
+    }
   }
 
   public get username(): string {
@@ -198,6 +310,11 @@ export default class VisitUpdate extends Vue {
     if (this.visit.id) {
       this.visit.createdBy = this.username;
       this.visit.updatedBy = this.username;
+
+      if (this.hasAnyAuthority('ROLE_ADMIN')) {
+        this.visit.status = 'Served';
+      }
+
       this.visitService()
         .update(this.visit)
         .then(param => {
@@ -205,9 +322,9 @@ export default class VisitUpdate extends Vue {
 
           if (this.visit.status === 'Served' && this.accountService().hasAnyAuthorityAndCheckAuth('ROLE_ADMIN')) {
             if (this.visits.length > 1) {
-              this.$router.push({ name: 'PatientView', params: { patientId: this.visits[1].patient.id + '' } });
+              this.$router.push({ name: 'PatientView', params: { patientId: this.visits[1].patient.id + '' } }).catch(() => {});
             } else {
-              this.$router.push({ name: 'PatientView', params: { patientId: '-1' } });
+              this.$router.push({ name: 'PatientView', params: { patientId: '-1' } }).catch(() => {});
             }
           } else {
             this.$router.go(-1);
@@ -233,9 +350,9 @@ export default class VisitUpdate extends Vue {
           this.isSaving = false;
           if (this.visit.status === 'Served' && this.accountService().hasAnyAuthorityAndCheckAuth('ROLE_ADMIN')) {
             if (this.visits.length > 1) {
-              this.$router.push({ name: 'PatientView', params: { patientId: this.visits[1].patient.id + '' } });
+              this.$router.push({ name: 'PatientView', params: { patientId: this.visits[1].patient.id + '' } }).catch(() => {});
             } else {
-              this.$router.push({ name: 'PatientView', params: { patientId: '-1' } });
+              this.$router.push({ name: 'PatientView', params: { patientId: '-1' } }).catch(() => {});
             }
           } else {
             this.$router.go(-1);
