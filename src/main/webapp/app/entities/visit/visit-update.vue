@@ -339,9 +339,9 @@
               <th scope="row" v-on:click="changeOrder('name')">
                 <span>Name</span>
               </th>
-              <th scope="row" v-on:click="changeOrder('quantity')">
+              <!-- <th scope="row" v-on:click="changeOrder('quantity')">
                 <span>Quantity</span>
-              </th>
+              </th> -->
 
               <th scope="row"></th>
             </tr>
@@ -349,7 +349,7 @@
           <tbody>
             <tr v-for="medicine in medicines" :key="medicine.id" data-cy="entityTable">
               <td>{{ medicine.name }}</td>
-              <td>{{ medicine.quantity }}</td>
+              <!-- <td>{{ medicine.quantity }}</td> -->
 
               <td class="text-center">
                 <div class="btn-group">

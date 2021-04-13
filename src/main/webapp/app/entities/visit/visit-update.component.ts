@@ -133,6 +133,9 @@ export default class VisitUpdate extends Vue {
         vm.retrieveVisit(to.params.visitId);
       } else {
         //vm.value = dayjs(new Date()).format(DATE_TIME_LONG_FORMAT);
+
+        vm.visit.visitType = 'Reveal';
+        vm.visit.status = 'Reserved';
       }
       if (to.params.patientId) {
         vm.patientId = parseInt(to.params.patientId);

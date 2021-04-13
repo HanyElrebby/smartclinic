@@ -33,6 +33,8 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
 
     next(vm => {
       if (to.params.patientId) {
+        EventBus.$emit('patientId', to.params.patientId);
+
         vm.retrievePatient(to.params.patientId);
         vm.retrieveVisits(to.params.patientId);
       }
