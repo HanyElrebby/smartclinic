@@ -14,6 +14,10 @@
   }
 }
 
+.modal-content {
+  width: 700px !important;
+}
+
 // Background color variations
 
 @each $color, $value in $theme-colors {

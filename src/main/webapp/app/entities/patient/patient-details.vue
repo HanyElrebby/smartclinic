@@ -125,7 +125,6 @@
               <template v-slot="{ row }">
                 <div class="btn-group">
                   <button
-                    @click="navigate"
                     v-on:click="openFile(row.fileContentType, row.file)"
                     class="btn btn-info btn-sm details"
                     data-cy="entityDetailsButton"

@@ -119,7 +119,7 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
             if (this.visits[0].patient.id !== lastVisits[0].patient.id && patientId + '' === lastVisits[0].patient.id + '') {
               console.log('111111111111111111111111111111111111111111111111111');
 
-              this.$router.push({ name: 'PatientView', params: { patientId: this.visits[0].patient.id + '' } });
+              this.$router.push({ name: 'PatientView', params: { patientId: this.visits[0].patient.id + '' } }).catch(() => {});
               this.retrievePatient(this.visits[0].patient.id);
               this.visit = this.visits[0];
             } else {
@@ -128,7 +128,7 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
               if (patientId + '' !== '-1') {
                 console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
 
-                this.$router.push({ name: 'PatientView', params: { patientId: patientId + '' } });
+                this.$router.push({ name: 'PatientView', params: { patientId: patientId + '' } }).catch(() => {});
                 this.retrievePatient(patientId);
                 let vis = this.visits.filter(v => v.patient.id + '' === patientId + '');
                 if (vis.length > 0) {
@@ -137,7 +137,7 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
               } else {
                 console.log('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv');
 
-                this.$router.push({ name: 'PatientView', params: { patientId: this.visits[0].patient.id + '' } });
+                this.$router.push({ name: 'PatientView', params: { patientId: this.visits[0].patient.id + '' } }).catch(() => {});
                 this.retrievePatient(this.visits[0].patient.id);
                 this.visit = this.visits[0];
               }
@@ -145,7 +145,7 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
           } else {
             console.log('22222222222222222222222222222222222222222222');
 
-            this.$router.push({ name: 'PatientView', params: { patientId: '-1' } });
+            this.$router.push({ name: 'PatientView', params: { patientId: '-1' } }).catch(() => {});
             this.retrievePatient(-1);
             this.visit = null;
           }
@@ -157,7 +157,7 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
           ) {
             console.log('333333333333333333333333333333333333333333333333333333333');
 
-            this.$router.push({ name: 'PatientView', params: { patientId: this.visits[0].patient.id + '' } });
+            this.$router.push({ name: 'PatientView', params: { patientId: this.visits[0].patient.id + '' } }).catch(() => {});
             this.retrievePatient(this.visits[0].patient.id);
             this.visit = this.visits[0];
           } else if (patientId !== null && patientId !== undefined) {
@@ -169,14 +169,14 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
                 this.visit = vis[0];
               }
             } else {
-              this.$router.push({ name: 'PatientView', params: { patientId: this.visits[0].patient.id + '' } });
+              this.$router.push({ name: 'PatientView', params: { patientId: this.visits[0].patient.id + '' } }).catch(() => {});
               this.retrievePatient(this.visits[0].patient.id);
               this.visit = this.visits[0];
             }
           } else {
             console.log('4444444444444444444444444444444444444444444444444444444');
 
-            this.$router.push({ name: 'PatientView', params: { patientId: '-1' } });
+            this.$router.push({ name: 'PatientView', params: { patientId: '-1' } }).catch(() => {});
             this.retrievePatient(-1);
             this.visit = null;
           }

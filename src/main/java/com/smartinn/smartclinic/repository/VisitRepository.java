@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VisitRepository extends JpaRepository<Visit, Long> {
     @Query(
-        value = "select v.id , null as patient_id , v.clinic_id , v.visit_type , v.date_of_visit , v.cost , v.created_by , v.updated_by from visit v where v.patient_id = ?1",
+        value = "select v.id , null as patient_id , v.clinic_id , v.visit_type , v.description , v.date_of_visit , v.cost , v.created_by , v.updated_by from visit v where v.patient_id = ?1",
         nativeQuery = true
     )
     public Page<Visit> getVisitByPatientId(Long patientId, Pageable pageable);
