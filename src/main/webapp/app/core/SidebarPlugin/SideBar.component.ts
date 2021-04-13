@@ -17,6 +17,8 @@ export default class Visit extends Vue {
 
   visits: IVisit[] = [];
 
+  patientId: string = null;
+
   public loadWaited() {
     this.visitService()
       .retrieveWaited()
@@ -46,6 +48,9 @@ export default class Visit extends Vue {
     this.init();
     EventBus.$on('waitedVisits', waitedVisits => {
       this.visits = waitedVisits;
+    });
+    EventBus.$on('patientId', patientId => {
+      this.patientId = patientId + '';
     });
     this.loadWaited();
   }
