@@ -33,9 +33,9 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/smartclinic
+    url: jdbc:postgresql://database-1-instance-1.cq8ywwuxu7jj.us-west-1.rds.amazonaws.com:5432/smartclinic?usessl=false
     username: postgres
-    password: postgres
+    password: Mazen2020
     hikari:
       poolName: Hikari
       auto-commit: false
