@@ -136,6 +136,14 @@ export default class VisitUpdate extends Vue {
 
         vm.visit.visitType = 'Reveal';
         vm.visit.status = 'Reserved';
+        console.log('before check ------>');
+
+        if (vm.accountService().hasAnyAuthorityAndCheckAuth('ROLE_ADMIN')) {
+          console.log('has role admin ---------');
+
+          vm.visit.cost = 0;
+          console.log(vm.visit);
+        }
       }
       if (to.params.patientId) {
         vm.patientId = parseInt(to.params.patientId);
@@ -346,6 +354,10 @@ export default class VisitUpdate extends Vue {
           });
         });
     } else {
+      if (this.hasAnyAuthority('ROLE_ADMIN')) {
+        this.visit.status = 'Served';
+      }
+      this.visit.createdBy = this.username;
       this.visit.updatedBy = this.username;
       this.visitService()
         .create(this.visit)
@@ -425,8 +437,11 @@ export default class VisitUpdate extends Vue {
       .retrieve()
       .then(res => {
         this.clinics = res.data;
-        if (this.clinics && this.clinics.length > 0) {
+        console.log('ccccccccccccccccccccccccccccccccccccccc');
+
+        if (this.clinics && this.clinics.length > 0 && (this.visit.clinic === null || this.visit.clinic === undefined)) {
           this.visit.clinic = this.clinics[0];
+          console.log(this.visit, 'ttttttttttttttttttttttttttttttttt');
         }
       });
     this.patientService()
