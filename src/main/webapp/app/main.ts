@@ -57,6 +57,14 @@ import TranslationService from './locale/translation.service';
 
 Settings.defaultLocale = 'ar';
 
+import Highchart from 'highcharts/highcharts';
+import HighchartsVue from 'highcharts-vue';
+import stockInit from 'highcharts/modules/stock';
+import ChartValuesService from './entities/chart-values/chart-values.service';
+
+stockInit(Highchart);
+Vue.use(HighchartsVue);
+
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -133,6 +141,7 @@ new Vue({
     detailsOfVisitService: () => new DetailsOfVisitService(),
     medicineService: () => new MedicineService(),
     fileService: () => new FileService(),
+    chartValuesService: () => new ChartValuesService(),
     translationService: () => translationService,
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,

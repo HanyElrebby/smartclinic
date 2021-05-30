@@ -1,4 +1,5 @@
 import { IVisit } from '@/shared/model/visit.model';
+import { IChartValues } from './chart-values.model';
 
 export interface IPatient {
   id?: number;
@@ -13,6 +14,7 @@ export interface IPatient {
   surgery?: string;
   phoneNumber?: string;
   visits?: IVisit[] | null;
+  chartValues?: IChartValues[] | null;
   createdBy?: string;
   updatedBy?: string;
 }
@@ -33,6 +35,7 @@ export class Patient implements IPatient {
     public surgery?: string,
     public phoneNumber?: string,
     public visits?: IVisit[] | null,
+    public chartValues?: IChartValues[] | null,
     public createdBy?: string,
     public updatedBy?: string
   ) {}

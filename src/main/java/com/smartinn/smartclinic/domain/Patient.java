@@ -76,6 +76,10 @@ public class Patient implements Serializable {
 
     @OneToMany(mappedBy = "patient")
     @JsonIgnoreProperties(value = { "patient" }, allowSetters = true)
+    private Set<ChartValues> chartValues = new HashSet<>();
+
+    @OneToMany(mappedBy = "patient")
+    @JsonIgnoreProperties(value = { "patient" }, allowSetters = true)
     private Set<File> files = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -269,6 +273,25 @@ public class Patient implements Serializable {
         this.visits = visits;
     }
 
+    public Set<ChartValues> getChartValues() {
+        return this.chartValues;
+    }
+
+    public Patient chartValues(Set<ChartValues> chartValues) {
+        this.setChartValues(chartValues);
+        return this;
+    }
+
+    public void setChartValues(Set<ChartValues> chartValues) {
+        if (this.chartValues != null) {
+            this.chartValues.forEach(i -> i.setPatient(null));
+        }
+        if (chartValues != null) {
+            chartValues.forEach(i -> i.setPatient(this));
+        }
+        this.chartValues = chartValues;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -319,6 +342,8 @@ public class Patient implements Serializable {
             phoneNumber +
             ", visits=" +
             visits +
+            ", chartValues=" +
+            chartValues +
             ", files=" +
             files +
             "]"

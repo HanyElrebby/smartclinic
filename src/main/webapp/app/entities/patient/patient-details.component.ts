@@ -10,8 +10,20 @@ import FileService from '../file/file.service';
 import { IFile } from '@/shared/model/file.model';
 import { mixins } from 'vue-class-component';
 import JhiDataUtils from '@/shared/data/data-utils.service';
+import { ChartValues, IChartValues } from '@/shared/model/chart-values.model';
+import ChartValuesService from '../chart-values/chart-values.service';
+import { required, maxLength } from 'vuelidate/lib/validators';
 
-@Component({})
+const validations: any = {
+  chartValues: {
+    xValue: { required },
+    yValue: { required },
+  },
+};
+
+@Component({
+  validations,
+})
 export default class PatientDetails extends mixins(JhiDataUtils) {
   @Inject('patientService') private patientService: () => PatientService;
   public patient: IPatient = {};
@@ -22,11 +34,16 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
 
   @Inject('fileService') private fileService: () => FileService;
 
+  @Inject('chartValuesService') private chartValuesService: () => ChartValuesService;
+  public chartValues: IChartValues = new ChartValues();
+  public isSaving = false;
+
   public visits: IVisit[] = [];
 
   visit: IVisit = null;
 
   files: IFile[] = [];
+  lengths: IChartValues[] = [];
 
   beforeRouteEnter(to, from, next) {
     console.log('yyyyyyyyyyyyyyyyyyyyyyyyyy');
@@ -39,6 +56,17 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
         vm.retrieveVisits(to.params.patientId);
       }
     });
+  }
+
+  retriveLength(patientId) {
+    this.chartValuesService()
+      .retrieveByPatientId(patientId)
+      .then(
+        res => {
+          this.lengths = res.data;
+        },
+        err => {}
+      );
   }
 
   retriveFiles(patientId) {
@@ -187,6 +215,47 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
     });
   }
 
+  public closeDialogLength(): void {
+    (<any>this.$refs.addLenght).hide();
+  }
+
+  public saveLength(): void {
+    this.isSaving = true;
+    this.chartValues.patient = this.patient;
+    this.chartValues.type = 'LENGTH';
+    if (this.chartValues.id) {
+      this.chartValuesService()
+        .update(this.chartValues)
+        .then(param => {
+          this.isSaving = false;
+          this.retriveLength(this.patient.id);
+          const message = 'A ChartValues is updated with identifier ' + param.id;
+          return this.$root.$bvToast.toast(message.toString(), {
+            toaster: 'b-toaster-top-center',
+            title: 'Info',
+            variant: 'info',
+            solid: true,
+            autoHideDelay: 5000,
+          });
+        });
+    } else {
+      this.chartValuesService()
+        .create(this.chartValues)
+        .then(param => {
+          this.isSaving = false;
+          this.retriveLength(this.patient.id);
+          const message = 'A ChartValues is created with identifier ' + param.id;
+          this.$root.$bvToast.toast(message.toString(), {
+            toaster: 'b-toaster-top-center',
+            title: 'Success',
+            variant: 'success',
+            solid: true,
+            autoHideDelay: 5000,
+          });
+        });
+    }
+  }
+
   public retrievePatient(patientId) {
     this.patientService()
       .find(patientId)
@@ -194,6 +263,7 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
         this.patient = res;
       });
     this.retriveFiles(patientId);
+    this.retriveLength(patientId);
   }
 
   visitTypeVale(visitType) {

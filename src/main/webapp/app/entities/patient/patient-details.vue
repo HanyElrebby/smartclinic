@@ -137,9 +137,86 @@
             </el-table-column>
           </el-table>
         </div>
+
+        <h1 v-else></h1>
+        <div class="row" style="padding-top: 20px">
+          <div class="col-md-6">
+            <h1 class="text-danger">المقاسات:</h1>
+          </div>
+          <div class="col-md-6">
+            <b-button
+              variant="success"
+              style="width: 100%; height: 35px"
+              class="btn btn-sm"
+              data-cy="entityDeleteButton"
+              v-b-modal.addLenght
+            >
+              <span class="d-none d-md-inline">اضافة مقاس</span>
+            </b-button>
+          </div>
+        </div>
+        <div class="table-responsive" v-if="lengths && lengths.length > 0">
+          <el-table class="table-responsive table" header-row-class-name="thead-light" :data="lengths">
+            <el-table-column label="العمر" prop="xValue"> </el-table-column>
+            <el-table-column label="الطول" prop="yValue"> </el-table-column>
+          </el-table>
+        </div>
       </div>
-      <h1 v-else></h1>
     </div>
+
+    <b-modal ref="addLenght" id="addLenght" style="width: 1000px">
+      <div class="modal-body">
+        <form name="editForm" role="form" novalidate>
+          <h2 id="smartclinicApp.medicine.home.createOrEditLabel" data-cy="MedicineCreateUpdateHeading">إضافة مقاس طول</h2>
+          <hr />
+          <div>
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label form-control-label" for="medicine-name">الطول</label>
+              <div class="col-md-10">
+                <base-input
+                  type="number"
+                  name="length"
+                  id="length"
+                  data-cy="length"
+                  alternative
+                  v-model="$v.chartValues.yValue.$model"
+                  :rules="{ required: true }"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label form-control-label" for="medicine-quantity">العمر</label>
+              <div class="col-md-10">
+                <base-input
+                  type="number"
+                  name="age"
+                  id="age"
+                  data-cy="age"
+                  alternative
+                  v-model="$v.chartValues.xValue.$model"
+                  :rules="{ required: true }"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div slot="modal-footer">
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialogMedicine()">إلغاء</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="jhi-confirm-delete-visit"
+          data-cy="entityConfirmDeleteButton"
+          v-on:click="
+            saveLength();
+            closeDialogLength();
+          "
+        >
+          حفظ
+        </button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
