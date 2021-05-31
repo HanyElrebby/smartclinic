@@ -98,7 +98,7 @@ export default class Charts extends Vue {
                   symbol: 'circle',
                 },
                 color: '#17FC00',
-                data: element.data,
+                data: element.lengthData,
               };
               this.$data.chartOptions.series.push(obj);
               console.log(this.$data.chartOptions.series);

@@ -5,16 +5,16 @@
         <h2 class="jh-entity-heading" data-cy="chartValuesDetailsHeading"><span>ChartValues</span> {{ chartValues.id }}</h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span>X Value</span>
+            <span>age</span>
           </dt>
           <dd>
-            <span>{{ chartValues.xValue }}</span>
+            <span>{{ chartValues.age }}</span>
           </dd>
           <dt>
-            <span>Y Value</span>
+            <span>length</span>
           </dt>
           <dd>
-            <span>{{ chartValues.yValue }}</span>
+            <span>{{ chartValues.length }}</span>
           </dd>
           <dt>
             <span>Type</span>

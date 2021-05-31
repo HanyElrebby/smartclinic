@@ -30,13 +30,13 @@
             <th scope="row" v-on:click="changeOrder('id')">
               <span>ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
-            <th scope="row" v-on:click="changeOrder('xValue')">
+            <th scope="row" v-on:click="changeOrder('age')">
               <span>X Value</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'xValue'"></jhi-sort-indicator>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'age'"></jhi-sort-indicator>
             </th>
-            <th scope="row" v-on:click="changeOrder('yValue')">
+            <th scope="row" v-on:click="changeOrder('length')">
               <span>Y Value</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'yValue'"></jhi-sort-indicator>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'length'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('type')">
               <span>Type</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'type'"></jhi-sort-indicator>
@@ -49,8 +49,8 @@
             <td>
               <router-link :to="{ name: 'ChartValuesView', params: { chartValuesId: chartValues.id } }">{{ chartValues.id }}</router-link>
             </td>
-            <td>{{ chartValues.xValue }}</td>
-            <td>{{ chartValues.yValue }}</td>
+            <td>{{ chartValues.age }}</td>
+            <td>{{ chartValues.length }}</td>
             <td>{{ chartValues.type }}</td>
             <td class="text-right">
               <div class="btn-group">

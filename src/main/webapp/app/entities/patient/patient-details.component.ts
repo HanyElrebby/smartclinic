@@ -16,13 +16,160 @@ import { required, maxLength } from 'vuelidate/lib/validators';
 
 const validations: any = {
   chartValues: {
-    xValue: { required },
-    yValue: { required },
+    age: { required },
+    length: { required },
+    weight: { required },
   },
 };
 
 @Component({
   validations,
+  data() {
+    return {
+      chartLengthOptions: {
+        chart: {
+          type: 'spline',
+        },
+        title: {
+          text: 'منحنى تطور الطول',
+        },
+        subtitle: {
+          text: 'العمر',
+        },
+        xAxis: {
+          labels: {
+            formatter: function () {
+              return this.value;
+            },
+          },
+        },
+        yAxis: {
+          title: {
+            text: 'الطول',
+          },
+
+          labels: {
+            formatter: function () {
+              return this.value;
+            },
+          },
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true,
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1,
+            },
+          },
+        },
+        series: [
+          {
+            name: 'الحد الاقصى',
+            marker: {
+              symbol: 'square',
+            },
+            color: '#A42105',
+            data: [
+              [0, 52.5],
+              [1, 80],
+              [2, 92.5],
+              [3, 102.5],
+            ],
+          },
+
+          {
+            name: 'الحد الادنى',
+            marker: {
+              symbol: 'diamond',
+            },
+            color: '#FC2C00',
+            data: [
+              [0, 42.5],
+              [1, 70],
+              [2, 80],
+              [3, 87.5],
+            ],
+          },
+        ],
+      },
+      chartWeightOptions: {
+        chart: {
+          type: 'spline',
+        },
+        title: {
+          text: 'منحنى تطور الوزن',
+        },
+        subtitle: {
+          text: 'العمر',
+        },
+        xAxis: {
+          labels: {
+            formatter: function () {
+              return this.value;
+            },
+          },
+        },
+        yAxis: {
+          title: {
+            text: 'الوزن',
+          },
+
+          labels: {
+            formatter: function () {
+              return this.value;
+            },
+          },
+        },
+        tooltip: {
+          crosshairs: true,
+          shared: true,
+        },
+        plotOptions: {
+          spline: {
+            marker: {
+              radius: 4,
+              lineColor: '#666666',
+              lineWidth: 1,
+            },
+          },
+        },
+        series: [
+          {
+            name: 'الحد الاقصى',
+            marker: {
+              symbol: 'square',
+            },
+            color: '#A42105',
+            data: [
+              [0, 5],
+              [1, 15],
+              [2, 25],
+              [3, 35],
+            ],
+          },
+
+          {
+            name: 'الحد الادنى',
+            marker: {
+              symbol: 'diamond',
+            },
+            color: '#FC2C00',
+            data: [
+              [0, 3.5],
+              [1, 11],
+              [2, 17],
+              [3, 25],
+            ],
+          },
+        ],
+      },
+    };
+  },
 })
 export default class PatientDetails extends mixins(JhiDataUtils) {
   @Inject('patientService') private patientService: () => PatientService;
@@ -53,20 +200,9 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
         EventBus.$emit('patientId', to.params.patientId);
 
         vm.retrievePatient(to.params.patientId);
-        vm.retrieveVisits(to.params.patientId);
+        vm.retriveChartData(to.params.patientId);
       }
     });
-  }
-
-  retriveLength(patientId) {
-    this.chartValuesService()
-      .retrieveByPatientId(patientId)
-      .then(
-        res => {
-          this.lengths = res.data;
-        },
-        err => {}
-      );
   }
 
   retriveFiles(patientId) {
@@ -75,6 +211,121 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
       .then(
         res => {
           this.files = res.data;
+        },
+        err => {}
+      );
+  }
+
+  retriveChartData(patientId) {
+    this.chartValuesService()
+      .getForChartPyPatientId(patientId)
+      .then(
+        res => {
+          console.log('fffffffffffffffffffffffffff');
+          console.log(res.data);
+          console.log('gggggggggggggggggggggggdddddddddd');
+          if (res.data !== null && res.data !== undefined) {
+            let seriesLength = [
+              {
+                name: 'الحد الاقصى',
+                marker: {
+                  symbol: 'square',
+                },
+                color: '#A42105',
+                data: [
+                  [0, 52.5],
+                  [1, 80],
+                  [2, 92.5],
+                  [3, 102.5],
+                ],
+              },
+
+              {
+                name: 'الحد الادنى',
+                marker: {
+                  symbol: 'diamond',
+                },
+                color: '#FC2C00',
+                data: [
+                  [0, 42.5],
+                  [1, 70],
+                  [2, 80],
+                  [3, 87.5],
+                ],
+              },
+              {
+                name: res.data.name,
+                marker: {
+                  symbol: 'circle',
+                },
+                color: '#17FC00',
+                data: res.data.lengthData,
+              },
+            ];
+            let seriesWeight = [
+              {
+                name: 'الحد الاقصى',
+                marker: {
+                  symbol: 'square',
+                },
+                color: '#A42105',
+                data: [
+                  [0, 5],
+                  [1, 15],
+                  [2, 25],
+                  [3, 35],
+                ],
+              },
+
+              {
+                name: 'الحد الادنى',
+                marker: {
+                  symbol: 'diamond',
+                },
+                color: '#FC2C00',
+                data: [
+                  [0, 3.5],
+                  [1, 11],
+                  [2, 17],
+                  [3, 25],
+                ],
+              },
+              {
+                name: res.data.name,
+                marker: {
+                  symbol: 'circle',
+                },
+                color: '#17FC00',
+                data: res.data.weightData,
+              },
+            ];
+            this.$data.chartLengthOptions.series.pop();
+            let objLen = {
+              name: res.data.name,
+              marker: {
+                symbol: 'circle',
+              },
+              color: '#17FC00',
+              data: res.data.lengthData,
+            };
+            let objWe = {
+              name: res.data.name,
+              marker: {
+                symbol: 'circle',
+              },
+              color: '#17FC00',
+              data: res.data.weightData,
+            };
+            if (res.data.lengthData !== null && res.data.lengthData !== undefined && res.data.lengthData.length > 0) {
+              //this.$data.chartLengthOptions.series.push(objLen);
+            }
+            if (res.data.weightData !== null && res.data.weightData !== undefined && res.data.weightData.length > 0) {
+              //this.$data.chartWeightOptions.series.push(objWe);
+            }
+
+            this.$data.chartWeightOptions.series = seriesWeight;
+            this.$data.chartLengthOptions.series = seriesLength;
+          }
         },
         err => {}
       );
@@ -228,7 +479,7 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
         .update(this.chartValues)
         .then(param => {
           this.isSaving = false;
-          this.retriveLength(this.patient.id);
+          this.retriveChartData(this.patient.id);
           const message = 'A ChartValues is updated with identifier ' + param.id;
           return this.$root.$bvToast.toast(message.toString(), {
             toaster: 'b-toaster-top-center',
@@ -243,7 +494,7 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
         .create(this.chartValues)
         .then(param => {
           this.isSaving = false;
-          this.retriveLength(this.patient.id);
+          this.retriveChartData(this.patient.id);
           const message = 'A ChartValues is created with identifier ' + param.id;
           this.$root.$bvToast.toast(message.toString(), {
             toaster: 'b-toaster-top-center',
@@ -263,7 +514,6 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
         this.patient = res;
       });
     this.retriveFiles(patientId);
-    this.retriveLength(patientId);
   }
 
   visitTypeVale(visitType) {

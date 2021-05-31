@@ -49,4 +49,32 @@
                                  referencedTableName="patient"/>
 
     </changeSet>
+
+    <changeSet id="rename coulmns of chart values" author="mostafa">
+        <renameColumn  catalogName="cat"  
+            columnDataType="double"  
+            newColumnName="length"  
+            oldColumnName="y_value"  
+            remarks="A String"  
+            schemaName="public"  
+            tableName="chart_values"/>
+
+        <renameColumn  catalogName="cat"  
+            columnDataType="double"  
+            newColumnName="age"  
+            oldColumnName="x_value"  
+            remarks="A String"  
+            schemaName="public"  
+            tableName="chart_values"/>
+
+        <addColumn catalogName="cat"  
+			schemaName= "public"
+			tableName="chart_values" >
+		    <column name="weight" 
+			    type="double">
+                <constraints nullable="true" />
+            </column>  
+        </addColumn>
+
+    </changeSet>
 </databaseChangeLog>

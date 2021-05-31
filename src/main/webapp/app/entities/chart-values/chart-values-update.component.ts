@@ -5,8 +5,8 @@ import ChartValuesService from './chart-values.service';
 
 const validations: any = {
   chartValues: {
-    xValue: {},
-    yValue: {},
+    weight: {},
+    length: {},
     type: {},
   },
 };

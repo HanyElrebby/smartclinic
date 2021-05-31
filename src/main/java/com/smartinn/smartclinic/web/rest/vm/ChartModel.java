@@ -11,7 +11,9 @@ public class ChartModel {
 
     private String name;
 
-    private List<List<Double>> data;
+    private List<List<Double>> lengthData;
+
+    private List<List<Double>> weightData;
 
     public String getName() {
         return name;
@@ -29,11 +31,19 @@ public class ChartModel {
         this.id = id;
     }
 
-    public List<List<Double>> getData() {
-        return data;
+    public List<List<Double>> getLengthData() {
+        return lengthData;
     }
 
-    public void setData(List<List<Double>> data) {
-        this.data = data;
+    public void setLengthData(List<List<Double>> lengthData) {
+        this.lengthData = lengthData;
+    }
+
+    public List<List<Double>> getWeightData() {
+        return weightData;
+    }
+
+    public void setWeightData(List<List<Double>> weightData) {
+        this.weightData = weightData;
     }
 }
