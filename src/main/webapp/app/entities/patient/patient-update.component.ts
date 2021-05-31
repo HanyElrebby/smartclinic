@@ -99,6 +99,10 @@ export default class PatientUpdate extends Vue {
     return this.$store.getters.account ? this.$store.getters.account.login : '';
   }
 
+  public closeDialogMedicine(): void {
+    (<any>this.$refs.addMedicines).hide();
+  }
+
   public save(): void {
     this.isSaving = true;
     this.patient.dateOfBirth = new Date(this.$data.value1);

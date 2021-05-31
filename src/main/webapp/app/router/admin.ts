@@ -12,6 +12,8 @@ const JhiMetricsComponent = () => import('@/admin/metrics/metrics.vue');
 
 const adminDashboard = () => import('@/admin/dashboard/ownerDashboard.vue');
 
+const adminCharts = () => import('@/admin/charts/charts.vue');
+
 export default [
   {
     path: '/admin/user-management',
@@ -71,6 +73,18 @@ export default [
     path: '/admin/dashboard',
     name: 'OwnerDashboard',
     component: adminDashboard,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/admin/dashboard',
+    name: 'OwnerDashboard',
+    component: adminDashboard,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/admin/charts',
+    name: 'OwnerCharts',
+    component: adminCharts,
     meta: { authorities: [Authority.OWNER] },
   },
 ];
