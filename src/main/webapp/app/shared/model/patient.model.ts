@@ -16,6 +16,7 @@ export interface IPatient {
   visits?: IVisit[] | null;
   chartValues?: IChartValues[] | null;
   createdBy?: string;
+  gender?: string;
   updatedBy?: string;
 }
 
