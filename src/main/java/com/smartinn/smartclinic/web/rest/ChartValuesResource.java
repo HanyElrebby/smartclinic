@@ -137,11 +137,11 @@ public class ChartValuesResource {
             .findById(chartValues.getId())
             .map(
                 existingChartValues -> {
-                    if (chartValues.getxValue() != null) {
-                        existingChartValues.setxValue(chartValues.getxValue());
+                    if (chartValues.getAge() != null) {
+                        existingChartValues.setAge(chartValues.getAge());
                     }
-                    if (chartValues.getyValue() != null) {
-                        existingChartValues.setyValue(chartValues.getyValue());
+                    if (chartValues.getLength() != null) {
+                        existingChartValues.setLength(chartValues.getLength());
                     }
                     if (chartValues.getType() != null) {
                         existingChartValues.setType(chartValues.getType());
@@ -194,13 +194,13 @@ public class ChartValuesResource {
             List<ChartValues> chartValues = chartValuesRepository.getByPatientId(p.getId());
             for (ChartValues value : chartValues) {
                 List<Double> dataItem = new ArrayList<>();
-                dataItem.add(value.getxValue());
-                dataItem.add(value.getyValue());
+                dataItem.add(value.getAge());
+                dataItem.add(value.getLength());
 
                 data.add(dataItem);
             }
 
-            model.setData(data);
+            model.setLengthData(data);
 
             if (data.size() > 0) {
                 models.add(model);
@@ -208,6 +208,43 @@ public class ChartValuesResource {
         }
 
         return ResponseEntity.ok().body(models);
+    }
+
+    @GetMapping("/chart-values/getForChart/byPatientId/{patientId}")
+    public ResponseEntity<ChartModel> getAllChartValuesorChartByPatientId(@PathVariable Long patientId) {
+        log.debug("REST request to get a page of ChartValues");
+
+        List<Patient> patients = patientRepository.findAll();
+        Patient p = patientRepository.findById(patientId).get();
+
+        ChartModel model = new ChartModel();
+        model.setName(p.getName());
+        model.setId(p.getId());
+        List<List<Double>> lengthData = new ArrayList<>();
+        List<List<Double>> weightData = new ArrayList<>();
+        List<ChartValues> chartValues = chartValuesRepository.getByPatientId(patientId);
+        for (ChartValues value : chartValues) {
+            List<Double> dataItem = new ArrayList<>();
+            dataItem.add(value.getAge());
+            dataItem.add(value.getLength());
+
+            lengthData.add(dataItem);
+
+            List<Double> dataItemWeight = new ArrayList<>();
+            dataItemWeight.add(value.getAge());
+            if (value.getWeight() != null) {
+                dataItemWeight.add(value.getWeight());
+            } else {
+                dataItemWeight.add(0.0);
+            }
+
+            weightData.add(dataItemWeight);
+        }
+
+        model.setLengthData(lengthData);
+        model.setWeightData(weightData);
+
+        return ResponseEntity.ok().body(model);
     }
 
     /**

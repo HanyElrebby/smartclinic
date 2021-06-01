@@ -62,7 +62,7 @@ class ChartValuesResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static ChartValues createEntity(EntityManager em) {
-        ChartValues chartValues = new ChartValues().xValue(DEFAULT_X_VALUE).yValue(DEFAULT_Y_VALUE).type(DEFAULT_TYPE);
+        ChartValues chartValues = new ChartValues().age(DEFAULT_X_VALUE).length(DEFAULT_Y_VALUE).type(DEFAULT_TYPE);
         return chartValues;
     }
 
@@ -73,7 +73,7 @@ class ChartValuesResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static ChartValues createUpdatedEntity(EntityManager em) {
-        ChartValues chartValues = new ChartValues().xValue(UPDATED_X_VALUE).yValue(UPDATED_Y_VALUE).type(UPDATED_TYPE);
+        ChartValues chartValues = new ChartValues().age(UPDATED_X_VALUE).length(UPDATED_Y_VALUE).type(UPDATED_TYPE);
         return chartValues;
     }
 
@@ -95,8 +95,8 @@ class ChartValuesResourceIT {
         List<ChartValues> chartValuesList = chartValuesRepository.findAll();
         assertThat(chartValuesList).hasSize(databaseSizeBeforeCreate + 1);
         ChartValues testChartValues = chartValuesList.get(chartValuesList.size() - 1);
-        assertThat(testChartValues.getxValue()).isEqualTo(DEFAULT_X_VALUE);
-        assertThat(testChartValues.getyValue()).isEqualTo(DEFAULT_Y_VALUE);
+        assertThat(testChartValues.getAge()).isEqualTo(DEFAULT_X_VALUE);
+        assertThat(testChartValues.getLength()).isEqualTo(DEFAULT_Y_VALUE);
         assertThat(testChartValues.getType()).isEqualTo(DEFAULT_TYPE);
     }
 
@@ -130,8 +130,8 @@ class ChartValuesResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(chartValues.getId().intValue())))
-            .andExpect(jsonPath("$.[*].xValue").value(hasItem(DEFAULT_X_VALUE.doubleValue())))
-            .andExpect(jsonPath("$.[*].yValue").value(hasItem(DEFAULT_Y_VALUE.doubleValue())))
+            .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_X_VALUE.doubleValue())))
+            .andExpect(jsonPath("$.[*].length").value(hasItem(DEFAULT_Y_VALUE.doubleValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE)));
     }
 
@@ -147,8 +147,8 @@ class ChartValuesResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(chartValues.getId().intValue()))
-            .andExpect(jsonPath("$.xValue").value(DEFAULT_X_VALUE.doubleValue()))
-            .andExpect(jsonPath("$.yValue").value(DEFAULT_Y_VALUE.doubleValue()))
+            .andExpect(jsonPath("$.age").value(DEFAULT_X_VALUE.doubleValue()))
+            .andExpect(jsonPath("$.length").value(DEFAULT_Y_VALUE.doubleValue()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE));
     }
 
@@ -171,7 +171,7 @@ class ChartValuesResourceIT {
         ChartValues updatedChartValues = chartValuesRepository.findById(chartValues.getId()).get();
         // Disconnect from session so that the updates on updatedChartValues are not directly saved in db
         em.detach(updatedChartValues);
-        updatedChartValues.xValue(UPDATED_X_VALUE).yValue(UPDATED_Y_VALUE).type(UPDATED_TYPE);
+        updatedChartValues.age(UPDATED_X_VALUE).length(UPDATED_Y_VALUE).type(UPDATED_TYPE);
 
         restChartValuesMockMvc
             .perform(
@@ -185,8 +185,8 @@ class ChartValuesResourceIT {
         List<ChartValues> chartValuesList = chartValuesRepository.findAll();
         assertThat(chartValuesList).hasSize(databaseSizeBeforeUpdate);
         ChartValues testChartValues = chartValuesList.get(chartValuesList.size() - 1);
-        assertThat(testChartValues.getxValue()).isEqualTo(UPDATED_X_VALUE);
-        assertThat(testChartValues.getyValue()).isEqualTo(UPDATED_Y_VALUE);
+        assertThat(testChartValues.getAge()).isEqualTo(UPDATED_X_VALUE);
+        assertThat(testChartValues.getLength()).isEqualTo(UPDATED_Y_VALUE);
         assertThat(testChartValues.getType()).isEqualTo(UPDATED_TYPE);
     }
 
@@ -258,7 +258,7 @@ class ChartValuesResourceIT {
         ChartValues partialUpdatedChartValues = new ChartValues();
         partialUpdatedChartValues.setId(chartValues.getId());
 
-        partialUpdatedChartValues.xValue(UPDATED_X_VALUE).yValue(UPDATED_Y_VALUE).type(UPDATED_TYPE);
+        partialUpdatedChartValues.age(UPDATED_X_VALUE).length(UPDATED_Y_VALUE).type(UPDATED_TYPE);
 
         restChartValuesMockMvc
             .perform(
@@ -272,8 +272,8 @@ class ChartValuesResourceIT {
         List<ChartValues> chartValuesList = chartValuesRepository.findAll();
         assertThat(chartValuesList).hasSize(databaseSizeBeforeUpdate);
         ChartValues testChartValues = chartValuesList.get(chartValuesList.size() - 1);
-        assertThat(testChartValues.getxValue()).isEqualTo(UPDATED_X_VALUE);
-        assertThat(testChartValues.getyValue()).isEqualTo(UPDATED_Y_VALUE);
+        assertThat(testChartValues.getAge()).isEqualTo(UPDATED_X_VALUE);
+        assertThat(testChartValues.getLength()).isEqualTo(UPDATED_Y_VALUE);
         assertThat(testChartValues.getType()).isEqualTo(UPDATED_TYPE);
     }
 
@@ -289,7 +289,7 @@ class ChartValuesResourceIT {
         ChartValues partialUpdatedChartValues = new ChartValues();
         partialUpdatedChartValues.setId(chartValues.getId());
 
-        partialUpdatedChartValues.xValue(UPDATED_X_VALUE).yValue(UPDATED_Y_VALUE).type(UPDATED_TYPE);
+        partialUpdatedChartValues.age(UPDATED_X_VALUE).length(UPDATED_Y_VALUE).type(UPDATED_TYPE);
 
         restChartValuesMockMvc
             .perform(
@@ -303,8 +303,8 @@ class ChartValuesResourceIT {
         List<ChartValues> chartValuesList = chartValuesRepository.findAll();
         assertThat(chartValuesList).hasSize(databaseSizeBeforeUpdate);
         ChartValues testChartValues = chartValuesList.get(chartValuesList.size() - 1);
-        assertThat(testChartValues.getxValue()).isEqualTo(UPDATED_X_VALUE);
-        assertThat(testChartValues.getyValue()).isEqualTo(UPDATED_Y_VALUE);
+        assertThat(testChartValues.getAge()).isEqualTo(UPDATED_X_VALUE);
+        assertThat(testChartValues.getLength()).isEqualTo(UPDATED_Y_VALUE);
         assertThat(testChartValues.getType()).isEqualTo(UPDATED_TYPE);
     }
 

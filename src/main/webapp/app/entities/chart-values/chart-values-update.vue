@@ -17,9 +17,9 @@
               class="form-control"
               name="xValue"
               id="chart-values-xValue"
-              data-cy="xValue"
-              :class="{ valid: !$v.chartValues.xValue.$invalid, invalid: $v.chartValues.xValue.$invalid }"
-              v-model.number="$v.chartValues.xValue.$model"
+              data-cy="age"
+              :class="{ valid: !$v.chartValues.age.$invalid, invalid: $v.chartValues.age.$invalid }"
+              v-model.number="$v.chartValues.age.$model"
             />
           </div>
           <div class="form-group">
@@ -29,9 +29,9 @@
               class="form-control"
               name="yValue"
               id="chart-values-yValue"
-              data-cy="yValue"
-              :class="{ valid: !$v.chartValues.yValue.$invalid, invalid: $v.chartValues.yValue.$invalid }"
-              v-model.number="$v.chartValues.yValue.$model"
+              data-cy="length"
+              :class="{ valid: !$v.chartValues.length.$invalid, invalid: $v.chartValues.length.$invalid }"
+              v-model.number="$v.chartValues.length.$model"
             />
           </div>
           <div class="form-group">

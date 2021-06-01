@@ -18,11 +18,14 @@ public class ChartValues implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @Column(name = "x_value")
-    private Double xValue;
+    @Column(name = "age")
+    private Double age;
 
-    @Column(name = "y_value")
-    private Double yValue;
+    @Column(name = "weight")
+    private Double weight;
+
+    @Column(name = "length")
+    private Double length;
 
     @Column(name = "type")
     private String type;
@@ -45,30 +48,43 @@ public class ChartValues implements Serializable {
         return this;
     }
 
-    public Double getxValue() {
-        return this.xValue;
+    public Double getWeight() {
+        return this.weight;
     }
 
-    public ChartValues xValue(Double xValue) {
-        this.xValue = xValue;
+    public ChartValues weight(Double weight) {
+        this.weight = weight;
         return this;
     }
 
-    public void setxValue(Double xValue) {
-        this.xValue = xValue;
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
-    public Double getyValue() {
-        return this.yValue;
+    public Double getAge() {
+        return this.age;
     }
 
-    public ChartValues yValue(Double yValue) {
-        this.yValue = yValue;
+    public ChartValues age(Double age) {
+        this.age = age;
         return this;
     }
 
-    public void setyValue(Double yValue) {
-        this.yValue = yValue;
+    public void setAge(Double age) {
+        this.age = age;
+    }
+
+    public Double getLength() {
+        return this.length;
+    }
+
+    public ChartValues length(Double length) {
+        this.length = length;
+        return this;
+    }
+
+    public void setLength(Double length) {
+        this.length = length;
     }
 
     public String getType() {
@@ -121,8 +137,8 @@ public class ChartValues implements Serializable {
     public String toString() {
         return "ChartValues{" +
             "id=" + getId() +
-            ", xValue=" + getxValue() +
-            ", yValue=" + getyValue() +
+            ", length=" + getLength() +
+            ", age=" + getAge() +
             ", type='" + getType() + "'" +
             "}";
     }
