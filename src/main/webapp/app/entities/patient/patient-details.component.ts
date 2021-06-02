@@ -192,6 +192,196 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
   files: IFile[] = [];
   lengths: IChartValues[] = [];
 
+  femaleLengthSeries = [
+    {
+      name: 'الحد الاقصى',
+      marker: {
+        symbol: 'square',
+      },
+      color: '#A42105',
+      data: [
+        [0, 52.5],
+        [1 / 12, 57.4],
+        [2 / 12, 60.9],
+        [3 / 12, 63.8],
+        [4 / 12, 66.2],
+        [5 / 12, 68.2],
+        [6 / 12, 70],
+        [7 / 12, 71.6],
+        [8 / 12, 73.2],
+        [9 / 12, 74.7],
+        [10 / 12, 76.1],
+        [11 / 12, 77.5],
+        [1, 78.9],
+      ],
+    },
+
+    {
+      name: 'الحد الادنى',
+      marker: {
+        symbol: 'diamond',
+      },
+      color: '#FC2C00',
+      data: [
+        [0, 46.5],
+        [1 / 12, 50],
+        [2 / 12, 53.2],
+        [3 / 12, 55.8],
+        [4 / 12, 58],
+        [5 / 12, 59.9],
+        [6 / 12, 61.5],
+        [7 / 12, 62.9],
+        [8 / 12, 64.3],
+        [9 / 12, 65.6],
+        [10 / 12, 66.8],
+        [11 / 12, 68],
+        [1, 69.2],
+      ],
+    },
+  ];
+
+  maleLengthSeries = [
+    {
+      name: 'الحد الاقصى',
+      marker: {
+        symbol: 'square',
+      },
+      color: '#A42105',
+      data: [
+        [0, 53.4],
+        [1 / 12, 58.4],
+        [2 / 12, 62.2],
+        [3 / 12, 65.3],
+        [4 / 12, 67.8],
+        [5 / 12, 69.9],
+        [6 / 12, 71.6],
+        [7 / 12, 73.2],
+        [8 / 12, 74.4],
+        [9 / 12, 76.2],
+        [10 / 12, 77.6],
+        [11 / 12, 78.9],
+        [1, 80.2],
+      ],
+    },
+    {
+      name: 'الحد الادنى',
+      marker: {
+        symbol: 'diamond',
+      },
+      color: '#FC2C00',
+      data: [
+        [0, 46.5],
+        [1 / 12, 50],
+        [2 / 12, 53.2],
+        [3 / 12, 55.8],
+        [4 / 12, 58],
+        [5 / 12, 59.9],
+        [6 / 12, 61.5],
+        [7 / 12, 62.9],
+        [8 / 12, 64.3],
+        [9 / 12, 65.6],
+        [10 / 12, 66.8],
+        [11 / 12, 68],
+        [1, 69.2],
+      ],
+    },
+  ];
+
+  femaleWeightSeries = [
+    {
+      name: 'الحد الاقصى',
+      marker: {
+        symbol: 'square',
+      },
+      color: '#A42105',
+      data: [
+        [0, 4.2],
+        [1 / 12, 5.4],
+        [2 / 12, 6.5],
+        [3 / 12, 7.4],
+        [4 / 12, 8.1],
+        [5 / 12, 8.7],
+        [6 / 12, 9.2],
+        [7 / 12, 9.6],
+        [8 / 12, 10.4],
+        [9 / 12, 10.4],
+        [10 / 12, 10.7],
+        [11 / 12, 11],
+        [1, 12.3],
+      ],
+    },
+
+    {
+      name: 'الحد الادنى',
+      marker: {
+        symbol: 'diamond',
+      },
+      color: '#FC2C00',
+      data: [
+        [0, 2.4],
+        [1 / 12, 3.2],
+        [2 / 12, 4],
+        [3 / 12, 4.6],
+        [4 / 12, 5.1],
+        [5 / 12, 5.5],
+        [6 / 12, 5.8],
+        [7 / 12, 6.1],
+        [8 / 12, 6.6],
+        [9 / 12, 6.6],
+        [10 / 12, 6.8],
+        [11 / 12, 8.6],
+        [1, 10.1],
+      ],
+    },
+  ];
+
+  maleWeightSeries = [
+    {
+      name: 'الحد الاقصى',
+      marker: {
+        symbol: 'square',
+      },
+      color: '#A42105',
+      data: [
+        [0, 4.3],
+        [1 / 12, 5.7],
+        [2 / 12, 7],
+        [3 / 12, 7.9],
+        [4 / 12, 8.6],
+        [5 / 12, 9.2],
+        [6 / 12, 9.7],
+        [7 / 12, 10.2],
+        [8 / 12, 10.5],
+        [9 / 12, 10.9],
+        [10 / 12, 11.2],
+        [11 / 12, 11.5],
+        [1, 11.8],
+      ],
+    },
+    {
+      name: 'الحد الادنى',
+      marker: {
+        symbol: 'diamond',
+      },
+      color: '#FC2C00',
+      data: [
+        [0, 2.5],
+        [1 / 12, 3.4],
+        [2 / 12, 4.4],
+        [3 / 12, 5.1],
+        [4 / 12, 5.6],
+        [5 / 12, 6.1],
+        [6 / 12, 6.4],
+        [7 / 12, 6.7],
+        [8 / 12, 7],
+        [9 / 12, 7.2],
+        [10 / 12, 7.5],
+        [11 / 12, 8.4],
+        [1, 8.7],
+      ],
+    },
+  ];
+
   beforeRouteEnter(to, from, next) {
     console.log('yyyyyyyyyyyyyyyyyyyyyyyyyy');
 
@@ -200,7 +390,6 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
         EventBus.$emit('patientId', to.params.patientId);
 
         vm.retrievePatient(to.params.patientId);
-        vm.retriveChartData(to.params.patientId);
       }
     });
   }
@@ -225,103 +414,44 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
           console.log(res.data);
           console.log('gggggggggggggggggggggggdddddddddd');
           if (res.data !== null && res.data !== undefined) {
-            let seriesLength = [
-              {
-                name: 'الحد الاقصى',
-                marker: {
-                  symbol: 'square',
-                },
-                color: '#A42105',
-                data: [
-                  [0, 52.5],
-                  [1, 80],
-                  [2, 92.5],
-                  [3, 102.5],
-                ],
-              },
+            let seriesLength = [];
 
-              {
-                name: 'الحد الادنى',
-                marker: {
-                  symbol: 'diamond',
-                },
-                color: '#FC2C00',
-                data: [
-                  [0, 42.5],
-                  [1, 70],
-                  [2, 80],
-                  [3, 87.5],
-                ],
-              },
-              {
-                name: res.data.name,
-                marker: {
-                  symbol: 'circle',
-                },
-                color: '#17FC00',
-                data: res.data.lengthData,
-              },
-            ];
-            let seriesWeight = [
-              {
-                name: 'الحد الاقصى',
-                marker: {
-                  symbol: 'square',
-                },
-                color: '#A42105',
-                data: [
-                  [0, 5],
-                  [1, 15],
-                  [2, 25],
-                  [3, 35],
-                ],
-              },
+            if (this.patient.gender === 'Male') {
+              seriesLength = this.maleLengthSeries.concat([]);
+            } else {
+              seriesLength = this.femaleLengthSeries.concat([]);
+            }
 
-              {
-                name: 'الحد الادنى',
-                marker: {
-                  symbol: 'diamond',
-                },
-                color: '#FC2C00',
-                data: [
-                  [0, 3.5],
-                  [1, 11],
-                  [2, 17],
-                  [3, 25],
-                ],
-              },
-              {
-                name: res.data.name,
-                marker: {
-                  symbol: 'circle',
-                },
-                color: '#17FC00',
-                data: res.data.weightData,
-              },
-            ];
-            this.$data.chartLengthOptions.series.pop();
-            let objLen = {
+            let objl = {
               name: res.data.name,
               marker: {
-                symbol: 'circle',
+                symbol: 'diamond',
               },
               color: '#17FC00',
               data: res.data.lengthData,
             };
-            let objWe = {
+            seriesLength.push(objl);
+
+            console.log(seriesLength, this.maleLengthSeries, this.femaleLengthSeries);
+
+            let seriesWeight = [];
+
+            if (this.patient.gender === 'Male') {
+              seriesWeight = this.maleWeightSeries.concat([]);
+            } else {
+              seriesWeight = this.femaleWeightSeries.concat([]);
+            }
+
+            let objW = {
               name: res.data.name,
               marker: {
-                symbol: 'circle',
+                symbol: 'diamond',
               },
               color: '#17FC00',
               data: res.data.weightData,
             };
-            if (res.data.lengthData !== null && res.data.lengthData !== undefined && res.data.lengthData.length > 0) {
-              //this.$data.chartLengthOptions.series.push(objLen);
-            }
-            if (res.data.weightData !== null && res.data.weightData !== undefined && res.data.weightData.length > 0) {
-              //this.$data.chartWeightOptions.series.push(objWe);
-            }
+
+            seriesWeight.push(objW);
 
             this.$data.chartWeightOptions.series = seriesWeight;
             this.$data.chartLengthOptions.series = seriesLength;
@@ -512,6 +642,14 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
       .find(patientId)
       .then(res => {
         this.patient = res;
+        if (this.patient.gender === 'Male') {
+          this.$data.chartLengthOptions.series = this.maleLengthSeries;
+          this.$data.chartWeightOptions.series = this.maleWeightSeries;
+        } else {
+          this.$data.chartLengthOptions.series = this.femaleLengthSeries;
+          this.$data.chartWeightOptions.series = this.femaleWeightSeries;
+        }
+        this.retriveChartData(patientId);
       });
     this.retriveFiles(patientId);
   }

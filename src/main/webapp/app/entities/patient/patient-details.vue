@@ -1,3 +1,11 @@
+<style>
+.highcharts-container {
+  margin-right: 240px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+</style>
+
 <template>
   <div class="row">
     <div class="col-10">
@@ -69,7 +77,7 @@
           </dd>
         </dl>
 
-        <h1 class="text-danger">الزيارات السابقة:</h1>
+        <h1 class="text-danger" style="min-width: 800px">الزيارات السابقة:</h1>
         <div class="table-responsive" v-if="patient.visits && patient.visits.length > 0">
           <el-table class="table-responsive table" header-row-class-name="thead-light" :data="patient.visits">
             <el-table-column label="نوع الزيارة" prop="visitType">
