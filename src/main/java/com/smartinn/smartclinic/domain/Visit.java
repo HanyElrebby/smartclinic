@@ -48,6 +48,9 @@ public class Visit implements Serializable {
     @Column(name = "date_of_visit", nullable = false)
     private ZonedDateTime dateOfVisit;
 
+    @Column(name = "status")
+    private String status;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "doctor", "visits", "user" }, allowSetters = true)
     private Clinic clinic;
@@ -200,6 +203,14 @@ public class Visit implements Serializable {
         this.detailsOfVisits = detailsOfVisits;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -226,6 +237,8 @@ public class Visit implements Serializable {
             id +
             ", visitType=" +
             visitType +
+            ", status=" +
+            status +
             ", createdBy=" +
             createdBy +
             ", updatedBy=" +

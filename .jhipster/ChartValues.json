@@ -1,0 +1,22 @@
+{
+  "fields": [
+    {
+      "fieldName": "xValue",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "yValue",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "service": "no",
+  "readOnly": false,
+  "pagination": "pagination",
+  "name": "ChartValues",
+  "changelogDate": "20210530123823"
+}

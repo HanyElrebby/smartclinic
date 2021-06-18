@@ -103,6 +103,10 @@ export default class ClinicUpdate extends Vue {
     });
   }
 
+  public translate(key: string): string {
+    return this.$t(key) as string;
+  }
+
   created(): void {
     this.currentLanguage = this.$store.getters.currentLanguage;
     this.$store.watch(

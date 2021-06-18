@@ -44,6 +44,11 @@ module.exports = webpackMerge(baseWebpackConfig, {
         secure: false,
         headers: { host: 'localhost:9000' },
       },
+      {
+        context: ['/websocket'],
+        target: 'ws://127.0.0.1:8081',
+        ws: true,
+      },
     ],
     watchOptions: {
       ignored: /node_modules/,

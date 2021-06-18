@@ -48,6 +48,12 @@
                   <span class="d-none d-md-inline">تعديل</span>
                 </button>
               </router-link>
+              <router-link :to="{ name: 'FileOtherCreate', params: { patientId: row.id } }" custom v-slot="{ navigate }">
+                <button @click="navigate" class="btn btn-secondary btn-sm edit" data-cy="entityEditButton">
+                  <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                  <span class="d-none d-md-inline">إضافة ملف</span>
+                </button>
+              </router-link>
               <router-link :to="{ name: 'VisitotherCreate', params: { patientId: row.id } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-success btn-sm details" data-cy="entityDetailsButton">
                   <font-awesome-icon icon="eye"></font-awesome-icon>

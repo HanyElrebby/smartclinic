@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "clinic": "عيادة",
+    "clinicName": "إسم العيادة",
+    "city": "المدينة",
+    "postalCode": "الكود البريدى",
+    "street": "الشارع",
+    "doctor": "الطبيب",
+    "user": "المستخدم",
+    "back": "رجوع",
+    "edit": "تعديل",
+    "editClinic": "إنشاء أو تعديل عيادة",
+    "id": "الكود",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "refreshTable": "تحديث الجدول",
+    "createClinic": "إنشاء عيادة",
+    "noClinicsFound": "لا يوجد عيادات",
+    "action": "إجراء",
+    "visitDetails": "تفاصيل الزيارات",
+    "DescriptionOfDiseases": ""
+  }
+}

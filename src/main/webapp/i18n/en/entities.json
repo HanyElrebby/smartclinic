@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "clinic": "clinic",
+    "clinicName": "Clinic Name",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "street": "Street",
+    "doctor": "Doctor",
+    "user": "User",
+    "back": "Back",
+    "edit": "Edit",
+    "editClinic": "Create Or Modify A Clinic",
+    "id": "Id",
+    "cancel": "Cancel",
+    "save": "Save",
+    "refreshTable": "Refresh Table",
+    "createClinic": "Create Clinic",
+    "noClinicsFound": "No Clinics Found",
+    "action": "Action",
+    "visitDetails": "Visit Details",
+    "DescriptionOfDiseases": "Description Of Diseases"
+  }
+}

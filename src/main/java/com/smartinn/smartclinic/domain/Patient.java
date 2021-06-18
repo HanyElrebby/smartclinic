@@ -48,6 +48,12 @@ public class Patient implements Serializable {
     @Column(name = "gender", length = 6, nullable = false)
     private String gender;
 
+    @Column(name = "diseases")
+    private String diseases;
+
+    @Column(name = "surgery")
+    private String surgery;
+
     @NotNull
     @Size(max = 30)
     @Column(name = "blood_group", length = 30, nullable = false)
@@ -67,6 +73,14 @@ public class Patient implements Serializable {
     @OneToMany(mappedBy = "patient")
     @JsonIgnoreProperties(value = { "patient", "detailsOfVisits" }, allowSetters = true)
     private Set<Visit> visits = new HashSet<>();
+
+    @OneToMany(mappedBy = "patient")
+    @JsonIgnoreProperties(value = { "patient" }, allowSetters = true)
+    private Set<ChartValues> chartValues = new HashSet<>();
+
+    @OneToMany(mappedBy = "patient")
+    @JsonIgnoreProperties(value = { "patient" }, allowSetters = true)
+    private Set<File> files = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -97,6 +111,22 @@ public class Patient implements Serializable {
 
     public String getPlaceOfResidence() {
         return this.placeOfResidence;
+    }
+
+    public String getDiseases() {
+        return diseases;
+    }
+
+    public void setDiseases(String diseases) {
+        this.diseases = diseases;
+    }
+
+    public String getSurgery() {
+        return surgery;
+    }
+
+    public void setSurgery(String surgery) {
+        this.surgery = surgery;
     }
 
     public Patient placeOfResidence(String placeOfResidence) {
@@ -196,6 +226,31 @@ public class Patient implements Serializable {
         return this;
     }
 
+    public Patient files(Set<File> files) {
+        this.setFiles(files);
+        return this;
+    }
+
+    public Set<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<File> files) {
+        this.files = files;
+    }
+
+    public Patient addFile(File file) {
+        this.files.add(file);
+        file.setPatient(this);
+        return this;
+    }
+
+    public Patient removeFile(File file) {
+        this.files.remove(file);
+        file.setPatient(null);
+        return this;
+    }
+
     public Patient addVisit(Visit visit) {
         this.visits.add(visit);
         visit.setPatient(this);
@@ -216,6 +271,25 @@ public class Patient implements Serializable {
             visits.forEach(i -> i.setPatient(this));
         }
         this.visits = visits;
+    }
+
+    public Set<ChartValues> getChartValues() {
+        return this.chartValues;
+    }
+
+    public Patient chartValues(Set<ChartValues> chartValues) {
+        this.setChartValues(chartValues);
+        return this;
+    }
+
+    public void setChartValues(Set<ChartValues> chartValues) {
+        if (this.chartValues != null) {
+            this.chartValues.forEach(i -> i.setPatient(null));
+        }
+        if (chartValues != null) {
+            chartValues.forEach(i -> i.setPatient(this));
+        }
+        this.chartValues = chartValues;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -254,6 +328,10 @@ public class Patient implements Serializable {
             age +
             ", gender=" +
             gender +
+            ", diseases=" +
+            diseases +
+            ", surgery=" +
+            surgery +
             ", bloodGroup=" +
             bloodGroup +
             ", createdBy=" +
@@ -264,6 +342,10 @@ public class Patient implements Serializable {
             phoneNumber +
             ", visits=" +
             visits +
+            ", chartValues=" +
+            chartValues +
+            ", files=" +
+            files +
             "]"
         );
     }

@@ -3,6 +3,7 @@ package com.smartinn.smartclinic.service;
 import com.smartinn.smartclinic.domain.Visit;
 import com.smartinn.smartclinic.repository.VisitRepository;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +77,12 @@ public class VisitService {
     public Page<Visit> findAllByPatientId(Long patientId, Pageable pageable) {
         log.debug("Request to get all Visits");
         return visitRepository.getVisitByPatientId(patientId, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Visit> findAllWaited() {
+        log.debug("Request to get all Visits");
+        return visitRepository.getWaitedVisits();
     }
 
     @Transactional(readOnly = true)

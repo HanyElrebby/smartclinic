@@ -35,6 +35,11 @@
             <column name="blood_group" type="varchar(30)">
                 <constraints nullable="false" />
             </column>
+            <column name="diseases" type="varchar(1000)">
+            </column>
+            <column name="surgery" type="varchar(1000)">
+               
+            </column>
             <column name="phone_number" type="varchar(11)">
                 <constraints nullable="false" />
             </column>

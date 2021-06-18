@@ -39,6 +39,12 @@ const validations: any = {
       required,
       maxLength: maxLength(11),
     },
+    diseases: {
+      maxLength: maxLength(1000),
+    },
+    surgery: {
+      maxLength: maxLength(1000),
+    },
   },
   value1: {
     required,
@@ -91,6 +97,10 @@ export default class PatientUpdate extends Vue {
 
   public get username(): string {
     return this.$store.getters.account ? this.$store.getters.account.login : '';
+  }
+
+  public closeDialogMedicine(): void {
+    (<any>this.$refs.addMedicines).hide();
   }
 
   public save(): void {

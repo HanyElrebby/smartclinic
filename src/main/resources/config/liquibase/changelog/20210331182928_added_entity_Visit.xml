@@ -24,6 +24,8 @@
             </column>
             <column name="created_by" type="varchar(100)">
             </column>
+            <column name="status" type="varchar(100)">
+            </column>
             <column name="updated_by" type="varchar(100)">
             </column>
             <column name="description" type="varchar(1000)">

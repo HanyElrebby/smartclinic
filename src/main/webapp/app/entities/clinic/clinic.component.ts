@@ -57,6 +57,10 @@ export default class Clinic extends Vue {
     this.retrieveAllClinics();
   }
 
+  public translate(key: string): string {
+    return this.$t(key) as string;
+  }
+
   public retrieveAllClinics(): void {
     this.isFetching = true;
 

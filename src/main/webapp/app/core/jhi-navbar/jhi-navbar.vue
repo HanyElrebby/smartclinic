@@ -2,6 +2,13 @@
   <b-navbar data-cy="navbar" toggleable="md" type="dark" class="container bg-info jh-navbar" v-if="authenticated">
     <b-collapse is-nav id="header-tabs">
       <b-navbar-nav class="mx-auto">
+        <b-nav-item :to="{ name: 'PatientView', params: { patientId: -1 } }" exact>
+          <span>
+            <font-awesome-icon icon="home" />
+            <span class="account-font">الطبيب</span>
+          </span>
+        </b-nav-item>
+
         <b-nav-item to="/visit" exact>
           <span>
             <font-awesome-icon icon="home" />
@@ -23,6 +30,21 @@
           </span>
         </b-nav-item>
 
+        <b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
+          <span slot="button-content">
+            <font-awesome-icon icon="flag" />
+            <span class="no-bold" v-text="$t('global.menu.language')">Language</span>
+          </span>
+          <b-dropdown-item
+            v-for="(value, key) in languages"
+            :key="`lang-${key}`"
+            v-on:click="changeLanguage(key)"
+            :class="{ active: isActiveLanguage(key) }"
+          >
+            {{ value.name }}
+          </b-dropdown-item>
+        </b-nav-item-dropdown>
+
         <b-nav-item-dropdown
           right
           href="javascript:void(0);"
@@ -37,6 +59,10 @@
             <font-awesome-icon icon="user" />
             <span> الحساب </span>
           </span>
+          <b-dropdown-item data-cy="settings" to="/medicine" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+            <font-awesome-icon icon="wrench" />
+            <span>الادوية</span>
+          </b-dropdown-item>
           <b-dropdown-item data-cy="settings" to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="wrench" />
             <span>الإعدادات</span>
@@ -53,20 +79,10 @@
             <font-awesome-icon icon="sign-in-alt" />
             <span>تسجيل الدخول</span>
           </b-dropdown-item>
-          <!--<b-dropdown-item
-            data-cy="register"
-            to="/register"
-            tag="b-dropdown-item"
-            id="register"
-            v-if="!authenticated"
-            active-class="active"
-          >
-            <font-awesome-icon icon="user-plus" />
-            <span>Register</span>
-          </b-dropdown-item>-->
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
+    <img src="/../../../content/images/logo.png" />
   </b-navbar>
 </template>
 

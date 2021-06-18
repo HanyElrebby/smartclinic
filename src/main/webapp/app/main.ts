@@ -50,8 +50,20 @@ import { Datetime } from 'vue-datetime';
 import 'vue-datetime/dist/vue-datetime.css';
 
 import { Settings } from 'luxon';
+import MedicineService from './entities/medicine/medicine.service';
+import FileService from './entities/file/file.service';
+import TrackerService from './core/SidebarPlugin/tracker.service';
+import TranslationService from './locale/translation.service';
 
 Settings.defaultLocale = 'ar';
+
+import Highchart from 'highcharts/highcharts';
+import HighchartsVue from 'highcharts-vue';
+import stockInit from 'highcharts/modules/stock';
+import ChartValuesService from './entities/chart-values/chart-values.service';
+
+stockInit(Highchart);
+Vue.use(HighchartsVue);
 
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
@@ -72,10 +84,17 @@ Vue.use(GlobalDirectives);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
+const trackerService = new TrackerService(router);
+
 const store = config.initVueXStore(Vue);
 
 const loginService = new LoginService();
-const accountService = new AccountService(store, router);
+
+const i18n = config.initI18N(Vue);
+
+const translationService = new TranslationService(store, i18n);
+
+const accountService = new AccountService(store, translationService, trackerService, router);
 
 router.beforeEach((to, from, next) => {
   if (!to.matched.length) {
@@ -103,6 +122,7 @@ new Vue({
   components: { App, datetime: Datetime },
   template: '<App/>',
   router,
+  i18n,
   provide: {
     loginService: () => loginService,
     activateService: () => new ActivateService(),
@@ -112,13 +132,17 @@ new Vue({
     configurationService: () => new ConfigurationService(),
     logsService: () => new LogsService(),
     metricsService: () => new MetricsService(),
-
+    trackerService: () => trackerService,
     userOAuth2Service: () => new UserOAuth2Service(),
     doctorService: () => new DoctorService(),
     clinicService: () => new ClinicService(),
     patientService: () => new PatientService(),
-    visitService: () => new VisitService(),
+    visitService: () => new VisitService(store),
     detailsOfVisitService: () => new DetailsOfVisitService(),
+    medicineService: () => new MedicineService(),
+    fileService: () => new FileService(),
+    chartValuesService: () => new ChartValuesService(),
+    translationService: () => translationService,
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
   },

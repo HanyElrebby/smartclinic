@@ -37,7 +37,7 @@ describe('LoginForm Component', () => {
       store,
       localVue,
       provide: {
-        accountService: () => new AccountService(store, router),
+        accountService: () => new AccountService(store, null, router),
       },
     });
     loginForm = wrapper.vm;
