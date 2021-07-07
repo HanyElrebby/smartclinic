@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="patientvisits" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b4e9158-dbd6-4186-a7e6-082011afbb39">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="patient_id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="patient_name" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from visit v inner join clinic on clinic.id = v.clinic_id where v.patient_id = $P{patient_id};]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="date_of_visit" class="java.sql.Timestamp"/>
+	<field name="visit_type" class="java.lang.String"/>
+	<field name="cost" class="java.lang.Integer"/>
+	<field name="created_by" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="updated_by" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="medicine" class="java.lang.String"/>
+	<field name="note" class="java.lang.String"/>
+	<field name="clinic_id" class="java.lang.Long"/>
+	<field name="patient_id" class="java.lang.Long"/>
+	<field name="name_of_clinic" class="java.lang.String"/>
+	<field name="city" class="java.lang.String"/>
+	<field name="postal_code" class="java.lang.String"/>
+	<field name="street" class="java.lang.String"/>
+	<field name="doctor_id" class="java.lang.Long"/>
+	<field name="user_id" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="175" y="0" width="209" height="29" uuid="d1d80d41-d4d0-4376-92db-bcca6e6416f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[تقرير الزيارات لمريض]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="456" y="42" width="102" height="26" uuid="6073a096-a872-4894-99b4-da543b675336"/>
+				<textElement>
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[إسم المريض : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="118" y="42" width="338" height="26" uuid="7009c67d-b0e9-43d7-8e87-38baa48206a8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{patient_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="9" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="472" y="0" width="100" height="35" uuid="9a0e559c-1fb5-4541-acb5-da590619b698"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[تاريخ الزيارة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="0" width="182" height="35" uuid="ab9c60a3-5b10-4bec-8ce1-c514544ef25d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الوصف]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="0" width="150" height="35" uuid="593285ba-db38-4395-9b20-4e9cdb335ec6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[الأدوية الموصوفة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="53" y="0" width="87" height="35" uuid="088e3d42-eea9-4e2b-b820-d6bc3f5f5dcb"/>
+				<box leftPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[اسم العيادة]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="53" height="35" uuid="c8eb182d-1d68-4ee5-a04b-19765381711a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[التكلفة]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="62" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="472" y="0" width="100" height="62" uuid="f3df5fc2-c958-4e0b-b239-6a61a040b52c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_of_visit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="0" width="182" height="62" uuid="fdb65a5a-5279-4dfd-9159-41bf340f02f5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="150" height="62" uuid="1e7d8de2-39d9-4dbc-961b-f73d70ac8e78"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{medicine}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="0" width="87" height="62" uuid="f445ff0c-6507-48a0-afee-fb7d7967bafd"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name_of_clinic}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="53" height="62" uuid="a4883c75-6bf2-47cb-971c-e9ff22da594f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cost}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="9" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="6" splitType="Stretch"/>
+	</summary>
+</jasperReport>

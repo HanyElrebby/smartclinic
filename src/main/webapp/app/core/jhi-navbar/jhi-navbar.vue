@@ -23,12 +23,40 @@
           </span>
         </b-nav-item>
 
-        <b-nav-item to="/home" exact>
-          <span>
+        <b-nav-item-dropdown
+          right
+          href="javascript:void(0);"
+          id="reports-menu"
+          style="text-align: center"
+          active-class="active"
+          class="pointer"
+          data-cy="reportsMenu"
+        >
+          <span class="account-font" slot="button-content">
             <font-awesome-icon icon="home" />
             <span class="account-font">التقارير</span>
           </span>
-        </b-nav-item>
+          <b-dropdown-item
+            data-cy="settings"
+            v-on:click="openDialogPatientReport()"
+            tag="b-dropdown-item"
+            v-if="authenticated"
+            active-class="active"
+          >
+            <font-awesome-icon icon="wrench" />
+            <span>تقرير المرضى</span>
+          </b-dropdown-item>
+          <b-dropdown-item
+            data-cy="settings"
+            v-on:click="openDialogPatientVisitReport()"
+            tag="b-dropdown-item"
+            v-if="authenticated"
+            active-class="active"
+          >
+            <font-awesome-icon icon="wrench" />
+            <span>تقرير زيارة مريض</span>
+          </b-dropdown-item>
+        </b-nav-item-dropdown>
 
         <b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
           <span slot="button-content">
@@ -83,6 +111,65 @@
       </b-navbar-nav>
     </b-collapse>
     <img src="/../../../content/images/logo.png" />
+
+    <b-modal ref="patientReport" id="patientReport" style="width: 1000px">
+      <div class="modal-body">
+        <p>هل تريد تحميل نسخة من تقرير المرضى</p>
+      </div>
+      <div slot="modal-footer">
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialogPatientReport()">إلغاء</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="jhi-confirm-delete-visit"
+          data-cy="entityConfirmDeleteButton"
+          v-on:click="
+            downloadPatientsReport();
+            closeDialogPatientReport();
+          "
+        >
+          تحميل
+        </button>
+      </div>
+    </b-modal>
+
+    <b-modal ref="patientVisitReport" id="patientVisitReport" style="width: 1000px">
+      <div class="modal-body">
+        <form name="editForm" role="form" novalidate>
+          <div class="form-group row">
+            <label class="col-md-2 col-form-label form-control-label" for="visit-patient">المريض</label>
+            <div class="col-md-10">
+              <select class="form-control" id="visit-patient" data-cy="patient" name="patient" v-model="selectedpatient">
+                <option v-bind:value="null"></option>
+                <option
+                  v-bind:value="selectedpatient && patientOption.id === selectedpatient.id ? selectedpatient : patientOption"
+                  v-for="patientOption in patients"
+                  :key="patientOption.id"
+                >
+                  {{ patientOption.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <p>هل تريد تحميل نسخة من تقرير المريض</p>
+        </form>
+      </div>
+      <div slot="modal-footer">
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialogPatientVisitReport()">إلغاء</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="jhi-confirm-delete-visit"
+          data-cy="entityConfirmDeleteButton"
+          v-on:click="
+            downloadPatientsVisitReport();
+            closeDialogPatientVisitReport();
+          "
+        >
+          تحميل
+        </button>
+      </div>
+    </b-modal>
   </b-navbar>
 </template>
 
