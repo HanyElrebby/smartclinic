@@ -4,20 +4,46 @@ import com.smartinn.smartclinic.domain.Patient;
 import com.smartinn.smartclinic.repository.PatientRepository;
 import com.smartinn.smartclinic.service.PatientService;
 import com.smartinn.smartclinic.web.rest.errors.BadRequestAlertException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.data.JsonDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.export.HtmlExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -193,5 +219,147 @@ public class PatientResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @RequestMapping(path = "/patients/report", method = RequestMethod.GET)
+    public ResponseEntity<Resource> patientsReport(HttpServletResponse response) {
+        try {
+            System.out.println("////////////////////////////////////////////////////////////");
+
+            InputStream jrxmlInput = this.getClass().getClassLoader().getResource("patientReport.jrxml").openStream();
+            JasperDesign design = JRXmlLoader.load(jrxmlInput);
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            // It is possible to generate Jasper reports from a JSON source.
+            HashMap<String, Object> map = new HashMap();
+
+            System.out.println("11111111111111111111111111111111111111");
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, getMySQLConnection());
+
+            JRPdfExporter pdfExporter = new JRPdfExporter();
+            pdfExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+            ByteArrayOutputStream pdfReportStream = new ByteArrayOutputStream();
+            pdfExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(pdfReportStream));
+            pdfExporter.exportReport();
+
+            System.out.println("222222222222222222222222222222222");
+
+            byte[] bytes = pdfReportStream.toByteArray();
+            System.out.println(bytes.length);
+            File someFile = new File("/tmp/patientsReport.pdf");
+            FileOutputStream fos = new FileOutputStream(someFile);
+            fos.write(bytes);
+            fos.flush();
+            fos.close();
+
+            System.out.println(someFile);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+            headers.add("Pragma", "no-cache");
+            headers.add("Expires", "0");
+            System.out.println("333333333333333333333333333");
+
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(someFile));
+
+            System.out.println("444444444444444444444444444444444444");
+            System.out.println(resource);
+            return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentLength(someFile.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    @RequestMapping(path = "/patients/visits/report/{patientId}/{patientName}", method = RequestMethod.GET)
+    public ResponseEntity<Resource> patientsVistsReport(
+        @PathVariable Long patientId,
+        @PathVariable String patientName,
+        HttpServletResponse response
+    ) {
+        try {
+            System.out.println("////////////////////////////////////////////////////////////");
+
+            InputStream jrxmlInput = this.getClass().getClassLoader().getResource("patientvisits.jrxml").openStream();
+            JasperDesign design = JRXmlLoader.load(jrxmlInput);
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            // It is possible to generate Jasper reports from a JSON source.
+            HashMap<String, Object> map = new HashMap();
+            map.put("patient_id", patientId);
+            map.put("patient_name", patientName);
+
+            System.out.println("11111111111111111111111111111111111111");
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, getMySQLConnection());
+
+            JRPdfExporter pdfExporter = new JRPdfExporter();
+            pdfExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+            ByteArrayOutputStream pdfReportStream = new ByteArrayOutputStream();
+            pdfExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(pdfReportStream));
+            pdfExporter.exportReport();
+
+            System.out.println("222222222222222222222222222222222");
+
+            byte[] bytes = pdfReportStream.toByteArray();
+            System.out.println(bytes.length);
+            File someFile = new File("/tmp/patientsReport.pdf");
+            FileOutputStream fos = new FileOutputStream(someFile);
+            fos.write(bytes);
+            fos.flush();
+            fos.close();
+
+            System.out.println(someFile);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+            headers.add("Pragma", "no-cache");
+            headers.add("Expires", "0");
+            System.out.println("333333333333333333333333333");
+
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(someFile));
+
+            System.out.println("444444444444444444444444444444444444");
+            System.out.println(resource);
+            return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentLength(someFile.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public Connection getMySQLConnection() throws ClassNotFoundException, SQLException {
+        String hostName = "localhost";
+        String dbName = "smartclinic";
+        String userName = "postgres";
+        String password = "postgres";
+
+        return getMySQLConnection(hostName, dbName, userName, password);
+    }
+
+    public Connection getMySQLConnection(String hostName, String dbName, String userName, String password)
+        throws SQLException, ClassNotFoundException {
+        // Declare the class Driver for MySQL DB
+        // This is necessary with Java 5 (or older)
+        // Java6 (or newer) automatically find the appropriate driver.
+        // If you use Java> 5, then this line is not needed.
+        Class.forName("org.postgresql.Driver");
+
+        // Cấu trúc URL Connection dành cho Oracle
+        String connectionURL = "jdbc:postgresql://" + hostName + ":5432/" + dbName;
+
+        Connection conn = DriverManager.getConnection(connectionURL, userName, password);
+        return conn;
     }
 }
