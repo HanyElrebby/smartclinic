@@ -89,6 +89,16 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "jhi_user_action",
+        joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
+        inverseJoinColumns = { @JoinColumn(name = "action_id", referencedColumnName = "id") }
+    )
+    @BatchSize(size = 200)
+    private Set<Action> actions = new HashSet<>();
+
     @OneToMany(mappedBy = "user")
     private Set<Clinic> clinics = new HashSet<>();
 
@@ -96,7 +106,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long BatchSize) {
         this.id = id;
     }
 
@@ -195,6 +205,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public Set<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(Set<Action> actions) {
+        this.actions = actions;
     }
 
     public Set<Clinic> getClinics() {
