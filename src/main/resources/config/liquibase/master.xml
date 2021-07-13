@@ -23,12 +23,16 @@
     <include file="config/liquibase/changelog/20210407145804_added_entity_Medicine.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210407150849_added_entity_File.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210530123823_added_entity_ChartValues.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210713075144_added_entity_Safe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210709150649_added_entity_Expense.xml" relativeToChangelogFile="false"/>
 
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20210331182208_added_entity_constraints_Clinic.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210331182928_added_entity_constraints_Visit.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210331183453_added_entity_constraints_DetailsOfVisit.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210407150849_added_entity_constraints_File.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210709150649_added_entity_constraints_Expense.xml" relativeToChangelogFile="false"/>
+
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

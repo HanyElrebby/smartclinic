@@ -30,6 +30,21 @@
           </span>
         </b-nav-item>
 
+        <b-nav-item-dropdown>
+          <span class="account-font" slot="button-content">
+            <font-awesome-icon icon="home" />
+            <span> الحسابات </span>
+          </span>
+
+          <b-dropdown-item data-cy="settings" to="/safe" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+            <span>الخزائن</span>
+          </b-dropdown-item>
+
+          <b-dropdown-item data-cy="settings" to="/expense" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+            <span>المصروفات</span>
+          </b-dropdown-item>
+        </b-nav-item-dropdown>
+
         <b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
           <span slot="button-content">
             <font-awesome-icon icon="flag" />

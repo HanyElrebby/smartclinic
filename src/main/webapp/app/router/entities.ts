@@ -44,6 +44,18 @@ const File = () => import('@/entities/file/file.vue');
 const FileUpdate = () => import('@/entities/file/file-update.vue');
 // prettier-ignore
 const FileDetails = () => import('@/entities/file/file-details.vue');
+
+const Safe = () => import('@/entities/safe/safe.vue');
+
+const SafeUpdate = () => import('@/entities/safe/safe-update.vue');
+
+const SafeDetails = () => import('@/entities/safe/safe-details.vue');
+
+const Expense = () => import('@/entities/expense/expense.vue');
+
+const ExpenseUpdate = () => import('@/entities/expense/expense-update.vue');
+
+const ExpenseDetails = () => import('@/entities/expense/expense-details.vue');
 // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 export default [
@@ -232,6 +244,78 @@ export default [
     name: 'FileView',
     component: FileDetails,
     meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/safe',
+    name: 'Safe',
+    component: Safe,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/safe/new',
+    name: 'SafeCreate',
+    component: SafeUpdate,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/safe/:safeId/edit',
+    name: 'SafeEdit',
+    component: SafeUpdate,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/safe/:safeId/view',
+    name: 'SafeView',
+    component: SafeDetails,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/safe',
+    name: 'Safe',
+    component: Safe,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/safe/new',
+    name: 'SafeCreate',
+    component: SafeUpdate,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/safe/:safeId/edit',
+    name: 'SafeEdit',
+    component: SafeUpdate,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/safe/:safeId/view',
+    name: 'SafeView',
+    component: SafeDetails,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/expense',
+    name: 'Expense',
+    component: Expense,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/expense/new',
+    name: 'ExpenseCreate',
+    component: ExpenseUpdate,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/expense/:expenseId/edit',
+    name: 'ExpenseEdit',
+    component: ExpenseUpdate,
+    meta: { authorities: [Authority.OWNER] },
+  },
+  {
+    path: '/expense/:expenseId/view',
+    name: 'ExpenseView',
+    component: ExpenseDetails,
+    meta: { authorities: [Authority.OWNER] },
   },
   // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here
 ];
