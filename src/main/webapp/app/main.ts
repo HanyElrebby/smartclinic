@@ -52,6 +52,8 @@ import 'vue-datetime/dist/vue-datetime.css';
 import { Settings } from 'luxon';
 import MedicineService from './entities/medicine/medicine.service';
 import FileService from './entities/file/file.service';
+import SafeService from '@/entities/safe/safe.service';
+import ExpenseService from '@/entities/expense/expense.service';
 import TrackerService from './core/SidebarPlugin/tracker.service';
 import TranslationService from './locale/translation.service';
 
@@ -141,6 +143,8 @@ new Vue({
     detailsOfVisitService: () => new DetailsOfVisitService(),
     medicineService: () => new MedicineService(),
     fileService: () => new FileService(),
+    safeService: () => new SafeService(),
+    expenseService: () => new ExpenseService(),
     chartValuesService: () => new ChartValuesService(),
     translationService: () => translationService,
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
