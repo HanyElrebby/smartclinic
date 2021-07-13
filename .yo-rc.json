@@ -43,6 +43,6 @@
     "clientThemeVariant": "",
     "languages": ["en", "fr"],
     "lastLiquibaseTimestamp": 1626167179000,
-    "entities": ["Doctor", "Clinic", "Patient", "Visit", "DetailsOfVisit", "Medicine", "File", "ChartValues", "Safe", "Expense"]
-  }
+    "entities": ["Doctor", "Clinic", "Patient", "Visit", "DetailsOfVisit", "Medicine", "File", "ChartValues", "Action", "Safe", "Expense"]
+     }
 }
