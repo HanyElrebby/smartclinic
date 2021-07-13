@@ -1,0 +1,7 @@
+id;name
+1;com.smartclinic.patient.tab
+2;com.smartclinic.patient.view
+3;com.smartclinic.patient.edit
+4;com.smartclinic.patient.addfile
+5;com.smartclinic.patient.reserve
+6;com.smartclinic.patient.save

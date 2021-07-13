@@ -1,8 +1,10 @@
 package com.smartinn.smartclinic.service;
 
 import com.smartinn.smartclinic.config.Constants;
+import com.smartinn.smartclinic.domain.Action;
 import com.smartinn.smartclinic.domain.Authority;
 import com.smartinn.smartclinic.domain.User;
+import com.smartinn.smartclinic.repository.ActionRepository;
 import com.smartinn.smartclinic.repository.AuthorityRepository;
 import com.smartinn.smartclinic.repository.UserRepository;
 import com.smartinn.smartclinic.security.AuthoritiesConstants;
@@ -38,10 +40,18 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    private final ActionRepository actionRepository;
+
+    public UserService(
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        AuthorityRepository authorityRepository,
+        ActionRepository actionRepository
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
+        this.actionRepository = actionRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -169,6 +179,16 @@ public class UserService {
                 .map(Optional::get)
                 .collect(Collectors.toSet());
             user.setAuthorities(authorities);
+        }
+        if (userDTO.getActions() != null) {
+            Set<Action> actions = userDTO
+                .getActions()
+                .stream()
+                .map(actionRepository::findById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toSet());
+            user.setActions(actions);
         }
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);

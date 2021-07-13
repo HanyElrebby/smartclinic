@@ -1,6 +1,7 @@
 package com.smartinn.smartclinic.service.dto;
 
 import com.smartinn.smartclinic.config.Constants;
+import com.smartinn.smartclinic.domain.Action;
 import com.smartinn.smartclinic.domain.Authority;
 import com.smartinn.smartclinic.domain.User;
 import java.time.Instant;
@@ -48,6 +49,10 @@ public class AdminUserDTO {
 
     private Set<String> authorities;
 
+    private Set<Long> actions;
+
+    private Set<String> actionsValues;
+
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -66,6 +71,8 @@ public class AdminUserDTO {
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+        this.actions = user.getActions().stream().map(Action::getId).collect(Collectors.toSet());
+        this.actionsValues = user.getActions().stream().map(Action::getName).collect(Collectors.toSet());
     }
 
     public Long getId() {
@@ -170,6 +177,22 @@ public class AdminUserDTO {
 
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
+    }
+
+    public Set<Long> getActions() {
+        return actions;
+    }
+
+    public void setActions(Set<Long> actions) {
+        this.actions = actions;
+    }
+
+    public Set<String> getActionsValues() {
+        return actionsValues;
+    }
+
+    public void setActionsValues(Set<String> actionsValues) {
+        this.actionsValues = actionsValues;
     }
 
     // prettier-ignore

@@ -24,6 +24,7 @@
     <include file="config/liquibase/changelog/20210407150849_added_entity_File.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210530123823_added_entity_ChartValues.xml" relativeToChangelogFile="false"/>
 
+    <include file="config/liquibase/changelog/20210713083059_added_entity_Action.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20210331182208_added_entity_constraints_Clinic.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210331182928_added_entity_constraints_Visit.xml" relativeToChangelogFile="false"/>
