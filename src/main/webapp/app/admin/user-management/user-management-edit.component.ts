@@ -40,11 +40,13 @@ export default class JhiUserManagementEdit extends Vue {
   public userAccount: IUser;
   public isSaving = false;
   public authorities: any[] = [];
+  public actions: any[] = [];
   public languages: any = this.$store.getters.languages;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.initAuthorities();
+      vm.initActions();
       if (to.params.userId) {
         vm.init(to.params.userId);
       }
@@ -62,6 +64,14 @@ export default class JhiUserManagementEdit extends Vue {
       .retrieveAuthorities()
       .then(_res => {
         this.authorities = _res.data;
+      });
+  }
+  public initActions() {
+    this.userManagementService()
+      .retrieveActions()
+      .then(_res => {
+        this.actions = _res.data;
+        console.log(this.actions, 'actions ----------------------->');
       });
   }
 

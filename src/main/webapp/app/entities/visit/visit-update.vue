@@ -5,7 +5,7 @@
         <h2 id="smartclinicApp.visit.home.createOrEditLabel" data-cy="VisitCreateUpdateHeading">إنشاء او تعديل زيارة</h2>
         <hr />
         <div>
-          <div class="form-group row" v-if="visit.id && !hasAnyAuthority('ROLE_ADMIN')">
+          <div class="form-group row" v-if="visit.id && checkAction('com.smartclinic.visit.new.code')">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">الكود</label>
             <div class="col-md-10">
               <base-input type="text" name="id" v-model="visit.id" readonly />
@@ -29,7 +29,7 @@
               </div>
             </div>
           </div>
-          <div class="form-group row" style="margin-top: 3rem" v-if="!hasAnyAuthority('ROLE_ADMIN')">
+          <div class="form-group row" style="margin-top: 3rem" v-if="checkAction('com.smartclinic.visit.new.status')">
             <label class="col-md-2 col-form-label form-control-label" for="status">الحالة</label>
             <div class="col-md-10">
               <select class="form-control" aria-placeholder="الحالة" id="status" data-cy="status" name="status" v-model="visit.status">
@@ -53,7 +53,7 @@
               </div>
             </div>
           </div>
-          <div class="form-group row" style="margin-top: 3rem" v-if="!hasAnyAuthority('ROLE_ADMIN')">
+          <div class="form-group row" style="margin-top: 3rem" v-if="checkAction('com.smartclinic.visit.new.type')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">نوع الزيارة</label>
             <div class="col-md-10">
               <select
@@ -81,7 +81,7 @@
             </div>
           </div>
 
-          <div class="form-group row" style="margin-top: 3rem" v-if="!hasAnyAuthority('ROLE_ADMIN')">
+          <div class="form-group row" style="margin-top: 3rem" v-if="checkAction('com.smartclinic.visit.new.price')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">السعر</label>
             <div class="col-md-10">
               <base-input
@@ -94,7 +94,7 @@
               />
             </div>
           </div>
-          <div class="form-group row" v-if="hasAnyAuthority('ROLE_ADMIN')">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.visit.new.description')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">الوصف</label>
             <div class="col-md-10">
               <b-form-textarea
@@ -110,7 +110,7 @@
               </div>
             </div>
           </div>
-          <div class="form-group row" v-if="hasAnyAuthority('ROLE_ADMIN')">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.visit.new.medicine')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">الادوية الموصوفة</label>
             <div class="col-md-8">
               <b-form-textarea
@@ -125,13 +125,13 @@
                 <small class="form-text text-danger" v-if="!$v.visit.medicine.maxLength"> لا يمكن ان تتعدى 1000 حرف </small>
               </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2" v-if="checkAction('com.smartclinic.visit.new.chooseMedicine')">
               <b-button variant="success" class="btn btn-sm" data-cy="entityDeleteButton" v-b-modal.chooseMedicine>
                 <span class="d-none d-md-inline">اختيار ادويه</span>
               </b-button>
             </div>
           </div>
-          <div class="form-group row" v-if="hasAnyAuthority('ROLE_ADMIN')">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.visit.new.notes')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">ملاحظات</label>
             <div class="col-md-10">
               <b-form-textarea
@@ -148,7 +148,7 @@
             </div>
           </div>
 
-          <div class="form-group row" v-if="!hasAnyAuthority('ROLE_ADMIN')">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.visit.new.date')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-type">تاريخ الزيارة</label>
             <div class="d-flex col-md-4">
               <!-- <base-input
@@ -271,7 +271,7 @@
           </div>
           <!-- <date-picker v-model="$v.value" type="datetime"></date-picker>-->
 
-          <div class="form-group row" v-if="!hasAnyAuthority('ROLE_ADMIN')">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.visit.new.clinic')">
             <label class="col-md-2 col-form-label form-control-label" for="visit-clinic">العيادة</label>
             <div class="col-md-10">
               <select class="form-control" id="visit-clinic" data-cy="clinic" name="clinic" v-model="visit.clinic">
@@ -291,12 +291,18 @@
           </div>
         </div>
         <div>
-          <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
+          <button
+            type="button"
+            id="cancel-save"
+            class="btn btn-secondary"
+            v-if="checkAction('com.smartclinic.visit.new.cancel')"
+            v-on:click="previousState()"
+          >
             <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>إلغاء</span>
           </button>
           <button
             type="submit"
-            v-if="!hasAnyAuthority('ROLE_ADMIN')"
+            v-if="checkAction('com.smartclinic.visit.new.save')"
             id="save-entity"
             data-cy="entityCreateSaveButton"
             :disabled="$v.visit.$invalid || isSaving"
@@ -306,7 +312,7 @@
           </button>
           <button
             type="submit"
-            v-if="hasAnyAuthority('ROLE_ADMIN')"
+            v-if="checkAction('com.smartclinic.visit.new.saveAndMove')"
             id="save-entity"
             data-cy="entityCreateSaveButton"
             :disabled="$v.visit.$invalid || isSaving"

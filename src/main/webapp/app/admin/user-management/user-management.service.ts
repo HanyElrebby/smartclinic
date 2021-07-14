@@ -25,4 +25,7 @@ export default class UserManagementService {
   public retrieveAuthorities(): Promise<any> {
     return axios.get('api/authorities');
   }
+  public retrieveActions(): Promise<any> {
+    return axios.get('api/actions');
+  }
 }

@@ -156,6 +156,10 @@ export default class VisitUpdate extends Vue {
     });
   }
 
+  public checkAction(actionName: string) {
+    return this.accountService().userActions.filter(c => c === actionName).length > 0;
+  }
+
   mounted(): void {
     EventBus.$on('waitedVisits', waitedVisits => {
       this.visits = waitedVisits;

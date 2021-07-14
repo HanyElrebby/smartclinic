@@ -43,6 +43,10 @@ export default class Visit extends Vue {
       });
   }
 
+  public checkAction(actionName: string) {
+    return this.accountService().userActions.filter(c => c === actionName).length > 0;
+  }
+
   public mounted(): void {
     console.log('tttttttttttttttttttttttttttttt');
     this.init();

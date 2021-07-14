@@ -7,6 +7,7 @@ import { IVisit } from '@/shared/model/visit.model';
 
 import VisitService from './visit.service';
 import TrackerService from '@/core/SidebarPlugin/tracker.service';
+import AccountService from '@/account/account.service';
 
 @Component({
   mixins: [Vue2Filters.mixin],
@@ -19,6 +20,8 @@ import TrackerService from '@/core/SidebarPlugin/tracker.service';
 })
 export default class Visit extends Vue {
   @Inject('visitService') private visitService: () => VisitService;
+  @Inject('accountService') private accountService: () => AccountService;
+
   private removeId: number = null;
   public itemsPerPage = 10;
   public queryCount: number = null;
@@ -80,6 +83,10 @@ export default class Visit extends Vue {
           this.isFetching = false;
         }
       );
+  }
+
+  public checkAction(actionName: string) {
+    return this.accountService().userActions.filter(c => c === actionName).length > 0;
   }
 
   public handleSyncList(): void {

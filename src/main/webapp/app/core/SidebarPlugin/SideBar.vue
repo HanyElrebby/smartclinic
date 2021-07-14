@@ -1,5 +1,10 @@
 <template>
-  <nav class="navbar-vertical fixed-right navbar-expand-md bg-white" style="right: 100px; margin-top: 75px" id="sidenav-main">
+  <nav
+    v-if="checkAction('com.smartclinic.waitinglist')"
+    class="navbar-vertical fixed-right navbar-expand-md bg-white"
+    style="right: 100px; margin-top: 75px"
+    id="sidenav-main"
+  >
     <div class="container-fluid" style="min-height: 50px" v-for="visit in visits" :key="visit.id">
       <router-link v-if="visit.patient" :to="{ name: 'PatientView', params: { patientId: visit.patient.id } }" custom v-slot="{ navigate }">
         <button

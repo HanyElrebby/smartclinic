@@ -637,6 +637,10 @@ export default class PatientDetails extends mixins(JhiDataUtils) {
     }
   }
 
+  public checkAction(actionName: string) {
+    return this.accountService().userActions.filter(c => c === actionName).length > 0;
+  }
+
   public retrievePatient(patientId) {
     this.patientService()
       .find(patientId)

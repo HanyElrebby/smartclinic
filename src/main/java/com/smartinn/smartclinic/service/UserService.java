@@ -188,6 +188,12 @@ public class UserService {
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toSet());
+            System.out.println("-------------------------------");
+            System.out.println();
+            System.out.println();
+            System.out.println(actions);
+            System.out.println(actions.size());
+            System.out.println();
             user.setActions(actions);
         }
         userRepository.save(user);
@@ -226,6 +232,17 @@ public class UserService {
                         .filter(Optional::isPresent)
                         .map(Optional::get)
                         .forEach(managedAuthorities::add);
+
+                    Set<Action> managedActions = user.getActions();
+                    managedActions.clear();
+                    userDTO
+                        .getActions()
+                        .stream()
+                        .map(actionRepository::findById)
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .forEach(managedActions::add);
+
                     log.debug("Changed Information for User: {}", user);
                     return user;
                 }

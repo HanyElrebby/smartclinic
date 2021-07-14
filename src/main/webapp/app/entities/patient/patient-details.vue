@@ -11,12 +11,22 @@
     <div class="col-10">
       <div class="row d-flex justify-content-end">
         <div class="col-50">
-          <router-link v-if="visit" :to="{ name: 'VisitEdit', params: { visitId: visit.id } }" custom v-slot="{ navigate }">
+          <router-link
+            v-if="visit && checkAction('com.smartclinic.doctor.currentVisit')"
+            :to="{ name: 'VisitEdit', params: { visitId: visit.id } }"
+            custom
+            v-slot="{ navigate }"
+          >
             <button @click="navigate" class="btn btn-success ml-2">
               <font-awesome-icon icon="sync"></font-awesome-icon> <span> الكشف الحالى</span>
             </button>
           </router-link>
-          <router-link v-if="!visit" :to="{ name: 'VisitotherCreate', params: { patientId: patient.id } }" custom v-slot="{ navigate }">
+          <router-link
+            v-if="!visit && checkAction('com.smartclinic.doctor.currentVisit')"
+            :to="{ name: 'VisitotherCreate', params: { patientId: patient.id } }"
+            custom
+            v-slot="{ navigate }"
+          >
             <button @click="navigate" class="btn btn-success ml-2">
               <font-awesome-icon icon="sync"></font-awesome-icon> <span> الكشف الحالى</span>
             </button>
@@ -77,8 +87,8 @@
           </dd>
         </dl>
 
-        <h1 class="text-danger" style="min-width: 800px">الزيارات السابقة:</h1>
-        <div class="table-responsive" v-if="patient.visits && patient.visits.length > 0">
+        <h1 class="text-danger" v-if="checkAction('com.smartclinic.doctor.lastVisit')" style="min-width: 800px">الزيارات السابقة:</h1>
+        <div class="table-responsive" v-if="patient.visits && patient.visits.length > 0 && checkAction('com.smartclinic.doctor.lastVisit')">
           <el-table class="table-responsive table" header-row-class-name="thead-light" :data="patient.visits">
             <el-table-column label="نوع الزيارة" prop="visitType">
               <template v-slot="{ row }">
@@ -119,8 +129,8 @@
           </el-table>
         </div>
 
-        <h1 class="text-danger">الملفات:</h1>
-        <div class="table-responsive" v-if="files && files.length > 0">
+        <h1 class="text-danger" v-if="checkAction('com.smartclinic.doctor.filestable')">الملفات:</h1>
+        <div class="table-responsive" v-if="files && files.length > 0 && checkAction('com.smartclinic.doctor.filestable')">
           <el-table class="table-responsive table" header-row-class-name="thead-light" :data="files">
             <el-table-column label="إسم الملف" prop="fileName"> </el-table-column>
             <el-table-column label="نوغ الملف" prop="fileContentType"> </el-table-column>
@@ -129,7 +139,7 @@
                 {{ formatDate(row.dateUpload) }}
               </template>
             </el-table-column>
-            <el-table-column label="إجراء" prop="id">
+            <el-table-column label="إجراء" prop="id" v-if="com.smartclinic.doctor.filestable.view">
               <template v-slot="{ row }">
                 <div class="btn-group">
                   <button
@@ -147,12 +157,17 @@
         </div>
 
         <h1 v-else></h1>
-        <div class="row" style="padding-top: 20px">
+        <div
+          class="row"
+          style="padding-top: 20px"
+          v-if="checkAction('com.smartclinic.doctor.lengthChart') || checkAction('com.smartclinic.doctor.weightChart')"
+        >
           <div class="col-md-6">
             <h1 class="text-danger">معدل النمو:</h1>
           </div>
           <div class="col-md-6">
             <b-button
+              v-if="checkAction('com.smartclinic.doctor.addLength')"
               variant="success"
               style="width: 100%; height: 35px"
               class="btn btn-sm"
@@ -166,8 +181,8 @@
       </div>
     </div>
 
-    <highcharts :options="chartLengthOptions"></highcharts>
-    <highcharts :options="chartWeightOptions"></highcharts>
+    <highcharts v-if="checkAction('com.smartclinic.doctor.lengthChart')" :options="chartLengthOptions"></highcharts>
+    <highcharts v-if="checkAction('com.smartclinic.doctor.weightChart')" :options="chartWeightOptions"></highcharts>
 
     <b-modal ref="addLenght" id="addLenght" style="width: 1000px">
       <div class="modal-body">

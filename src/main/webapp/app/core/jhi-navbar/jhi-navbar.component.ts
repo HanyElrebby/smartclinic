@@ -99,6 +99,10 @@ export default class JhiNavbar extends Vue {
     return this.$store.getters.activeProfiles.indexOf('prod') > -1;
   }
 
+  public checkAction(actionName: string) {
+    return this.accountService().userActions.filter(c => c === actionName).length > 0;
+  }
+
   retrivePatients(): void {
     this.patientService()
       .retrieve()
