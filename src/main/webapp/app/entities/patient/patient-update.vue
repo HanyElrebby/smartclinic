@@ -34,7 +34,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.patient.new.phone')">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">رقم الهاتف</label>
             <div class="col-md-10">
               <base-input
@@ -48,7 +48,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.patient.new.age')">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">العمر</label>
             <div class="col-md-10">
               <base-input
@@ -62,7 +62,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.patient.new.gender')">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">النوع</label>
             <div class="col-md-10">
               <select class="form-control" id="gender" data-cy="clinic" name="clinic" v-model="patient.gender">
@@ -78,7 +78,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.patient.new.address')">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">العنوان</label>
             <div class="col-md-10">
               <base-input
@@ -92,7 +92,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.patient.new.disease')">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">الامراض المزمنة</label>
             <div class="col-md-10">
               <textarea
@@ -107,7 +107,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.patient.new.operations')">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">العمليات السابقة </label>
             <div class="col-md-10">
               <textarea
@@ -123,7 +123,7 @@
             </div>
           </div>
 
-          <div class="form-group row">
+          <div class="form-group row" v-if="checkAction('com.smartclinic.patient.new.bloodType')">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">فصيلة الدم</label>
             <div class="col-md-10">
               <select class="form-control" id="bloodGroup" data-cy="bloodGroup" name="bloodGroup" v-model="patient.bloodGroup">

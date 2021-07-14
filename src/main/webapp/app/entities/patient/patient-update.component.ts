@@ -9,6 +9,7 @@ import { IPatient, Patient } from '@/shared/model/patient.model';
 import PatientService from './patient.service';
 import { Datetime } from 'vue-datetime';
 import { faVolumeMute } from '@fortawesome/free-solid-svg-icons';
+import AccountService from '@/account/account.service';
 
 const validations: any = {
   patient: {
@@ -65,6 +66,8 @@ export default class PatientUpdate extends Vue {
   public patient: IPatient = new Patient();
 
   @Inject('visitService') private visitService: () => VisitService;
+
+  @Inject('accountService') private accountService: () => AccountService;
 
   public visits: IVisit[] = [];
   public isSaving = false;
@@ -140,6 +143,10 @@ export default class PatientUpdate extends Vue {
           });
         });
     }
+  }
+
+  public checkAction(actionName: string) {
+    return this.accountService().userActions.filter(c => c === actionName).length > 0;
   }
 
   public retrievePatient(patientId): void {

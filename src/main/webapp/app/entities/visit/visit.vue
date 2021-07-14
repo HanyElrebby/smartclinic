@@ -1,13 +1,18 @@
 <template>
   <div>
     <div class="d-flex justify-content-start form-group">
-      <div class="d-flex">
+      <div class="d-flex" v-if="checkAction('com.smartclinic.visit.search')">
         <datetime v-model="value1" type="date" class="form-control">
           <template slot="button-cancel"> ألغاء </template>
           <template slot="button-confirm"> تاكيد </template>
         </datetime>
       </div>
-      <button class="btn btn-info ml-2" v-on:click="handleSyncList" :disabled="isFetching">
+      <button
+        class="btn btn-info ml-2"
+        v-if="checkAction('com.smartclinic.visit.refreshtable')"
+        v-on:click="handleSyncList"
+        :disabled="isFetching"
+      >
         <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>تحديث الجدول</span>
       </button>
     </div>
@@ -42,16 +47,26 @@
           </template>
         </el-table-column>
         <el-table-column label="التكلفه" prop="cost"> </el-table-column>
-        <el-table-column label="إجراء" prop="id">
+        <el-table-column
+          label="إجراء"
+          prop="id"
+          v-if="checkAction('com.smartclinic.visit.edit') || checkAction('com.smartclinic.visit.delete')"
+        >
           <template v-slot="{ row }">
             <div class="btn-group">
-              <router-link :to="{ name: 'VisitEdit', params: { visitId: row.id } }" custom v-slot="{ navigate }">
+              <router-link
+                v-if="checkAction('com.smartclinic.visit.edit')"
+                :to="{ name: 'VisitEdit', params: { visitId: row.id } }"
+                custom
+                v-slot="{ navigate }"
+              >
                 <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
                   <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                   <span class="d-none d-md-inline">تعديل</span>
                 </button>
               </router-link>
               <b-button
+                v-if="checkAction('com.smartclinic.visit.delete')"
                 v-on:click="prepareRemove(row)"
                 variant="danger"
                 class="btn btn-sm"

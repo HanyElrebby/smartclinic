@@ -4,7 +4,7 @@
       <div class="row d-flex justify-content-end">
         <div class="col-50">
           <router-link
-            v-if="visit.patient && currentVisitId"
+            v-if="visit.patient && currentVisitId && checkAction('com.smartclinic.doctor.currentVisit')"
             :to="{ name: 'VisitEdit', params: { visitId: currentVisitId } }"
             custom
             v-slot="{ navigate }"
@@ -14,7 +14,7 @@
             </button>
           </router-link>
           <router-link
-            v-if="visit.patient && !currentVisitId"
+            v-if="visit.patient && !currentVisitId && checkAction('com.smartclinic.doctor.currentVisit')"
             :to="{ name: 'VisitotherCreate', params: { patientId: visit.patient.id } }"
             custom
             v-slot="{ navigate }"
@@ -33,8 +33,11 @@
             <span> اسم المريض</span>
           </dt>
           <dd>
-            <div v-if="visit.patient">
+            <div v-if="visit.patient && checkAction('com.smartclinic.doctor.tab')">
               <router-link :to="{ name: 'PatientView', params: { patientId: visit.patient.id } }">{{ visit.patient.name }}</router-link>
+            </div>
+            <div v-if="visit.patient && !checkAction('com.smartclinic.doctor.tab')">
+              {{ visit.patient.name }}
             </div>
           </dd>
           <dt>

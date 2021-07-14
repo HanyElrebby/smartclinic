@@ -2,21 +2,21 @@
   <b-navbar data-cy="navbar" toggleable="md" type="dark" class="container bg-info jh-navbar" v-if="authenticated">
     <b-collapse is-nav id="header-tabs">
       <b-navbar-nav class="mx-auto">
-        <b-nav-item :to="{ name: 'PatientView', params: { patientId: -1 } }" exact>
+        <b-nav-item v-if="checkAction('com.smartclinic.doctor.tab')" :to="{ name: 'PatientView', params: { patientId: -1 } }" exact>
           <span>
             <font-awesome-icon icon="home" />
             <span class="account-font">الطبيب</span>
           </span>
         </b-nav-item>
 
-        <b-nav-item to="/visit" exact>
+        <b-nav-item v-if="checkAction('com.smartclinic.visit.tab')" to="/visit" exact>
           <span>
             <font-awesome-icon icon="home" />
             <span class="account-font">الحجوزات</span>
           </span>
         </b-nav-item>
 
-        <b-nav-item to="/patient" exact>
+        <b-nav-item v-if="checkAction('com.smartclinic.patient.tab')" to="/patient" exact>
           <span>
             <font-awesome-icon icon="home" />
             <span class="account-font">المرضى</span>
@@ -31,6 +31,7 @@
           active-class="active"
           class="pointer"
           data-cy="reportsMenu"
+          v-if="checkAction('com.smartclinic.reports.tab')"
         >
           <span class="account-font" slot="button-content">
             <font-awesome-icon icon="home" />
@@ -58,7 +59,11 @@
           </b-dropdown-item>
         </b-nav-item-dropdown>
 
-        <b-nav-item-dropdown id="languagesnavBarDropdown" right v-if="languages && Object.keys(languages).length > 1">
+        <b-nav-item-dropdown
+          id="languagesnavBarDropdown"
+          right
+          v-if="languages && Object.keys(languages).length > 1 && checkAction('com.smartclinic.lang.tab')"
+        >
           <span slot="button-content">
             <font-awesome-icon icon="flag" />
             <span class="no-bold" v-text="$t('global.menu.language')">Language</span>
@@ -87,11 +92,23 @@
             <font-awesome-icon icon="user" />
             <span> الحساب </span>
           </span>
-          <b-dropdown-item data-cy="settings" to="/medicine" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+          <b-dropdown-item
+            data-cy="settings"
+            to="/medicine"
+            tag="b-dropdown-item"
+            v-if="authenticated && checkAction('com.smartclinic.medicine.tab')"
+            active-class="active"
+          >
             <font-awesome-icon icon="wrench" />
             <span>الادوية</span>
           </b-dropdown-item>
-          <b-dropdown-item data-cy="settings" to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
+          <b-dropdown-item
+            data-cy="settings"
+            to="/account/settings"
+            tag="b-dropdown-item"
+            v-if="authenticated && checkAction('com.smartclinic.settings.tab')"
+            active-class="active"
+          >
             <font-awesome-icon icon="wrench" />
             <span>الإعدادات</span>
           </b-dropdown-item>

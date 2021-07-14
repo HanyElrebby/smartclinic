@@ -98,4 +98,7 @@ export default class AccountService {
   public get userAuthorities(): any {
     return this.store.getters.account.authorities;
   }
+  public get userActions(): any {
+    return this.store.getters.account.actionsValues;
+  }
 }

@@ -5,12 +5,16 @@ import Vue2Filters from 'vue2-filters';
 import { IPatient } from '@/shared/model/patient.model';
 
 import PatientService from './patient.service';
+import AccountService from '@/account/account.service';
 
 @Component({
   mixins: [Vue2Filters.mixin],
 })
 export default class Patient extends Vue {
   @Inject('patientService') private patientService: () => PatientService;
+
+  @Inject('accountService') private accountService: () => AccountService;
+
   private removeId: number = null;
   public itemsPerPage = 20;
   public queryCount: number = null;
@@ -67,6 +71,10 @@ export default class Patient extends Vue {
 
   public handleSyncList(): void {
     this.clear();
+  }
+
+  public checkAction(actionName: string) {
+    return this.accountService().userActions.filter(c => c === actionName).length > 0;
   }
 
   public prepareRemove(instance: IPatient): void {

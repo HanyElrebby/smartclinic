@@ -84,6 +84,14 @@
               </select>
             </div>
           </div>
+          <div class="form-group row">
+            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">الصلحيات</label>
+            <div class="col-md-10">
+              <select class="form-control" multiple name="action" v-model="userAccount.actions">
+                <option v-for="action of actions" :value="action.id" :key="action.id">{{ action.name }}</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div>
           <button type="button" class="btn btn-secondary" v-on:click="previousState()">
