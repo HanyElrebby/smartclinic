@@ -123,6 +123,13 @@
             <span>تسجيل الدخول</span>
           </b-dropdown-item>
         </b-nav-item-dropdown>
+        <b-nav-item-dropdown
+          id="languagesnavBarDropdown"
+          right
+          v-if="languages && Object.keys(languages).length > 1 && checkAction('com.smartclinic.lang.tab')"
+        >
+        
+        
       </b-navbar-nav>
     </b-collapse>
     <img src="/../../../content/images/logo.png" />
