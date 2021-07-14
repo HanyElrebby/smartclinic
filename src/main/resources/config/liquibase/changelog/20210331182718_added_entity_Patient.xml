@@ -51,6 +51,17 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="11-remove-null-constrain" author="000000">
+    <dropNotNullConstraint tableName="patient" columnName="age" columnDataType="varchar(3)"/>
+    <dropNotNullConstraint tableName="patient" columnName="gender" columnDataType="varchar(6)"/>
+    <dropNotNullConstraint tableName="patient" columnName="place_of_residence" columnDataType="varchar(30)"/>
+    <dropNotNullConstraint tableName="patient" columnName="date_of_birth" columnDataType="date"/>
+    <dropNotNullConstraint tableName="patient" columnName="blood_group" columnDataType="varchar(30)"/>
+    <dropNotNullConstraint tableName="patient" columnName="diseases" columnDataType="varchar(1000)"/>
+    <dropNotNullConstraint tableName="patient" columnName="surgery" columnDataType="varchar(1000)"/>
+    <dropNotNullConstraint tableName="patient" columnName="phone_number" columnDataType="varchar(11)"/>
+    </changeSet>
+
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <!--

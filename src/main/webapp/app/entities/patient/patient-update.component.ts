@@ -18,26 +18,21 @@ const validations: any = {
       maxLength: maxLength(30),
     },
     age: {
-      required,
       maxLength: maxLength(3),
     },
     gender: {
-      required,
       maxLength: maxLength(6),
     },
     fileNumber: {
       required,
     },
     placeOfResidence: {
-      required,
       maxLength: maxLength(30),
     },
     bloodGroup: {
-      required,
       maxLength: maxLength(30),
     },
     phoneNumber: {
-      required,
       maxLength: maxLength(11),
     },
     diseases: {
@@ -81,8 +76,8 @@ export default class PatientUpdate extends Vue {
         vm.retrievePatient(to.params.patientId);
       }
       vm.patient.fileNumber = '1';
-      vm.patient.bloodGroup = '-O';
-      vm.patient.gender = 'Male';
+      // vm.patient.bloodGroup = '-O';
+      // vm.patient.gender = 'Male';
 
       vm.initRelationships();
     });

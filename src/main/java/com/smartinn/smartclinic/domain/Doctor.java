@@ -46,6 +46,10 @@ public class Doctor implements Serializable {
     @JsonIgnoreProperties(value = { "doctor", "visits", "user" }, allowSetters = true)
     private Set<Clinic> clinics = new HashSet<>();
 
+    @OneToMany(mappedBy = "doctor")
+    @JsonIgnoreProperties(value = { "clinic", "patient", "detailsOfVisits", "doctor" }, allowSetters = true)
+    private Set<Visit> visits = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -144,6 +148,37 @@ public class Doctor implements Serializable {
             clinics.forEach(i -> i.setDoctor(this));
         }
         this.clinics = clinics;
+    }
+
+    public Set<Visit> getVisits() {
+        return this.visits;
+    }
+
+    public Doctor visits(Set<Visit> visits) {
+        this.setVisits(visits);
+        return this;
+    }
+
+    public Doctor addVisit(Visit visit) {
+        this.visits.add(visit);
+        visit.setDoctor(this);
+        return this;
+    }
+
+    public Doctor removeVisit(Visit visit) {
+        this.visits.remove(visit);
+        visit.setDoctor(null);
+        return this;
+    }
+
+    public void setVisits(Set<Visit> visits) {
+        if (this.visits != null) {
+            this.visits.forEach(i -> i.setDoctor(null));
+        }
+        if (visits != null) {
+            visits.forEach(i -> i.setDoctor(this));
+        }
+        this.visits = visits;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -19,6 +19,22 @@
                                  constraintName="fk_visit__patient_id"
                                  referencedColumnNames="id"
                                  referencedTableName="patient"/>
+        
+    </changeSet>
+    <changeSet id="doctor forien key" author="mostafa">
+        <addColumn catalogName="cat"  
+			schemaName= "public"
+			tableName="visit" >
+		    <column name="doctor_id" 
+			    type="bigint">
+                <constraints nullable="true" />
+            </column>  
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="doctor_id"
+                                 baseTableName="visit"
+                                 constraintName="fk_visit__doctor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="doctor"/>
 
     </changeSet>
 </databaseChangeLog>
