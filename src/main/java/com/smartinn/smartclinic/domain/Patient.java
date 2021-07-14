@@ -30,22 +30,19 @@ public class Patient implements Serializable {
     @Column(name = "file_number", length = 11, nullable = false)
     private String fileNumber;
 
-    @NotNull
     @Size(max = 30)
     @Column(name = "place_of_residence", length = 30, nullable = false)
     private String placeOfResidence;
 
-    @Column(name = "date_of_birth", nullable = true)
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @NotNull
     @Size(max = 3)
-    @Column(name = "age", length = 3, nullable = false)
+    @Column(name = "age", length = 3)
     private String age;
 
-    @NotNull
     @Size(max = 6)
-    @Column(name = "gender", length = 6, nullable = false)
+    @Column(name = "gender", length = 6)
     private String gender;
 
     @Column(name = "diseases")
@@ -54,9 +51,8 @@ public class Patient implements Serializable {
     @Column(name = "surgery")
     private String surgery;
 
-    @NotNull
     @Size(max = 30)
-    @Column(name = "blood_group", length = 30, nullable = false)
+    @Column(name = "blood_group", length = 30)
     private String bloodGroup;
 
     @Column(name = "created_by")
@@ -65,9 +61,8 @@ public class Patient implements Serializable {
     @Column(name = "updated_by")
     private String updatedBy;
 
-    @NotNull
     @Size(max = 11)
-    @Column(name = "phone_number", length = 11, nullable = false)
+    @Column(name = "phone_number", length = 11)
     private String phoneNumber;
 
     @OneToMany(mappedBy = "patient")

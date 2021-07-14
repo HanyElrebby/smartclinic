@@ -52,7 +52,7 @@ public class Clinic implements Serializable {
     private Doctor doctor;
 
     @OneToMany(mappedBy = "clinic")
-    @JsonIgnoreProperties(value = { "clinic", "patient", "detailsOfVisits" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "clinic", "patient", "detailsOfVisits", "doctor" }, allowSetters = true)
     private Set<Visit> visits = new HashSet<>();
 
     @ManyToOne

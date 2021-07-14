@@ -56,6 +56,10 @@ public class Visit implements Serializable {
     private Clinic clinic;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = { "clinics" }, allowSetters = true)
+    private Doctor doctor;
+
+    @ManyToOne
     @JsonIgnoreProperties(value = { "visits" }, allowSetters = true)
     private Patient patient;
 
@@ -157,6 +161,19 @@ public class Visit implements Serializable {
 
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
+    }
+
+    public Doctor getDoctor() {
+        return this.doctor;
+    }
+
+    public Visit clinic(Doctor doctor) {
+        this.setDoctor(doctor);
+        return this;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
     public Patient getPatient() {

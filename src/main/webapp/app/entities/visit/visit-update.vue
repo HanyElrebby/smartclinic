@@ -289,6 +289,24 @@
               </div>
             </div>
           </div>
+          <div class="form-group row" v-if="checkAction('com.smartclinic.visit.new.doctor')">
+            <label class="col-md-2 col-form-label form-control-label" for="visit-clinic">الطبيب</label>
+            <div class="col-md-10">
+              <select class="form-control" id="visit-doctor" data-cy="doctor" name="doctor" v-model="visit.doctor">
+                <option v-bind:value="null"></option>
+                <option
+                  v-bind:value="visit.doctor && doctorOption.id === visit.doctor.id ? visit.doctor : doctorOption"
+                  v-for="doctorOption in doctors"
+                  :key="doctorOption.id"
+                >
+                  {{ doctorOption.name }}
+                </option>
+              </select>
+              <div v-if="$v.visit.doctor.$invalid">
+                <small class="form-text text-danger" v-if="!$v.visit.doctor.required"> الطبيب مطلوب </small>
+              </div>
+            </div>
+          </div>
         </div>
         <div>
           <button

@@ -44,4 +44,5 @@ id;name
 43;com.smartclinic.waitinglist
 45;com.smartclinic.doctor.lastVisit
 46;com.smartclinic.visit.new.code
+47;com.smartclinic.visit.new.doctor
 

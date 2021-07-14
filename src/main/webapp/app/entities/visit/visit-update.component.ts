@@ -28,6 +28,8 @@ import { EventBus } from '@/event-bus';
 import AccountService from '@/account/account.service';
 import MedicineService from '../medicine/medicine.service';
 import { IMedicine, Medicine } from '@/shared/model/medicine.model';
+import DoctorService from '../doctor/doctor.service';
+import { IDoctor } from '@/shared/model/doctor.model';
 
 const validations: any = {
   visit: {
@@ -46,6 +48,9 @@ const validations: any = {
     medicine: { maxLength: maxLength(1000) },
     note: { maxLength: maxLength(1000) },
     clinic: {
+      required,
+    },
+    doctor: {
       required,
     },
     patient: {
@@ -95,7 +100,11 @@ export default class VisitUpdate extends Vue {
 
   @Inject('clinicService') private clinicService: () => ClinicService;
 
+  @Inject('doctorService') private doctorService: () => DoctorService;
+
   public clinics: IClinic[] = [];
+
+  public doctors: IDoctor[] = [];
 
   @Inject('patientService') private patientService: () => PatientService;
 
@@ -445,6 +454,17 @@ export default class VisitUpdate extends Vue {
 
         if (this.clinics && this.clinics.length > 0 && (this.visit.clinic === null || this.visit.clinic === undefined)) {
           this.visit.clinic = this.clinics[0];
+          console.log(this.visit, 'ttttttttttttttttttttttttttttttttt');
+        }
+      });
+    this.doctorService()
+      .retrieve()
+      .then(res => {
+        this.doctors = res.data;
+        console.log('ccccccccccccccccccccccccccccccccccccccc');
+
+        if (this.doctors && this.doctors.length > 0 && (this.visit.doctor === null || this.visit.doctor === undefined)) {
+          this.visit.doctor = this.doctors[0];
           console.log(this.visit, 'ttttttttttttttttttttttttttttttttt');
         }
       });

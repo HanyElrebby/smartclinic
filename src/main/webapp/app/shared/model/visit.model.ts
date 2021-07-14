@@ -1,6 +1,7 @@
 import { IClinic } from '@/shared/model/clinic.model';
 import { IPatient } from '@/shared/model/patient.model';
 import { IDetailsOfVisit } from '@/shared/model/details-of-visit.model';
+import { IDoctor } from './doctor.model';
 
 export interface IVisit {
   id?: number;
@@ -16,6 +17,7 @@ export interface IVisit {
   note?: string;
   cost?: number;
   status?: string;
+  doctor?: IDoctor | null;
 }
 
 export class Visit implements IVisit {
@@ -32,6 +34,7 @@ export class Visit implements IVisit {
     public medicine?: string,
     public note?: string,
     public cost?: number,
-    public status?: string
+    public status?: string,
+    public doctor?: IDoctor | null
   ) {}
 }
