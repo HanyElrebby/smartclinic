@@ -30,7 +30,27 @@
         "database": "Database",
         "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
       },
-      "language": "Language"
+      "language": "Language",
+      "doctor": "Doctor",
+      "visits": "Visits",
+      "patients": "Patients",
+      "reports": "Reports",
+      "patientReport": "Patient Report",
+      "patientVisitReport": "Patient Visit Report",
+      "countants": "Accounts",
+      "stores": "Stores",
+      "expenses": "Expenses",
+      "accountM": "Account",
+      "medicines": "Medicines",
+      "settings": "Settings",
+      "password": "Password",
+      "logout": "Logout",
+      "login": "Login",
+      "patientReportMessage": "Do you need to download a copy of patients report",
+      "download": "Download",
+      "patientVisitsReportMessage": "Do you need to download a copy of patient report",
+      "cancel": "Cancel",
+      "patient": "Patient"
     },
     "form": {
       "username.label": "Username",

@@ -30,6 +30,10 @@ export default class File extends mixins(JhiDataUtils) {
     this.retrieveAllFiles();
   }
 
+  public translate(key: string): string {
+    return this.$t(key) as string;
+  }
+
   public clear(): void {
     this.page = 1;
     this.retrieveAllFiles();

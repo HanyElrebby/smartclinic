@@ -44,13 +44,13 @@
               <router-link :to="{ name: 'ClinicView', params: { clinicId: row.id } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
                   <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span class="d-none d-md-inline">مشاهدة</span>
+                  <span class="d-none d-md-inline" v-text="$t('entities.view')">مشاهدة</span>
                 </button>
               </router-link>
               <router-link :to="{ name: 'ClinicEdit', params: { clinicId: row.id } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
                   <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                  <span class="d-none d-md-inline">تعديل</span>
+                  <span class="d-none d-md-inline" v-text="$t('entities.edit')">تعديل</span>
                 </button>
               </router-link>
               <b-button
@@ -61,7 +61,7 @@
                 v-b-modal.removeEntity
               >
                 <font-awesome-icon icon="times"></font-awesome-icon>
-                <span class="d-none d-md-inline">حذف</span>
+                <span class="d-none d-md-inline" v-text="$t('entities.delete')">حذف</span>
               </b-button>
             </div>
           </template>
@@ -151,14 +151,17 @@
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
-        ><span id="smartclinicApp.clinic.delete.question" data-cy="clinicDeleteDialogHeading">تأكيد عملية الحذف</span></span
+        ><span id="smartclinicApp.clinic.delete.question" data-cy="clinicDeleteDialogHeading" v-text="$t('entities.confirmDeleteOperation')"
+          >تأكيد عملية الحذف</span
+        ></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-clinic-heading">هل تريد حقا حذف هذه العيادة؟</p>
+        <p id="jhi-delete-clinic-heading" v-text="$t('entities.confirmDeleteClinic')">هل تريد حقا حذف هذه العيادة؟</p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">إلغاء</button>
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialog()" v-text="$t('entities.cancel')">إلغاء</button>
         <button
+          v-text="$t('entities.delete')"
           type="button"
           class="btn btn-primary"
           id="jhi-confirm-delete-clinic"

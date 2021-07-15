@@ -2,33 +2,33 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <div v-if="doctor">
-        <h2 class="jh-entity-heading" data-cy="doctorDetailsHeading"><span>الطبيب</span> {{ doctor.id }}</h2>
+        <h2 class="jh-entity-heading" data-cy="doctorDetailsHeading"><span v-text="$t('entities.doctor')">الطبيب</span> {{ doctor.id }}</h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span>الإسم</span>
+            <span v-text="$t('entities.name')">الإسم</span>
           </dt>
           <dd>
             <span>{{ doctor.name }}</span>
           </dd>
           <dt>
-            <span>التخصص</span>
+            <span v-text="$t('entities.specialization')">التخصص</span>
           </dt>
           <dd>
             <span>{{ doctor.specialization }}</span>
           </dd>
           <dt>
-            <span>رقم الهاتف</span>
+            <span v-text="$t('entities.phoneNumber')">رقم الهاتف</span>
           </dt>
           <dd>
             <span>{{ doctor.phoneNumber }}</span>
           </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <font-awesome-icon icon="arrow-right"></font-awesome-icon>&nbsp;<span> رجوع</span>
+          <font-awesome-icon icon="arrow-right"></font-awesome-icon>&nbsp;<span v-text="$t('entities.back')"> رجوع</span>
         </button>
         <router-link v-if="doctor.id" :to="{ name: 'DoctorEdit', params: { doctorId: doctor.id } }" custom v-slot="{ navigate }">
           <button @click="navigate" class="btn btn-primary">
-            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span> تعديل</span>
+            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entities.edit')"> تعديل</span>
           </button>
         </router-link>
       </div>

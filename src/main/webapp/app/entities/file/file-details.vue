@@ -2,16 +2,16 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <div v-if="file">
-        <h2 class="jh-entity-heading" data-cy="fileDetailsHeading"><span>File</span> {{ file.id }}</h2>
+        <h2 class="jh-entity-heading" data-cy="fileDetailsHeading"><span v-text="$t('entities.file')">File</span> {{ file.id }}</h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span>File Name</span>
+            <span v-text="$t('entities.fileName')">File Name</span>
           </dt>
           <dd>
             <span>{{ file.fileName }}</span>
           </dd>
           <dt>
-            <span>File</span>
+            <span v-text="$t('entities.file')">File</span>
           </dt>
           <dd>
             <div v-if="file.file">
@@ -20,31 +20,31 @@
             </div>
           </dd>
           <dt>
-            <span>Date Upload</span>
+            <span v-text="$t('entities.dateUpload')">Date Upload</span>
           </dt>
           <dd>
             <span>{{ file.dateUpload | formatDate }}</span>
           </dd>
           <dt>
-            <span>Note</span>
+            <span v-text="$t('entities.notes')">Note</span>
           </dt>
           <dd>
             <span>{{ file.note }}</span>
           </dd>
           <dt>
-            <span>Created By</span>
+            <span v-text="$t('entities.createdBy')">Created By</span>
           </dt>
           <dd>
             <span>{{ file.createdBy }}</span>
           </dd>
           <dt>
-            <span>Updated By</span>
+            <span v-text="$t('entities.uploadedBy')">Updated By</span>
           </dt>
           <dd>
             <span>{{ file.updatedBy }}</span>
           </dd>
           <dt>
-            <span>Patient</span>
+            <span v-text="$t('entities.patient')">Patient</span>
           </dt>
           <dd>
             <div v-if="file.patient">
@@ -53,11 +53,11 @@
           </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span> Back</span>
+          <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span v-text="$t('entities.back')"> Back</span>
         </button>
         <router-link v-if="file.id" :to="{ name: 'FileEdit', params: { fileId: file.id } }" custom v-slot="{ navigate }">
           <button @click="navigate" class="btn btn-primary">
-            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span> Edit</span>
+            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entities.edit')"> Edit</span>
           </button>
         </router-link>
       </div>

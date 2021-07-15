@@ -13,31 +13,31 @@
             <span>{{ detailsOfVisit.descriptionAilments }}</span>
           </dd>
           <dt>
-            <span>إسم المرض</span>
+            <span v-text="$t('entities.nameOfDesease')">إسم المرض</span>
           </dt>
           <dd>
             <span>{{ detailsOfVisit.nameOfDisease }}</span>
           </dd>
           <dt>
-            <span>التوصيات</span>
+            <span v-text="$t('entities.recommendatios')">التوصيات</span>
           </dt>
           <dd>
             <span>{{ detailsOfVisit.recommendations }}</span>
           </dd>
           <dt>
-            <span>الأدوية</span>
+            <span v-text="$t('entities.medecines')">الأدوية</span>
           </dt>
           <dd>
             <span>{{ detailsOfVisit.medicines }}</span>
           </dd>
           <dt>
-            <span>الجرعة</span>
+            <span v-text="$t('entities.dosage')">الجرعة</span>
           </dt>
           <dd>
             <span>{{ detailsOfVisit.dosage }}</span>
           </dd>
           <dt>
-            <span>الزيارة</span>
+            <span v-text="$t('entities.visit')">الزيارة</span>
           </dt>
           <dd>
             <div v-if="detailsOfVisit.visit">
@@ -48,7 +48,7 @@
           </dd>
         </dl>
         <button type="submit" v-on:click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-          <font-awesome-icon icon="arrow-right"></font-awesome-icon>&nbsp;<span> رجوع</span>
+          <font-awesome-icon icon="arrow-right"></font-awesome-icon>&nbsp;<span v-text="$t('entities.back')"> رجوع</span>
         </button>
         <router-link
           v-if="detailsOfVisit.id"
@@ -57,7 +57,7 @@
           v-slot="{ navigate }"
         >
           <button @click="navigate" class="btn btn-primary">
-            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span> تعديل</span>
+            <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entities.edit')"> تعديل</span>
           </button>
         </router-link>
       </div>

@@ -32,6 +32,9 @@ export default class DetailsOfVisit extends Vue {
     this.page = 1;
     this.retrieveAllDetailsOfVisits();
   }
+  public translate(key: string): string {
+    return this.$t(key) as string;
+  }
 
   public retrieveAllDetailsOfVisits(): void {
     this.isFetching = true;

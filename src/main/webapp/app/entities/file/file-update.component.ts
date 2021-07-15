@@ -77,6 +77,10 @@ export default class FileUpdate extends mixins(JhiDataUtils) {
     return this.$store.getters.account ? this.$store.getters.account.login : '';
   }
 
+  public translate(key: string): string {
+    return this.$t(key) as string;
+  }
+
   public save(): void {
     this.isSaving = true;
     if (this.file.id) {
