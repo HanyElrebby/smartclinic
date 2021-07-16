@@ -3,7 +3,8 @@
     <h2 id="page-heading" data-cy="DetailsOfVisitHeading">
       <div class="d-flex justify-content-center">
         <button class="btn btn-info ml-2" v-on:click="handleSyncList" :disabled="isFetching">
-          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>تحديث الجدول</span>
+          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
+          <span v-text="$t('entities.refreshTable')">تحديث الجدول</span>
         </button>
         <router-link :to="{ name: 'DetailsOfVisitCreate' }" custom v-slot="{ navigate }">
           <button
@@ -13,24 +14,24 @@
             class="btn btn-primary jh-create-entity create-details-of-visit"
           >
             <font-awesome-icon icon="plus"></font-awesome-icon>
-            <span> إنشاء تفاصيل زيارة جديدة </span>
+            <span v-text="$t('entities.createVisitDetails')"> إنشاء تفاصيل زيارة جديدة </span>
           </button>
         </router-link>
       </div>
     </h2>
     <br />
     <div class="alert alert-warning" v-if="!isFetching && detailsOfVisits && detailsOfVisits.length === 0">
-      <span>لا يوجد تفاصيل زيارات</span>
+      <span v-text="$('entities.noVisitsDetails')">لا يوجد تفاصيل زيارات</span>
     </div>
     <div class="table-responsive" v-if="detailsOfVisits && detailsOfVisits.length > 0">
       <el-table class="table-responsive table" header-row-class-name="thead-light" :data="detailsOfVisits">
-        <el-table-column label="الكود" prop="id" min-width="140px"> </el-table-column>
-        <el-table-column label="وصف الأمراض" prop="descriptionAilments"> </el-table-column>
-        <el-table-column label="إسم المرض" prop="nameOfDisease"> </el-table-column>
-        <el-table-column label="التوصيات" prop="recommendations"> </el-table-column>
-        <el-table-column label="الأدوية" prop="medicines"> </el-table-column>
-        <el-table-column label="الجرعة" prop="dosage"> </el-table-column>
-        <el-table-column label="الزيارة" prop="visit.id">
+        <el-table-column :label="translate('entities.id')" prop="id" min-width="140px"> </el-table-column>
+        <el-table-column :label="translate('entities.DescriptionOfDiseases')" prop="descriptionAilments"> </el-table-column>
+        <el-table-column :label="translate('entities.nameOfDesease')" prop="nameOfDisease"> </el-table-column>
+        <el-table-column :label="translate('entities.recommendatios')" prop="recommendations"> </el-table-column>
+        <el-table-column :label="translate('entities.medecines')" prop="medicines"> </el-table-column>
+        <el-table-column :label="translate('entities.dosage')" prop="dosage"> </el-table-column>
+        <el-table-column :label="translate('entities.visit')" prop="visit.id">
           <template v-slot="{ row }">
             <div v-if="row.visit">
               <router-link :to="{ name: 'VisitView', params: { visitId: row.visit.id } }">{{ row.visit.id }}</router-link>
@@ -38,19 +39,19 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="إجراء" prop="id">
+        <el-table-column :label="translate('entities.action')" prop="id">
           <template v-slot="{ row }">
             <div class="btn-group">
               <router-link :to="{ name: 'DetailsOfVisitView', params: { detailsOfVisitId: row.id } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-info btn-sm details" data-cy="entityDetailsButton">
                   <font-awesome-icon icon="eye"></font-awesome-icon>
-                  <span class="d-none d-md-inline">مشاهدة</span>
+                  <span class="d-none d-md-inline" v-text="$('entities.view')">مشاهدة</span>
                 </button>
               </router-link>
               <router-link :to="{ name: 'DetailsOfVisitEdit', params: { detailsOfVisitId: row.id } }" custom v-slot="{ navigate }">
                 <button @click="navigate" class="btn btn-primary btn-sm edit" data-cy="entityEditButton">
                   <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                  <span class="d-none d-md-inline">تعديل</span>
+                  <span class="d-none d-md-inline" v-text="$('entities.edit')">تعديل</span>
                 </button>
               </router-link>
               <b-button
@@ -61,7 +62,7 @@
                 v-b-modal.removeEntity
               >
                 <font-awesome-icon icon="times"></font-awesome-icon>
-                <span class="d-none d-md-inline">حذف</span>
+                <span class="d-none d-md-inline" v-text="$('entities.delete')">حذف</span>
               </b-button>
             </div>
           </template>
@@ -160,14 +161,20 @@
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
-        ><span id="smartclinicApp.detailsOfVisit.delete.question" data-cy="detailsOfVisitDeleteDialogHeading">تأكيد عملية الحذف</span></span
+        ><span
+          id="smartclinicApp.detailsOfVisit.delete.question"
+          data-cy="detailsOfVisitDeleteDialogHeading"
+          v-text="$t('entities.confirmDeleteOperation')"
+          >تأكيد عملية الحذف</span
+        ></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-detailsOfVisit-heading">هل تريد حقا حذف هذه التفاصيل؟</p>
+        <p id="jhi-delete-detailsOfVisit-heading" v-text="$t('entities.deleteDetailsCOnfirmation')">هل تريد حقا حذف هذه التفاصيل؟</p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-on:click="closeDialog()">إلغاء</button>
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialog()" v-text="$t('entities.cancel')">إلغاء</button>
         <button
+          v-text="$t('entities.delete')"
           type="button"
           class="btn btn-primary"
           id="jhi-confirm-delete-detailsOfVisit"

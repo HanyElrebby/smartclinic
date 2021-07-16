@@ -2,7 +2,9 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <div v-if="action">
-        <h2 class="jh-entity-heading" data-cy="actionDetailsHeading"><span>Action</span> {{ action.id }}</h2>
+        <h2 class="jh-entity-heading" data-cy="actionDetailsHeading">
+          <span v-text="$t('entities.actionC')">Action</span> {{ action.id }}
+        </h2>
         <dl class="row jh-entity-details">
           <dt>
             <span>Name</span>

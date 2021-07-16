@@ -62,6 +62,10 @@ export default class ExpenseUpdate extends Vue {
     );
   }
 
+  public translate(key: string): string {
+    return this.$t(key) as string;
+  }
+
   public save(): void {
     this.isSaving = true;
     if (this.expense.id) {

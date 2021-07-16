@@ -3,24 +3,25 @@
     <h2 id="page-heading" data-cy="FileHeading">
       <div class="d-flex justify-content-center">
         <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
-          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon> <span>Refresh List</span>
+          <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
+          <span v-text="$t('entities.refreshTable')">Refresh List</span>
         </button>
         <router-link :to="{ name: 'FileCreate' }" custom v-slot="{ navigate }">
           <button @click="navigate" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-file">
             <font-awesome-icon icon="plus"></font-awesome-icon>
-            <span> Create a new File </span>
+            <span v-text="$t('entities.createNewFile')"> Create a new File </span>
           </button>
         </router-link>
       </div>
     </h2>
     <br />
     <div class="alert alert-warning" v-if="!isFetching && files && files.length === 0">
-      <span>No files found</span>
+      <span v-text="$t('entities.noFilesFound')">No files found</span>
     </div>
     <div class="table-responsive" v-if="files && files.length > 0">
       <el-table class="table-responsive table" header-row-class-name="thead-light" :data="files">
-        <el-table-column label="إسم الملف" prop="fileName"> </el-table-column>
-        <el-table-column label="نوغ الملف" prop="fileContentType"> </el-table-column>
+        <el-table-column :label="translate('entities.fileName')" prop="fileName"> </el-table-column>
+        <el-table-column :label="translate('entities.fileType')" prop="fileContentType"> </el-table-column>
         <el-table-column label="تاريخ الانشاء" prop="dateUpload">
           <template v-slot="{ row }">
             {{ formatDate(row.dateUpload) }}

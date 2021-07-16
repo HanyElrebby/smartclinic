@@ -30,7 +30,27 @@
         "database": "قاعدة البيانات",
         "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
       },
-      "language": "اللغة"
+      "language": "اللغة",
+      "doctor": "الطبيب",
+      "visits": "الحجوزات",
+      "patients": "المرضى",
+      "reports": "التقارير",
+      "patientReport": "تقرير المرضى",
+      "patientVisitReport": "تقرير زيارة مريض",
+      "countants": "الحسابات",
+      "stores": "الخزائن",
+      "expenses": "المصروفات",
+      "accountM": "الحساب",
+      "medicines": "الادوية",
+      "settings": "الإعدادات",
+      "password": "كلمة المرور",
+      "logout": "تسجيل الخروج",
+      "login": "تسجيل الدخول",
+      "patientReportMessage": "هل تريد تحميل نسخة من تقرير المرضى",
+      "download": "تحميل",
+      "patientVisitsReportMessage": "هل تريد تحميل نسخة من تقرير المريض",
+      "cancel": "الغاء",
+      "patient": "المريض"
     },
     "form": {
       "username.label": "اسم المستخدم",

@@ -5,21 +5,21 @@
         <b-nav-item :to="{ name: 'PatientView', params: { patientId: -1 } }" exact>
           <span>
             <font-awesome-icon icon="home" />
-            <span class="account-font">الطبيب</span>
+            <span class="account-font" v-text="$t('global.menu.doctor')">الطبيب</span>
           </span>
         </b-nav-item>
 
         <b-nav-item to="/visit" exact>
           <span>
             <font-awesome-icon icon="home" />
-            <span class="account-font">الحجوزات</span>
+            <span class="account-font" v-text="$t('global.menu.visits')">الحجوزات</span>
           </span>
         </b-nav-item>
 
         <b-nav-item to="/patient" exact>
           <span>
             <font-awesome-icon icon="home" />
-            <span class="account-font">المرضى</span>
+            <span class="account-font" v-text="$t('global.menu.patients')">المرضى</span>
           </span>
         </b-nav-item>
 
@@ -34,7 +34,7 @@
         >
           <span class="account-font" slot="button-content">
             <font-awesome-icon icon="home" />
-            <span class="account-font">التقارير</span>
+            <span class="account-font" v-text="$t('global.menu.reports')">التقارير</span>
           </span>
           <b-dropdown-item
             data-cy="settings"
@@ -44,7 +44,7 @@
             active-class="active"
           >
             <font-awesome-icon icon="wrench" />
-            <span>تقرير المرضى</span>
+            <span v-text="$t('global.menu.patientReport')">تقرير المرضى</span>
           </b-dropdown-item>
           <b-dropdown-item
             data-cy="settings"
@@ -54,22 +54,22 @@
             active-class="active"
           >
             <font-awesome-icon icon="wrench" />
-            <span>تقرير زيارة مريض</span>
+            <span v-text="$t('global.menu.patientVisitReport')">تقرير زيارة مريض</span>
           </b-dropdown-item>
         </b-nav-item-dropdown>
 
         <b-nav-item-dropdown>
           <span class="account-font" slot="button-content">
             <font-awesome-icon icon="home" />
-            <span> الحسابات </span>
+            <span v-text="$t('global.menu.countants')"> الحسابات </span>
           </span>
 
           <b-dropdown-item data-cy="settings" to="/safe" tag="b-dropdown-item" v-if="authenticated" active-class="active">
-            <span>الخزائن</span>
+            <span v-text="$t('global.menu.stores')">الخزائن</span>
           </b-dropdown-item>
 
           <b-dropdown-item data-cy="settings" to="/expense" tag="b-dropdown-item" v-if="authenticated" active-class="active">
-            <span>المصروفات</span>
+            <span v-text="$t('global.menu.expenses')">المصروفات</span>
           </b-dropdown-item>
         </b-nav-item-dropdown>
 
@@ -100,48 +100,50 @@
         >
           <span class="account-font" slot="button-content">
             <font-awesome-icon icon="user" />
-            <span> الحساب </span>
+            <span v-text="$t('global.menu.accountM')"> الحساب </span>
           </span>
           <b-dropdown-item data-cy="settings" to="/medicine" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="wrench" />
-            <span>الادوية</span>
+            <span v-text="$t('global.menu.medicines')">الادوية</span>
           </b-dropdown-item>
           <b-dropdown-item data-cy="settings" to="/account/settings" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="wrench" />
-            <span>الإعدادات</span>
+            <span v-text="$t('global.menu.settings')">الإعدادات</span>
           </b-dropdown-item>
           <b-dropdown-item data-cy="passwordItem" to="/account/password" tag="b-dropdown-item" v-if="authenticated" active-class="active">
             <font-awesome-icon icon="lock" />
-            <span>كلمة المرور</span>
+            <span v-text="$t('global.menu.password')">كلمة المرور</span>
           </b-dropdown-item>
           <b-dropdown-item data-cy="logout" v-if="authenticated" v-on:click="logout()" id="logout" active-class="active">
             <font-awesome-icon icon="sign-out-alt" />
-            <span>تسجيل الخروج</span>
+            <span v-text="$t('global.menu.logout')">تسجيل الخروج</span>
           </b-dropdown-item>
           <b-dropdown-item data-cy="login" v-if="!authenticated" tag="b-dropdown-item" to="/login" id="login" active-class="active">
             <font-awesome-icon icon="sign-in-alt" />
-            <span>تسجيل الدخول</span>
+            <span v-text="$t('global.menu.login')">تسجيل الدخول</span>
           </b-dropdown-item>
         </b-nav-item-dropdown>
-      
-       <b-nav-item-dropdown
+
+        <b-nav-item-dropdown
           id="languagesnavBarDropdown"
           right
           v-if="languages && Object.keys(languages).length > 1 && checkAction('com.smartclinic.lang.tab')"
         >
         </b-nav-item-dropdown>
-        
       </b-navbar-nav>
     </b-collapse>
     <img src="/../../../content/images/logo.png" />
 
     <b-modal ref="patientReport" id="patientReport" style="width: 1000px">
       <div class="modal-body">
-        <p>هل تريد تحميل نسخة من تقرير المرضى</p>
+        <p v-text="$t('global.menu.patientReportMessage')">هل تريد تحميل نسخة من تقرير المرضى</p>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-on:click="closeDialogPatientReport()">إلغاء</button>
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialogPatientReport()" v-text="$t('global.menu.cancel')">
+          إلغاء
+        </button>
         <button
+          v-text="$t('global.menu.download')"
           type="button"
           class="btn btn-primary"
           id="jhi-confirm-delete-visit"
@@ -160,7 +162,7 @@
       <div class="modal-body">
         <form name="editForm" role="form" novalidate>
           <div class="form-group row">
-            <label class="col-md-2 col-form-label form-control-label" for="visit-patient">المريض</label>
+            <label class="col-md-2 col-form-label form-control-label" for="visit-patient" v-text="$t('global.menu.patient')">المريض</label>
             <div class="col-md-10">
               <select class="form-control" id="visit-patient" data-cy="patient" name="patient" v-model="selectedpatient">
                 <option v-bind:value="null"></option>
@@ -174,12 +176,15 @@
               </select>
             </div>
           </div>
-          <p>هل تريد تحميل نسخة من تقرير المريض</p>
+          <p v-text="$t('global.menu.patientVisitsReportMessage')">هل تريد تحميل نسخة من تقرير المريض</p>
         </form>
       </div>
       <div slot="modal-footer">
-        <button type="button" class="btn btn-secondary" v-on:click="closeDialogPatientVisitReport()">إلغاء</button>
+        <button type="button" class="btn btn-secondary" v-on:click="closeDialogPatientVisitReport()" v-text="$t('global.menu.cancel')">
+          إلغاء
+        </button>
         <button
+          v-text="$t('global.menu.download')"
           type="button"
           class="btn btn-primary"
           id="jhi-confirm-delete-visit"

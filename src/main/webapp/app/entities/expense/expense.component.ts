@@ -28,6 +28,10 @@ export default class Expense extends Vue {
     this.retrieveAllExpenses();
   }
 
+  public translate(key: string): string {
+    return this.$t(key) as string;
+  }
+
   public clear(): void {
     this.page = 1;
     this.retrieveAllExpenses();

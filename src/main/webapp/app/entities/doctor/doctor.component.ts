@@ -28,6 +28,10 @@ export default class Doctor extends Vue {
     this.retrieveAllDoctors();
   }
 
+  public translate(key: string): string {
+    return this.$t(key) as string;
+  }
+
   public clear(): void {
     this.page = 1;
     this.retrieveAllDoctors();

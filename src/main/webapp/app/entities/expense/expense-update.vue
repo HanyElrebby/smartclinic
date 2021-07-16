@@ -2,14 +2,20 @@
   <div class="row justify-content-center">
     <div class="col-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
-        <h2 id="smartclinicApp.expense.home.createOrEditLabel" data-cy="ExpenseCreateUpdateHeading">Create or edit a Expense</h2>
+        <h2
+          id="smartclinicApp.expense.home.createOrEditLabel"
+          data-cy="ExpenseCreateUpdateHeading"
+          v-text="$t('entities.createOrEditExpense')"
+        >
+          Create or edit a Expense
+        </h2>
         <div>
           <div class="form-group" v-if="expense.id">
-            <label for="id">ID</label>
+            <label for="id" v-text="$t('entities.id')">ID</label>
             <input type="text" class="form-control" id="id" name="id" v-model="expense.id" readonly />
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="expense-expenseType">Expense Type</label>
+            <label class="form-control-label" v-text="$t('entities.expenseType')" for="expense-expenseType">Expense Type</label>
             <input
               type="text"
               class="form-control"
@@ -25,7 +31,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="expense-price">Price</label>
+            <label class="form-control-label" v-text="$t('entities.price')" for="expense-price">Price</label>
             <input
               type="number"
               class="form-control"
@@ -43,7 +49,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="expense-statement">Statement</label>
+            <label class="form-control-label" v-text="$t('entities.statement')" for="expense-statement">Statement</label>
             <input
               type="text"
               class="form-control"
@@ -59,7 +65,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="expense-detailedStatement">Detailed Statement</label>
+            <label class="form-control-label" v-text="$t('entities.detailedStatement')" for="expense-detailedStatement"
+              >Detailed Statement</label
+            >
             <input
               type="text"
               class="form-control"
@@ -76,7 +84,7 @@
           </div>
 
           <!--<div class="form-group">
-            <label class="form-control-label" for="expense-expenseDate">Expense Date</label>
+            <label class="form-control-label" v-text="$t('entities.expenseDate')" for="expense-expenseDate">Expense Date</label>
             <b-input-group class="mb-3">
               <b-input-group-prepend>
                 <b-form-datepicker
@@ -109,7 +117,7 @@
           </div>-->
 
           <div class="form-group">
-            <label class="form-control-label" for="expense-notes">Notes</label>
+            <label class="form-control-label" v-text="$t('entities.notes')" for="expense-notes">Notes</label>
             <input
               type="text"
               class="form-control"
@@ -126,7 +134,7 @@
           </div>
 
           <!-- <div class="form-group">
-            <label class="form-control-label" for="expense-safe">Safe</label>
+            <label class="form-control-label" v-text="$t('entities.safe')" for="expense-safe">Safe</label>
             <select class="form-control" id="expense-safe" data-cy="safe" name="safe" v-model="expense.safe" required>
               <option v-if="!expense.safe" v-bind:value="null" selected></option>
               <option
@@ -145,7 +153,7 @@
 
           <div>
             <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
-              <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span>Cancel</span>
+              <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entities.cancel')">Cancel</span>
             </button>
             <button
               type="submit"
@@ -154,7 +162,7 @@
               :disabled="$v.expense.$invalid || isSaving"
               class="btn btn-primary"
             >
-              <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span>Save</span>
+              <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entities.save')">Save</span>
             </button>
           </div>
         </div>
