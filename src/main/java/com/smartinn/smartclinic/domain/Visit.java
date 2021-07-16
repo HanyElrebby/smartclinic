@@ -56,7 +56,7 @@ public class Visit implements Serializable {
     private Clinic clinic;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "clinics" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "clinics", "visits" }, allowSetters = true)
     private Doctor doctor;
 
     @ManyToOne

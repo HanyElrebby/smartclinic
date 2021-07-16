@@ -335,9 +335,9 @@ export default class VisitUpdate extends Vue {
       this.visit.createdBy = this.username;
       this.visit.updatedBy = this.username;
 
-      if (this.hasAnyAuthority('ROLE_ADMIN')) {
-        this.visit.status = 'Served';
-      }
+      // if (this.hasAnyAuthority('ROLE_ADMIN')) {
+      //   this.visit.status = 'Served';
+      // }
 
       this.visitService()
         .update(this.visit)
@@ -367,9 +367,9 @@ export default class VisitUpdate extends Vue {
           });
         });
     } else {
-      if (this.hasAnyAuthority('ROLE_ADMIN')) {
-        this.visit.status = 'Served';
-      }
+      // if (this.hasAnyAuthority('ROLE_ADMIN')) {
+      //   this.visit.status = 'Served';
+      // }
       this.visit.createdBy = this.username;
       this.visit.updatedBy = this.username;
       this.visitService()

@@ -86,10 +86,19 @@
           </div>
           <div class="form-group row">
             <label for="example-email-input" class="col-md-2 col-form-label form-control-label">الصلحيات</label>
-            <div class="col-md-10">
-              <select class="form-control" multiple name="action" v-model="userAccount.actions">
-                <option v-for="action of actions" :value="action.id" :key="action.id">{{ action.name }}</option>
-              </select>
+
+            <div class="form-check" v-for="action of actions" style="width: 100%">
+              <label class="form-check-label row" :for="action.id">
+                <span class="col-md-10 col-form-label form-control-label" style="padding-top: 0px">{{ action.name }}</span>
+                <input
+                  type="checkbox"
+                  :id="action.id"
+                  class="col-md-2"
+                  :name="action.name"
+                  :checked="userAccount.actions !== undefined && userAccount.actions !== null && userAccount.actions.includes(action.id)"
+                  @change="changeAction($event, action.id)"
+                />
+              </label>
             </div>
           </div>
         </div>
