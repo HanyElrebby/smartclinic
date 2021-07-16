@@ -66,7 +66,7 @@ public class Patient implements Serializable {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "patient")
-    @JsonIgnoreProperties(value = { "patient", "detailsOfVisits" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "patient", "detailsOfVisits", "doctor" }, allowSetters = true)
     private Set<Visit> visits = new HashSet<>();
 
     @OneToMany(mappedBy = "patient")

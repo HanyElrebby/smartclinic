@@ -53,6 +53,17 @@ export default class JhiUserManagementEdit extends Vue {
     });
   }
 
+  public changeAction(e, id: number) {
+    console.log('change action ------------------>', e);
+    if (this.userAccount.actions === null || this.userAccount.actions === undefined) {
+      this.userAccount.actions = [];
+    }
+    this.userAccount.actions = this.userAccount.actions.filter(c => c !== id);
+    if (e.target.checked) {
+      this.userAccount.actions.push(id);
+    }
+  }
+
   public constructor() {
     super();
     this.userAccount = new User();
