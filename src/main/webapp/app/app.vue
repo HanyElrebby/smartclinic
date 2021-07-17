@@ -6,11 +6,12 @@
     </div>
     <waiting-panel v-if="authenticated"></waiting-panel>
     <div class="container">
-      <div class="wrapper">
-        <div class="main-content">
-          <div class="card jh-card bg-secondary">
+      <div>
+        <div>
+          <div>
             <router-view></router-view>
           </div>
+
           <b-modal id="login-page" hide-footer lazy>
             <span data-cy="loginTitle" slot="modal-title" id="login-title">Sign in</span>
             <login-form></login-form>
