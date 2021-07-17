@@ -147,7 +147,7 @@ export default [
     path: '/visit/:patientId/new',
     name: 'VisitotherCreate',
     component: VisitUpdate,
-    meta: { authorities: [Authority.USER, Authority.ADMIN] },
+    meta: { authorities: [] },
   },
   {
     path: '/visit/:visitId/edit',

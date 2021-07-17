@@ -24,9 +24,11 @@
                   required: true,
                   max: 50,
                   min: 1,
-                  pattern: '^[a-zA-Z0-9!#$&\'*+=?^_`{|}~.-]+@?[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
                 }"
               />
+            </div>
+            <div v-if="$v.userAccount.login.$anyDirty && $v.userAccount.login.$invalid">
+              <small class="form-text text-danger" v-if="!$v.userAccount.login.pattern"> invalid user name </small>
             </div>
           </div>
           <div class="form-group row">
@@ -58,6 +60,19 @@
                 alternative
                 v-model="$v.userAccount.email.$model"
                 :rules="{ required: true, email: true, min: 5, max: 200 }"
+              />
+            </div>
+          </div>
+          <div class="form-group row" v-if="!userAccount.id">
+            <label for="example-email-input" class="col-md-2 col-form-label form-control-label">كلمة المرور</label>
+            <div class="col-md-10">
+              <base-input
+                type="password"
+                name="كلمة المرور"
+                id="password"
+                alternative
+                v-model="$v.userAccount.password.$model"
+                :rules="{ max: 50, required: true }"
               />
             </div>
           </div>
