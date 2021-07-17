@@ -23,6 +23,10 @@ const validations: any = {
     lastName: {
       maxLength: maxLength(50),
     },
+    password: {
+      maxLength: maxLength(50),
+      required,
+    },
     email: {
       required,
       email,
@@ -91,6 +95,7 @@ export default class JhiUserManagementEdit extends Vue {
       .get(userId)
       .then(res => {
         this.userAccount = res.data;
+        this.userAccount.password = 'f';
       });
   }
 
@@ -101,6 +106,8 @@ export default class JhiUserManagementEdit extends Vue {
   public save(): void {
     this.isSaving = true;
     if (this.userAccount.id) {
+      this.userAccount.password = null;
+
       this.userManagementService()
         .update(this.userAccount)
         .then(res => {

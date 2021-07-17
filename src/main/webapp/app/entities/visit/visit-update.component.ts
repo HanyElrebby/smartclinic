@@ -135,6 +135,8 @@ export default class VisitUpdate extends Vue {
   public medicines: IMedicine[] = [];
   public SelectedMedicines: IMedicine[] = [];
 
+  public isDoctor = false;
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.retrieveAllMedicines();
@@ -147,11 +149,12 @@ export default class VisitUpdate extends Vue {
         vm.visit.status = 'Reserved';
         console.log('before check ------>');
 
-        if (vm.accountService().hasAnyAuthorityAndCheckAuth('ROLE_ADMIN')) {
+        if (vm.accountService().userAuthorities.includes('ROLE_ADMIN')) {
           console.log('has role admin ---------');
 
           vm.visit.cost = 0;
           console.log(vm.visit);
+          vm.isDoctor = true;
         }
       }
       if (to.params.patientId) {
@@ -161,6 +164,8 @@ export default class VisitUpdate extends Vue {
         vm.visit.patient = patient;
         console.log(vm.visit);
       }
+      console.log('ccccccccccccccccccccccccccccccccccccccccccccccccccc');
+
       vm.initRelationships();
     });
   }
@@ -176,6 +181,8 @@ export default class VisitUpdate extends Vue {
   }
 
   public hasAnyAuthority(authorities: any): boolean {
+    console.log('has any role');
+
     this.accountService()
       .hasAnyAuthorityAndCheckAuth(authorities)
       .then(value => {
@@ -335,9 +342,9 @@ export default class VisitUpdate extends Vue {
       this.visit.createdBy = this.username;
       this.visit.updatedBy = this.username;
 
-      // if (this.hasAnyAuthority('ROLE_ADMIN')) {
-      //   this.visit.status = 'Served';
-      // }
+      if (this.hasAnyAuthority('ROLE_ADMIN')) {
+        this.visit.status = 'Served';
+      }
 
       this.visitService()
         .update(this.visit)
@@ -367,9 +374,9 @@ export default class VisitUpdate extends Vue {
           });
         });
     } else {
-      // if (this.hasAnyAuthority('ROLE_ADMIN')) {
-      //   this.visit.status = 'Served';
-      // }
+      if (this.hasAnyAuthority('ROLE_ADMIN')) {
+        this.visit.status = 'Served';
+      }
       this.visit.createdBy = this.username;
       this.visit.updatedBy = this.username;
       this.visitService()
@@ -446,6 +453,8 @@ export default class VisitUpdate extends Vue {
   }
 
   public initRelationships(): void {
+    console.log('fffffffffffffffffffffffffffffffffffffffffff');
+
     this.clinicService()
       .retrieve()
       .then(res => {

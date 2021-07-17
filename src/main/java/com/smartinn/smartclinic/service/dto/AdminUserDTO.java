@@ -41,6 +41,8 @@ public class AdminUserDTO {
 
     private String createdBy;
 
+    private String password;
+
     private Instant createdDate;
 
     private String lastModifiedBy;
@@ -149,6 +151,14 @@ public class AdminUserDTO {
 
     public Instant getCreatedDate() {
         return createdDate;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setCreatedDate(Instant createdDate) {

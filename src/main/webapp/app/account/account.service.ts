@@ -78,6 +78,8 @@ export default class AccountService {
       }
     }
 
+    console.log(authorities, 'authorites ------------------>');
+
     for (let i = 0; i < authorities.length; i++) {
       if (this.userAuthorities.includes(authorities[i])) {
         return new Promise(resolve => {
