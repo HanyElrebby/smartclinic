@@ -68,4 +68,14 @@
             <column name="name" type="string"/>
         </loadData>
     </changeSet>
+
+    <changeSet id="20210713083059-1-data-relation" author="mostafa" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/user_action.csv"
+                  separator=";"
+                  tableName="jhi_user_action">
+            <column name="user_id" type="numeric"/>
+            <column name="action_id" type="numeric"/>
+        </loadData>
+    </changeSet>
 </databaseChangeLog>

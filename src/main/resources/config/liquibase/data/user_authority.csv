@@ -2,4 +2,3 @@ user_id;authority_name
 1;ROLE_ADMIN
 1;ROLE_USER
 1;ROLE_OWNER
-2;ROLE_USER
