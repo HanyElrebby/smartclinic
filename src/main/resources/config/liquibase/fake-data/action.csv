@@ -42,7 +42,7 @@ id;name
 41;com.smartclinic.medicine.tab
 42;com.smartclinic.settings.tab
 43;com.smartclinic.waitinglist
-45;com.smartclinic.doctor.lastVisit
-46;com.smartclinic.visit.new.code
-47;com.smartclinic.visit.new.doctor
+44;com.smartclinic.doctor.lastVisit
+45;com.smartclinic.visit.new.code
+46;com.smartclinic.visit.new.doctor
 
