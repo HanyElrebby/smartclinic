@@ -7,13 +7,22 @@
         v-if="checkAction('com.smartclinic.patient.search')"
       >
         <b-form-group class="mb-0">
-          <b-input-group class="input-group-alternative input-group-merge">
+          <!-- <b-input-group class="input-group-alternative input-group-merge">
             <b-form-input placeholder="إبحث" v-model="searchValue" style="margin-right: 10px" type="text"> </b-form-input>
 
             <div class="input-group-append" style="margin-top: 10px; margin-left: 5px">
               <font-awesome-icon v-on:click="handleSyncList" icon="search"></font-awesome-icon>
             </div>
-          </b-input-group>
+          </b-input-group> -->
+          <vue-suggestion
+            :items="items"
+            v-model="item"
+            :setLabel="setLabel"
+            :itemTemplate="itemTemplate"
+            @changed="inputChange"
+            @selected="itemSelected"
+          >
+          </vue-suggestion>
         </b-form-group>
       </b-form>
       <router-link v-if="checkAction('com.smartclinic.patient.new')" :to="{ name: 'PatientCreate' }" custom v-slot="{ navigate }">
@@ -131,5 +140,41 @@
     </div>
   </div>
 </template>
+
+<!-- some-sample-css-as-example-for-your-dropdown-autocomplete  -->
+<style>
+.vue-suggestion .vs__list {
+  width: 100%;
+  text-align: left;
+  border: none;
+  border-top: none;
+  max-height: 400px;
+  overflow-y: auto;
+  border-bottom: 1px solid #023d7b;
+  position: relative;
+}
+.vue-suggestion .vs__list .vs__list-item {
+  background-color: #fff;
+  padding: 10px;
+  border-left: 1px solid #023d7b;
+  border-right: 1px solid #023d7b;
+}
+.vue-suggestion .vs__list .vs__list-item:last-child {
+  border-bottom: none;
+}
+.vue-suggestion .vs__list .vs__list-item:hover {
+  background-color: #eee !important;
+}
+.vue-suggestion .vs__list,
+.vue-suggestion .vs__loading {
+  position: absolute;
+}
+.vue-suggestion .vs__list .vs__list-item {
+  cursor: pointer;
+}
+.vue-suggestion .vs__list .vs__list-item.vs__item-active {
+  background-color: #f3f6fa;
+}
+</style>
 
 <script lang="ts" src="./patient.component.ts"></script>

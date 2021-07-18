@@ -6,9 +6,17 @@ import { IPatient } from '@/shared/model/patient.model';
 
 import PatientService from './patient.service';
 import AccountService from '@/account/account.service';
+import VueSuggestion from 'vue-suggestion';
+
+import itemTemplate from './itemTemplate.vue';
 
 @Component({
   mixins: [Vue2Filters.mixin],
+  data() {
+    return {
+      itemTemplate,
+    };
+  },
 })
 export default class Patient extends Vue {
   @Inject('patientService') private patientService: () => PatientService;
@@ -26,12 +34,21 @@ export default class Patient extends Vue {
 
   public patients: IPatient[] = [];
 
+  public items: IPatient[] = [];
+  public item: IPatient = null;
+
   public isFetching = false;
 
   public searchValue = '';
 
   public mounted(): void {
     this.retrieveAllPatients();
+  }
+
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.initRelationships();
+    });
   }
 
   public clear(): void {
@@ -116,6 +133,21 @@ export default class Patient extends Vue {
       this.transition();
     }
   }
+  public itemSelected(item) {
+    this.searchValue = item.name;
+    console.log('selected ----------------->');
+    this.retrieveAllPatients();
+  }
+  public setLabel(item) {
+    return item.name;
+  }
+  public inputChange(text) {
+    // your search method
+    this.items = this.items.filter(item => item.name.includes(text));
+    console.log(this.items, 'change items ----------------------->');
+
+    // now `items` will be showed in the suggestion list
+  }
 
   public transition(): void {
     this.retrieveAllPatients();
@@ -129,5 +161,13 @@ export default class Patient extends Vue {
 
   public closeDialog(): void {
     (<any>this.$refs.removeEntity).hide();
+  }
+  public initRelationships(): void {
+    this.patientService()
+      .retrieve()
+      .then(res => {
+        this.items = res.data;
+        console.log('items -------------->');
+      });
   }
 }

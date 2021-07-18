@@ -45,6 +45,8 @@ import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import 'vue2-datepicker/locale/ar';
 
+import VueSuggestion from 'vue-suggestion';
+
 import { Datetime } from 'vue-datetime';
 // You need a specific loader for CSS files
 import 'vue-datetime/dist/vue-datetime.css';
@@ -66,6 +68,7 @@ import ChartValuesService from './entities/chart-values/chart-values.service';
 
 stockInit(Highchart);
 Vue.use(HighchartsVue);
+Vue.use(VueSuggestion);
 
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
@@ -81,6 +84,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('jhi-item-count', JhiItemCountComponent);
 Vue.component('jhi-sort-indicator', JhiSortIndicatorComponent);
 Vue.component('infinite-loading', InfiniteLoading);
+Vue.component('vue-suggestion', VueSuggestion.VueSuggestion);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
 Vue.use(BootstrapVue);
