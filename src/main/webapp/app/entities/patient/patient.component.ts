@@ -35,6 +35,7 @@ export default class Patient extends Vue {
   public patients: IPatient[] = [];
 
   public items: IPatient[] = [];
+  public allItems: IPatient[] = [];
   public item: IPatient = null;
 
   public isFetching = false;
@@ -142,8 +143,10 @@ export default class Patient extends Vue {
     return item.name;
   }
   public inputChange(text) {
+    console.log(text);
+
     // your search method
-    this.items = this.items.filter(item => item.name.includes(text));
+    this.items = this.allItems.filter(item => item.name.includes(text));
     console.log(this.items, 'change items ----------------------->');
 
     // now `items` will be showed in the suggestion list
@@ -167,6 +170,7 @@ export default class Patient extends Vue {
       .retrieve()
       .then(res => {
         this.items = res.data;
+        this.allItems = res.data;
         console.log('items -------------->');
       });
   }
